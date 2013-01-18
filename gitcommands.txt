@@ -1,0 +1,103 @@
+#create branch
+git branch closure
+git checkout closure
+#1. Create the remote branch
+git push origin origin:refs/heads/closure
+#2 actual push of data
+git push
+
+#if working locally in branch closure and remote has a branch closure then
+git pull origin closure
+#above will pull closure from remote
+
+#clone specific branch
+git clone -b divEditor /media/KINGSTON/src/mindtext.git
+git add .
+
+#git remote add origin git@172.16.12.103:virtualkeyboard.git
+# git clone git@172.16.12.103:virtualkeyboard.git OK
+
+# checks out an old revision two steps back
+# git checkout master~2 gitcommands.txt
+
+#git pull git@172.16.12.103:virtualkeyboard.git master
+
+# Copy everything to USB
+# Your working director should be "/media/KINGSTON/src/"
+git clone --bare c:\Dev\mindtext
+
+#Push from local to USB
+call git push e:\src\mindtext.git
+git push 
+
+#Pull from USB to local 
+call git pull e:\src\mindtext.git
+
+# Reset branch to this point
+git reset --hard eda6058645fca73e736247d6c9b3085164a8d920
+
+#1. Create the remote branch
+git push origin origin:refs/heads/divEditor
+
+#2. Make sure everything is up-to-date
+git fetch origin
+
+#3. Then you can see that the branch is created.
+git branch -r
+
+#4. Start tracking the new branch
+git checkout --track -b divEditor origin/divEditor
+
+#5. Make sure everything is up-to-date
+git pull
+
+#to show all the remote branches
+git branch -r
+
+#When you get to another computer or clone the git repository to a new computer, then you just need to start tracking the new branch again.
+git checkout --track -b new_branch origin/new_feature_name
+
+#To delete a local branch
+###git branch -d div_editor
+
+#diff between two checkins
+git diff 3e069419317761da8ca75a554c1d656ef011d950 2ed07f14c0b7004f885ee87387ebf23aa3089d00
+
+#merge branch closure back to master (ensure everything checked in)
+git checkout master
+git merge closure
+
+#get some status
+git log
+
+#oprettet et justcook.git repository på USB. Git svarer:
+#Initialized empty Git repository in /media/KINGSTON/src/justcook.git/
+#Terminalen er åben i: /media/KINGSTON/src/
+git clone --bare /home/pew/workspace-3.7.2/justcook
+
+
+#works now, but does not change origin in .git/config
+git push /media/KINGSTON/src/justcook.git
+git clone --bare /home/pew/workspace-3.7.2/justcook
+
+#simplest way to change the remote url is to edit .git/config
+[remote "origin"]
+        fetch = +refs/heads/*:refs/remotes/origin/*
+        url = /media/KINGSTON/src/justcook.git
+
+#Push from local to USB
+git push /media/KINGSTON/src/justcook/justcook.git
+git push /media/KINGSTON/src/justcook/dartcodebuilder.git
+git push /media/KINGSTON/src/justcook/lib.git
+
+#or
+git remote add origin /media/KINGSTON/src/justcook/justcook.git
+#then simply
+git push
+
+# Revert changes to modified files , reverts to last commit
+git reset --hard
+
+# Remove all untracked files and directories, reverts any folders and not 
+# tracked changes
+git clean -fd
