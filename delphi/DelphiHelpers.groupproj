@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{82767d6c-5e06-40bd-a193-68c0eba8d469}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="FailChecklessTestsDemo.dproj" />
+    <Projects Include="HowToRegistry\HowToRegistry.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="FailChecklessTestsDemo">
+    <MSBuild Projects="FailChecklessTestsDemo.dproj" Targets="" />
+  </Target>
+  <Target Name="FailChecklessTestsDemo:Clean">
+    <MSBuild Projects="FailChecklessTestsDemo.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="FailChecklessTestsDemo:Make">
+    <MSBuild Projects="FailChecklessTestsDemo.dproj" Targets="Make" />
+  </Target>
+  <Target Name="HowToRegistry">
+    <MSBuild Projects="HowToRegistry\HowToRegistry.dproj" Targets="" />
+  </Target>
+  <Target Name="HowToRegistry:Clean">
+    <MSBuild Projects="HowToRegistry\HowToRegistry.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="HowToRegistry:Make">
+    <MSBuild Projects="HowToRegistry\HowToRegistry.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="FailChecklessTestsDemo;HowToRegistry" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="FailChecklessTestsDemo:Clean;HowToRegistry:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="FailChecklessTestsDemo:Make;HowToRegistry:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>
