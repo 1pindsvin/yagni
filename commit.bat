@@ -1,5 +1,5 @@
 @echo off
 
 git add .
-git commit -a -Fcommit.txt
+git commit -a -Fmessage.txt
 echo well done...

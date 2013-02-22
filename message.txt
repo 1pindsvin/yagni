@@ -1,0 +1,8 @@
+Add delphi files
+
+git config --global user.name "1pindsvin"
+git config --global user.email 1pindsvin@gmail.com
+git config --global push.default simple
+set in environment
+
+Implementing tests - not working properly

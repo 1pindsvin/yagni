@@ -39,7 +39,6 @@ unit TestFailChecklessTests;
 
 interface
 
-
 uses
   TestFrameWork, Classes;
 

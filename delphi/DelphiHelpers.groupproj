@@ -6,12 +6,13 @@
   <ItemGroup>
     <Projects Include="FailChecklessTestsDemo.dproj" />
     <Projects Include="HowToRegistry\HowToRegistry.dproj" />
+    <Projects Include="HowToRegistry\Test\HowToRegistryTests.dproj" />
   </ItemGroup>
   <ProjectExtensions>
     <Borland.Personality>Default.Personality</Borland.Personality>
     <Borland.ProjectType />
     <BorlandProject>
-  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+<BorlandProject xmlns=""><Default.Personality></Default.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
   <Target Name="FailChecklessTestsDemo">
     <MSBuild Projects="FailChecklessTestsDemo.dproj" Targets="" />
@@ -31,14 +32,23 @@
   <Target Name="HowToRegistry:Make">
     <MSBuild Projects="HowToRegistry\HowToRegistry.dproj" Targets="Make" />
   </Target>
+  <Target Name="HowToRegistryTests">
+    <MSBuild Projects="HowToRegistry\Test\HowToRegistryTests.dproj" Targets="" />
+  </Target>
+  <Target Name="HowToRegistryTests:Clean">
+    <MSBuild Projects="HowToRegistry\Test\HowToRegistryTests.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="HowToRegistryTests:Make">
+    <MSBuild Projects="HowToRegistry\Test\HowToRegistryTests.dproj" Targets="Make" />
+  </Target>
   <Target Name="Build">
-    <CallTarget Targets="FailChecklessTestsDemo;HowToRegistry" />
+    <CallTarget Targets="FailChecklessTestsDemo;HowToRegistry;HowToRegistryTests" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="FailChecklessTestsDemo:Clean;HowToRegistry:Clean" />
+    <CallTarget Targets="FailChecklessTestsDemo:Clean;HowToRegistry:Clean;HowToRegistryTests:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="FailChecklessTestsDemo:Make;HowToRegistry:Make" />
+    <CallTarget Targets="FailChecklessTestsDemo:Make;HowToRegistry:Make;HowToRegistryTests:Make" />
   </Target>
   <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
 </Project>
