@@ -7,6 +7,7 @@
     <Projects Include="FailChecklessTestsDemo.dproj" />
     <Projects Include="HowToRegistry\HowToRegistry.dproj" />
     <Projects Include="HowToRegistry\Test\HowToRegistryTests.dproj" />
+    <Projects Include="MagnusRegistryUnittests\MagnusRegistryUnittests.dproj" />
   </ItemGroup>
   <ProjectExtensions>
     <Borland.Personality>Default.Personality</Borland.Personality>
@@ -41,14 +42,23 @@
   <Target Name="HowToRegistryTests:Make">
     <MSBuild Projects="HowToRegistry\Test\HowToRegistryTests.dproj" Targets="Make" />
   </Target>
+  <Target Name="MagnusRegistryUnittests">
+    <MSBuild Projects="MagnusRegistryUnittests\MagnusRegistryUnittests.dproj" Targets="" />
+  </Target>
+  <Target Name="MagnusRegistryUnittests:Clean">
+    <MSBuild Projects="MagnusRegistryUnittests\MagnusRegistryUnittests.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="MagnusRegistryUnittests:Make">
+    <MSBuild Projects="MagnusRegistryUnittests\MagnusRegistryUnittests.dproj" Targets="Make" />
+  </Target>
   <Target Name="Build">
-    <CallTarget Targets="FailChecklessTestsDemo;HowToRegistry;HowToRegistryTests" />
+    <CallTarget Targets="FailChecklessTestsDemo;HowToRegistry;HowToRegistryTests;MagnusRegistryUnittests" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="FailChecklessTestsDemo:Clean;HowToRegistry:Clean;HowToRegistryTests:Clean" />
+    <CallTarget Targets="FailChecklessTestsDemo:Clean;HowToRegistry:Clean;HowToRegistryTests:Clean;MagnusRegistryUnittests:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="FailChecklessTestsDemo:Make;HowToRegistry:Make;HowToRegistryTests:Make" />
+    <CallTarget Targets="FailChecklessTestsDemo:Make;HowToRegistry:Make;HowToRegistryTests:Make;MagnusRegistryUnittests:Make" />
   </Target>
   <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
 </Project>

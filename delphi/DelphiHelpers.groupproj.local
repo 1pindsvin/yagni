@@ -2,6 +2,6 @@
 <BorlandProject>
 	<Transactions/>
 	<Default.Personality>
-		<Projects ActiveProject="HowToRegistry.exe"/>
+		<Projects ActiveProject="HowToRegistryTests.exe"/>
 	</Default.Personality>
 </BorlandProject>

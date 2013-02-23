@@ -1,0 +1,3 @@
+debug - foo
+error - about to throw an exeption
+error - exception was thrown - freeing objects

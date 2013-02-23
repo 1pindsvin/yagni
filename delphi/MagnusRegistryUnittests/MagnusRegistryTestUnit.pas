@@ -1,4 +1,4 @@
-unit TMagnusRegistryTests;
+unit MagnusRegistryTestUnit;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Classes,
   dk.magnus.registry.classes;
 
-type
+  type
   TMagnusRegistryFixture = class(TTestCase)
     fMagnusRegistry : TMagnusRegistry;
   protected
@@ -19,8 +19,8 @@ type
     procedure CanReadAarsafslutningExecuteablePath;
   end;
 
-implementation
 
+implementation
 uses
   registry;
 { TMagnusRegistryFixture }
@@ -48,7 +48,7 @@ begin
 end;
 
 initialization
-
   TestFramework.RegisterTest(TMagnusRegistryFixture.Suite);
 
 end.
+

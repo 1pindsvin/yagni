@@ -17,7 +17,7 @@ begin
     app := TMagnusRegistry.Create();
     registry := app.GetLocalMachineRegistry();
     try
-      registry.OpenKeyReadOnly(app.MAGNUS_AARSAFSLUTNING_PATH);
+      registry.OpenKeyReadOnly(app.MAGNUS_COMPANY_PATH);
     finally
       FreeAndNil(registry);
       FreeAndNil(app);

@@ -35,6 +35,7 @@
     <DelphiCompile Include="HowToRegistryTests.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\..\log4d\Log4D.pas" />
     <DCCReference Include="TMagnusRegistryTests.pas" />
   </ItemGroup>
 </Project>
