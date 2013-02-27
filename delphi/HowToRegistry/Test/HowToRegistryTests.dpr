@@ -30,7 +30,7 @@ var
 
 procedure InitializeLoggingFrameWork();
 const
-  LOG_FILE_PATH = 'c:\Dev\yagni\delphi\MagnusRegistryUnittests\log.txt';
+  LOG_FILE_PATH = 'c:\Dev\yagni\delphi\log.txt';
   FILE_APPENDER_NAME = 'TLogRollingFileAppender';
 var
   appender: TLogFileAppender;
@@ -38,7 +38,8 @@ var
 begin
   appender := TLogRollingFileAppender.Create(FILE_APPENDER_NAME,LOG_FILE_PATH);
   //appender.Layout := TLogHTMLLayout.Create;
-  logLayout := TLogSimpleLayout.Create();
+  logLayout := TLogPatternLayout.Create('[%p] %d %c  %m %e %t %n');
+  logLayout.Options[DateFormatOpt] := 'yyyy-mm-dd hh:mm:ss';
   appender.Layout := logLayout;
   TLogBasicConfigurator.Configure(appender);
   TLogLogger.GetRootLogger.Level := All;
@@ -47,30 +48,32 @@ end;
 begin
   Application.Initialize;
   InitializeLoggingFrameWork();
-  log := TLogLogger.GetLogger('foobar');
-
+  log := TLogLogger.GetLogger(Application.ClassType);
   if IsConsole then
   begin
     //(rxbHaltOnFailures) will just stop execution
-    log.Debug('foo');
+    log.Debug(Application.ClassName);
     testResult := TextTestRunner.RunRegisteredTests();
     try
       if testResult.WasSuccessful then
       begin
+        log.info('no errors or failures in test, exiting');
         exit;
       end;
-      log.Error('about to throw an exeption');
-      raise Exception.Create(Format('Errors in test: %d',[testResult.FailureCount]));
+      log.Error(Format('Errors or failures found in tests. Failures [%d], Errors [%d]',[testResult.FailureCount, testResult.ErrorCount]));
+      //raise Exception.Create(Format('Errors in test: %d',[testResult.FailureCount]));
     finally
-      log.Error('exception was thrown - freeing objects');
+      log.debug('freeing objects');
       FreeAndNil(testResult);
     end;
 
   end
   else
   begin
+    log.Debug('Entering GUI tests (Dunit)');
     GUITestRunner.RunRegisteredTests;
   end;
-  
+  log.Info('Done running tests');
+
 end.
 

@@ -4,23 +4,22 @@ program HowToRegistry;
 
 uses
   SysUtils,
-  dk.magnus.registry.classes in 'dk.magnus.registry.classes.pas',
+  DkMagnusRegistry in 'DkMagnusRegistry.pas',
   registry;
 
 var
   s : string;
   app : TMagnusRegistry;
-  registry : TRegistry;
+  registryPath : TRegistryPath;
+  
 begin
-
   try
-    app := TMagnusRegistry.Create();
-    registry := app.GetLocalMachineRegistry();
+    registryPath := TRegistryPath.Create(TMagnusRegistry.MAGNUS_LAST_USER_NAME_PATH);
+    app := TMagnusRegistry.Create(registryPath);
     try
-      registry.OpenKeyReadOnly(app.MAGNUS_COMPANY_PATH);
     finally
-      FreeAndNil(registry);
-      FreeAndNil(app);
+      app.Free;
+      registryPath := nil;
     end;
     s := 'wat';
     Writeln(s);

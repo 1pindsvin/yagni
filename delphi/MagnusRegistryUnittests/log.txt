@@ -1,3 +1,43 @@
-debug - foo
-error - about to throw an exeption
-error - exception was thrown - freeing objects
+[debug] 2013-02-24 23:52:01 TApplication  Entering GUI tests (Dunit)  5360 
+[info] 2013-02-24 23:52:06 TApplication  Done running tests  5360 
+[debug] 2013-02-24 23:59:03 TApplication  Entering GUI tests (Dunit)  4716 
+[debug] 2013-02-25 00:09:22 TApplication  Entering GUI tests (Dunit)  2240 
+[info] 2013-02-25 00:09:52 TApplication  Done running tests  2240 
+[debug] 2013-02-25 00:17:21 TApplication  Entering GUI tests (Dunit)  4196 
+[info] 2013-02-25 00:17:59 TApplication  Done running tests  4196 
+[debug] 2013-02-25 00:18:05 TApplication  Entering GUI tests (Dunit)  1952 
+[debug] 2013-02-25 00:19:43 TApplication  Entering GUI tests (Dunit)  5872 
+[info] 2013-02-25 00:20:01 TApplication  Done running tests  5872 
+[debug] 2013-02-25 00:20:42 TApplication  Entering GUI tests (Dunit)  1236 
+[info] 2013-02-25 00:21:06 TApplication  Done running tests  1236 
+[debug] 2013-02-25 00:21:40 TApplication  Entering GUI tests (Dunit)  4148 
+[debug] 2013-02-25 00:22:05 TApplication  Entering GUI tests (Dunit)  5620 
+[debug] 2013-02-25 00:22:31 TApplication  Entering GUI tests (Dunit)  1140 
+[info] 2013-02-25 00:22:37 TApplication  Done running tests  1140 
+[debug] 2013-02-25 00:23:40 TApplication  Entering GUI tests (Dunit)  3856 
+[info] 2013-02-25 00:24:36 TApplication  Done running tests  3856 
+[debug] 2013-02-25 00:25:39 TApplication  Entering GUI tests (Dunit)  2540 
+[info] 2013-02-25 00:26:00 TApplication  Done running tests  2540 
+[debug] 2013-02-25 00:34:25 TApplication  Entering GUI tests (Dunit)  4760 
+[debug] 2013-02-25 00:36:27 TApplication  Entering GUI tests (Dunit)  5644 
+[debug] 2013-02-25 00:39:04 TApplication  Entering GUI tests (Dunit)  5308 
+[debug] 2013-02-25 00:41:21 TApplication  Entering GUI tests (Dunit)  3272 
+[info] 2013-02-25 00:41:31 TApplication  Done running tests  3272 
+[debug] 2013-02-25 00:47:02 TApplication  Entering GUI tests (Dunit)  6108 
+[info] 2013-02-25 00:47:16 TApplication  Done running tests  6108 
+[debug] 2013-02-25 00:48:35 TApplication  Entering GUI tests (Dunit)  1236 
+[info] 2013-02-25 00:48:44 TApplication  Done running tests  1236 
+[debug] 2013-02-25 00:48:48 TApplication  Entering GUI tests (Dunit)  5088 
+[info] 2013-02-25 00:49:36 TApplication  Done running tests  5088 
+[debug] 2013-02-25 00:50:35 TApplication  Entering GUI tests (Dunit)  3644 
+[info] 2013-02-25 00:50:40 TApplication  Done running tests  3644 
+[debug] 2013-02-25 00:58:09 TApplication  Entering GUI tests (Dunit)  2892 
+[info] 2013-02-25 00:58:15 TApplication  Done running tests  2892 
+[debug] 2013-02-25 01:00:12 TApplication  Entering GUI tests (Dunit)  4236 
+[info] 2013-02-25 01:00:16 TApplication  Done running tests  4236 
+[debug] 2013-02-25 08:59:26 TApplication  Entering GUI tests (Dunit)  3220 
+[info] 2013-02-25 08:59:42 TApplication  Done running tests  3220 
+[debug] 2013-02-25 09:04:44 TApplication  Entering GUI tests (Dunit)  7968 
+[info] 2013-02-25 09:04:53 TApplication  Done running tests  7968 
+[debug] 2013-02-25 09:04:55 TApplication  Entering GUI tests (Dunit)  4028 
+[info] 2013-02-25 09:05:08 TApplication  Done running tests  4028 

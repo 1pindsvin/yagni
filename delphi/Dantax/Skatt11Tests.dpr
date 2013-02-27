@@ -1,4 +1,4 @@
-program MagnusRegistryUnittests;
+program Skatt11Tests;
 {
 
   Delphi DUnit Test Project
@@ -19,7 +19,7 @@ uses
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  MagnusRegistryTestUnit in 'MagnusRegistryTestUnit.pas';
+  DkAppRunnerIntegrationTests in 'DkAppRunnerIntegrationTests.pas';
 
 {$R *.RES}
 

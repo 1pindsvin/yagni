@@ -5,7 +5,7 @@ interface
 uses
   TestFrameWork,
   Classes,
-  dk.magnus.registry.classes;
+  DkMagnusRegistry;
 
   type
   TMagnusRegistryFixture = class(TTestCase)
@@ -25,21 +25,6 @@ uses
   registry;
 { TMagnusRegistryFixture }
 
-procedure TMagnusRegistryFixture.CanReadAarsafslutningExecuteablePath;
-var
-  reg : TRegistry;
-begin
-  reg := fMagnusRegistry.GetCurrentUserRegistry();
-  CheckTrue(reg.OpenKeyReadOnly(TMagnusRegistry.AARSAFSLUTNING_EXECUTABLE_PATH_KEY));
-end;
-
-procedure TMagnusRegistryFixture.CanReadMagnusCompanyKey;
-var
-  reg : TRegistry;
-begin
-  reg := fMagnusRegistry.GetCurrentUserRegistry();
-  CheckTrue(reg.OpenKeyReadOnly(TMagnusRegistry.MAGNUS_COMPANY_PATH));
-end;
 
 procedure TMagnusRegistryFixture.SetUp;
 begin

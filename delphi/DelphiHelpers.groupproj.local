@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-	<Transactions/>
-	<Default.Personality>
-		<Projects ActiveProject="HowToRegistryTests.exe"/>
-	</Default.Personality>
+  <Default.Personality>
+    <Projects ActiveProject="HowToRegistryTests.exe"/>
+  </Default.Personality>
 </BorlandProject>
