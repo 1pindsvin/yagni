@@ -67,22 +67,23 @@ namespace ParsePascalDependencies
                 return _uses.Distinct(_unitNameComparer);
             }
         }
-        
     }
 
     internal class Program
     {
         internal const String FILE_PATH = "b:/op/AdHoc/Excel/AdoExcel/Unit1.pas";
+        private const string OP_DIR = "b:/op";
 
         private static void Main(string[] args)
         {
+            
             var text = File.ReadAllText(FILE_PATH).Replace(Environment.NewLine, " ");
             const string pattern = @"\suses\b(.+?)\;";
             var regEx = new Regex(pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
             foreach (var match in regEx.Matches(text).Cast<Match>())
             {
                 var parser = new RawoutPutFromRegexMatcParser(match.Groups[1].Value);
-
+                
                 var print = parser.ToString();
                 Console.WriteLine(print);
                 Console.ReadKey();
