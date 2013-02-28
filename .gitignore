@@ -44,3 +44,4 @@ log.txt
 
 # dart
 pubspec.lock
+*.suo
