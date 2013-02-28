@@ -44,4 +44,11 @@ log.txt
 
 # dart
 pubspec.lock
+
+#csharp
 *.suo
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+

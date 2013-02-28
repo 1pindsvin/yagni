@@ -1,5 +1,0 @@
-c:\Users\pwih\Documents\GitHub\yagni\csharp\ParsePascalDependencies\ParsePascalDependencies\bin\Debug\ParsePascalDependencies.exe
-c:\Users\pwih\Documents\GitHub\yagni\csharp\ParsePascalDependencies\ParsePascalDependencies\bin\Debug\ParsePascalDependencies.pdb
-c:\Users\pwih\Documents\GitHub\yagni\csharp\ParsePascalDependencies\ParsePascalDependencies\obj\x86\Debug\ResolveAssemblyReference.cache
-c:\Users\pwih\Documents\GitHub\yagni\csharp\ParsePascalDependencies\ParsePascalDependencies\obj\x86\Debug\ParsePascalDependencies.exe
-c:\Users\pwih\Documents\GitHub\yagni\csharp\ParsePascalDependencies\ParsePascalDependencies\obj\x86\Debug\ParsePascalDependencies.pdb
