@@ -1,27 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using log4net;
 
 namespace ParsePascalDependencies
 {
-    enum SearchStateEnum
-    {
-        Unit, UnitName, FirstUses, SecondUses, Uses, BeginMultiLineComment, EndComment
-    }
-
     internal class Program
     {
         internal const String FILE_PATH = "b:/op/AdHoc/Excel/AdoExcel/Unit1.pas";
 
         private const string OpDir = @"b:\op";
 
-
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 
 
 
         public static void Main(string[] args)
         {
-            AppRunner.CreateDefault(OpDir).RunWithLineStrategy();
+            PrintUnitInfo();
+        }
+        const string LineSeparator = "=======================================================";
+
+        static readonly Regex ValidUnitName = new Regex(@"^\w+$");
+
+        private static void PrintUnitInfo()
+        {
+            var appRunner = AppRunner.CreateDefault(OpDir);
+            appRunner.RunWithLineStrategy();
+            var sb = new StringBuilder();
+            var validUnits = appRunner.Units.Where(x => x.IsValidReference).ToList();
+            sb.AppendLine(string.Format("Number of units searched: [{0}]", appRunner.Units.Count));
+            sb.AppendLine(string.Format("Number of valid unitnames resolved: [{0}]", validUnits.Count));
+            sb.AppendLine(LineSeparator);
+            var distinctUnitReferences = validUnits.SelectMany(x => x.DistinctUses).Select(x => x.ToLower()).Distinct().ToList();
+            sb.AppendLine("Number of unique references (total): [" + distinctUnitReferences.Count() + "]");
+            sb.AppendLine(LineSeparator);
+            var invalidUnitNames = distinctUnitReferences.Where(x => !ValidUnitName.IsMatch(x)).ToList();
+            sb.AppendLine("Number of bad unitnames (total): [" + invalidUnitNames.Count() + "]");
+            sb.AppendLine(LineSeparator);
+            var value = "[" + string.Join("|", invalidUnitNames) + "]";
+            
+            sb.AppendLine(value);
+         
+            Log.Debug(value);
+            //sb.ToString()
+            Console.WriteLine("All logged");
+            Console.Read();
         }
 
         private static void PrintAllUnits(List<PascalUnit> units)

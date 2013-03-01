@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using log4net;
 
 namespace ParsePascalDependencies
 {
     class UnitBuilder : IUnitBuilder
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(UnitBuilder));
+        
         private static readonly Regex RegExUnit = new Regex(Patterns.StartUnitNamePattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
         private static readonly Regex RegExUnitName = new Regex(Patterns.UnitNameInLinePattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
         private static readonly Regex SingleLineCommentRegex = new Regex(Patterns.SingleLinePattern, RegexOptions.Singleline);
@@ -15,6 +18,10 @@ namespace ParsePascalDependencies
         private static readonly Regex BeginMultiLineCommentRegex = new Regex(Patterns.BeginMultilineCommentPattern, RegexOptions.Singleline );
         private static readonly Regex EndMultiLineCommentRegex = new Regex(Patterns.EndMultilineCommentPattern, RegexOptions.Singleline);
         private static readonly Regex MultiLineCommentInOneLineRegex = new Regex(Patterns.MultiLineCommentInOneLinePattern, RegexOptions.Singleline);
+
+        private static readonly Regex UsesUnitsPatternRegex = new Regex(Patterns.UsesUnitsPattern, RegexOptions.IgnoreCase);
+        private static readonly Regex UnitNameRegex = new Regex(Patterns.UnitNamePattern, RegexOptions.IgnoreCase);
+
 
         public static bool IsMatchForUnitDeclaration(string line)
         {
@@ -107,27 +114,24 @@ namespace ParsePascalDependencies
 
         public PascalUnit Build(string path,IEnumerable<string> lines)
         {
-            var search = SearchStateEnum.Unit;
-            PascalUnit unit = null;
-            foreach (var line in FilterMultiLineCommments(lines).Select(FilterSingleLineComment))
+            var text = string.Join(" ", lines.Select(FilterSingleLineComment));
+            text = InLineCommentRegex.Replace(text, "");
+            text = MultiLineCommentInOneLineRegex.Replace(text, "");
+            var unitName = UnitNameRegex.Match(text).Groups[1].Value.Trim();
+            if (string.IsNullOrEmpty(unitName))
             {
-                if (search == SearchStateEnum.Unit)
-                {
-                    search = SearchStateEnum.UnitName;
-                }
-                if (search == SearchStateEnum.UnitName)
-                {
-                    if (IsMatchForUnitName(line))
-                    {
-                        unit = CreateUnit(line, path);
-                        search = SearchStateEnum.FirstUses;
-                    }
-                    continue;
-                }
-                if (search == SearchStateEnum.Uses)
-                {
-                    continue;
-                }
+                return PascalUnit.CreateInvalidUnitWithPath(path);
+            }
+            if (!PascalUnit.IsUnitNameValid(unitName))
+            {
+                return PascalUnit.CreateInvalidUnitWithNameAndPath(unitName, path);
+            }
+            var unit = new PascalUnit(unitName, path);
+            foreach (var match in UsesUnitsPatternRegex.Matches(text).Cast<Match>())
+            {
+                var matchInParanthetis = match.Groups[1].Value;
+                var parser = new RawoutPutFromRegexMatcParser(matchInParanthetis);
+                unit.AddUnitNames(parser.AsIEnumerable());
             }
             return unit;
         }

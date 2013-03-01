@@ -26,6 +26,17 @@ namespace ParsePascalDependencies
 
         public bool IsValidReference { get; private set; }
 
+        internal static PascalUnit CreateInvalidUnitWithPath(string path)
+        {
+            return new PascalUnit(UnitNameNotFound,path){IsValidReference = false};
+        }
+
+        internal static PascalUnit CreateInvalidUnitWithNameAndPath(string invalidName, string path)
+        {
+            return new PascalUnit(invalidName, path) { IsValidReference = false };
+        }
+
+
         internal static PascalUnit CreateInvalidUnit(string name)
         {
             if (!IsUnitNameValid(name))
@@ -123,9 +134,16 @@ namespace ParsePascalDependencies
             get { return _uses.Distinct(UnitNameComparer); }
         }
 
+        public static readonly string UnitNameNotFound = "Unitname not resolved";
+
         public string DistinctUsesToString()
         {
             return "[" + string.Join("|", DistinctUses) + "]";
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Unit name: [{0}]" + "Distinct uses: {1}", UnitName, DistinctUsesToString());
         }
     }
 }

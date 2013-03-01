@@ -13,8 +13,14 @@ namespace ParsePascalDependencies
         private readonly IUnitBuilder _builder;
         private readonly string _path;
         private static readonly ILog Log = LogManager.GetLogger(typeof (AppRunner));
-        
-        
+        private readonly List<PascalUnit> _units;
+
+        public List<PascalUnit> Units
+        {
+            get { return _units; }
+        }
+
+
         public static AppRunner CreateDefault(string path)
         {
             return new AppRunner(path, new FileEnumerator(path, "*.pas"),new UnitBuilder());
@@ -37,22 +43,18 @@ namespace ParsePascalDependencies
             _enumerator = enumerator;
             _builder = builder;
             _path = path;
+            _units = new List<PascalUnit>();
         }
 
-
-        PascalUnit BuildUnit(IEnumerable<string> lines, string path)
-        {
-            return _builder.Build(path, lines);
-        }
 
         public void RunWithLineStrategy()
         {
-            var units = new List<PascalUnit>();
+            Units.Clear();
             var files = _enumerator.EnumerateFiles();
             foreach (var path in files)
             {
                 var lines = File.ReadAllLines(path);
-                units.Add(BuildUnit(lines, path));
+                Units.Add(_builder.Build(path, lines));
             }
         }
 
