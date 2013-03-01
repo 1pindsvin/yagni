@@ -6,19 +6,15 @@ using System.Text.RegularExpressions;
 
 namespace ParsePascalDependencies
 {
-    internal interface IUnitBuilder
-    {
-        PascalUnit Build(string path,IEnumerable<string> lines);
-    }
-
     class UnitBuilder : IUnitBuilder
     {
         private static readonly Regex RegExUnit = new Regex(Patterns.StartUnitNamePattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
         private static readonly Regex RegExUnitName = new Regex(Patterns.UnitNameInLinePattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex SingleLineCommentRegex = new Regex(Patterns.SingleLinePattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex InLineCommentRegex = new Regex(Patterns.InlineCommentPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex BeginMultiLineCommentRegex = new Regex(Patterns.BeginMultilineCommentPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex EndMultiLineCommentRegex = new Regex(Patterns.EndMultilineCommentPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex SingleLineCommentRegex = new Regex(Patterns.SingleLinePattern, RegexOptions.Singleline);
+        private static readonly Regex InLineCommentRegex = new Regex(Patterns.InlineCommentPattern, RegexOptions.Singleline);
+        private static readonly Regex BeginMultiLineCommentRegex = new Regex(Patterns.BeginMultilineCommentPattern, RegexOptions.Singleline );
+        private static readonly Regex EndMultiLineCommentRegex = new Regex(Patterns.EndMultilineCommentPattern, RegexOptions.Singleline);
+        private static readonly Regex MultiLineCommentInOneLineRegex = new Regex(Patterns.MultiLineCommentInOneLinePattern, RegexOptions.Singleline);
 
         public static bool IsMatchForUnitDeclaration(string line)
         {
@@ -30,27 +26,33 @@ namespace ParsePascalDependencies
             return RegExUnitName.IsMatch(line);
         }
 
-        private static string RemoveBeginMultiLineComment(string line)
+        public static string RemoveBeginMultiLineComment(string line)
         {
             return BeginMultiLineCommentRegex.Replace(line, "");
         }
 
-        private static bool IsBeginMultiLineComment(string line)
+        public static string RemoveMultiLineCommentInOneLine(string line)
+        {
+            return MultiLineCommentInOneLineRegex.Replace(line, "");
+        }
+
+
+        public static bool IsBeginMultiLineComment(string line)
         {
             return BeginMultiLineCommentRegex.IsMatch(line);
         }
 
-        private static string RemoveMultiLineEndComment(string line)
+        public static string RemoveEndMultiLineComment(string line)
         {
             return EndMultiLineCommentRegex.Replace(line, "");
         }
 
-        private static bool IsEndMultiLineComment(string line)
+        public static bool IsEndMultiLineComment(string line)
         {
             return EndMultiLineCommentRegex.IsMatch(line);
         }
 
-        public static string RemoveSingleLineCommentIfFound(string line)
+        public static string FilterSingleLineComment(string line)
         {
             if (SingleLineCommentRegex.IsMatch(line))
             {
@@ -78,18 +80,18 @@ namespace ParsePascalDependencies
                     if (IsEndMultiLineComment(line))
                     {
                         inMultiLineCommentSearch = false;
-                        var cleanLine = RemoveMultiLineEndComment(line);
+                        var cleanLine = RemoveEndMultiLineComment(line);
                         yield return cleanLine;
-                        continue;
                     }
+                    continue;
                 }
                 if (IsBeginMultiLineComment(line))
                 {
-                    var cleanLine = RemoveBeginMultiLineComment(line);
-                    if (!IsEndMultiLineComment(line))
-                    {
-                        inMultiLineCommentSearch = true;
-                    }
+                    var isEndMultiLineComment = IsEndMultiLineComment(line);
+                    var cleanLine = isEndMultiLineComment
+                                        ? RemoveMultiLineCommentInOneLine(line)
+                                        : RemoveBeginMultiLineComment(line);
+                    inMultiLineCommentSearch = !isEndMultiLineComment;
                     yield return cleanLine;
                     continue;
                 }
@@ -107,7 +109,7 @@ namespace ParsePascalDependencies
         {
             var search = SearchStateEnum.Unit;
             PascalUnit unit = null;
-            foreach (var line in FilterMultiLineCommments(lines.Select(RemoveSingleLineCommentIfFound)))
+            foreach (var line in FilterMultiLineCommments(lines).Select(FilterSingleLineComment))
             {
                 if (search == SearchStateEnum.Unit)
                 {

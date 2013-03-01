@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppRunner.cs" />
+    <Compile Include="IUnitBuilder.cs" />
     <Compile Include="Patterns.cs" />
     <Compile Include="DeepReferenceResolver.cs" />
     <Compile Include="FileEnumerator.cs" />

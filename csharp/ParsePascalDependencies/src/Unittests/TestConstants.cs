@@ -29,5 +29,10 @@ namespace ParsePascalDependencies
         public static readonly string AllUnits = string.Join(", ", Units); 
         public static readonly string UsesStatement = Environment.NewLine + "uses" + Environment.NewLine + "  " + AllUnits + ";";
         public static readonly string UnitHeaderWithUnitName = Environment.NewLine + "unit" + "  " + "  " + WindowsUnit + " ;";
+
+
+        public static readonly IEnumerable<string> LinesWithMultiLineComments = new []{"unit foo (*", "xx", "efsdgsg*) uses bar;"};
+
+        public static readonly IEnumerable<string> LinesWithMultiLineCommentInOneLine = new[] { "unit foo ", "(*xxefsdgsg*) uses bar;" };
     }
 }

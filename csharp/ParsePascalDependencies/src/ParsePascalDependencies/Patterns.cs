@@ -7,8 +7,9 @@ namespace ParsePascalDependencies
 {
     class Patterns
     {
+        public const string MultiLineCommentInOneLinePattern = @"\(\*.*?\*\)";
         public const string BeginMultilineCommentPattern = @"\(\*.*$";
-        public const string EndMultilineCommentPattern = @"\*\).*$";
+        public const string EndMultilineCommentPattern = @".*?\*\)";
         public const string InlineCommentPattern = @"\{.*?\}";
         public const string ForslashPattern = @"\/\/.*$";
         public const string SingleLinePattern = @"\/\/.*$";
