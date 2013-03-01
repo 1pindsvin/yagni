@@ -66,10 +66,15 @@ namespace ParsePascalDependencies
             {
                 throw new ArgumentException("unitName");
             }
+            if (_unitName.Contains(@"\") || _unitName.Contains(@"/"))
+            {
+                throw new InvalidOperationException(string.Format("unitName contained invalid chars [{0}]", _unitName));
+            }
             if (String.IsNullOrEmpty(path))
             {
                 throw new ArgumentException("path");
             }
+            Units = new List<PascalUnit>();
             Path = path;
             IsValidReference = true;
             _uses = new List<string>();

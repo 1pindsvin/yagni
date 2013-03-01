@@ -8,8 +8,8 @@ namespace ParsePascalDependencies
 {
     internal class Program
     {
-        internal const String FILE_PATH = "b:/op/AdHoc/Excel/AdoExcel/Unit1.pas";
-        private const string OP_DIR = "b:/op";
+        //internal const String FILE_PATH = "b:/op/AdHoc/Excel/AdoExcel/Unit1.pas";
+        private const string OpDir = @"b:\op";
 
         public static void Main(string[] args)
         {
@@ -17,7 +17,7 @@ namespace ParsePascalDependencies
             var unitNameRegex = new Regex(Constants.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
             var units = new List<PascalUnit>();
-            var files = Directory.EnumerateFiles(OP_DIR, "*.pas", SearchOption.AllDirectories);
+            var files = Directory.EnumerateFiles(OpDir, "*.pas", SearchOption.AllDirectories);
             const int max = 7;
             foreach (var path in files)
             {
@@ -35,12 +35,33 @@ namespace ParsePascalDependencies
                 {
                     continue;
                 }
-                var uses = units.Select(x => string.Join("|", x.DistinctUses));
-                var print = string.Join("|", uses);
-                Console.WriteLine(print);
                 break;
             }
+            PrintAllUnitNames(units);
+            Console.WriteLine("===============================================");
+            PrintAllUnits(units);
             Console.Read();
         }
+
+        private static void PrintAllUnits(List<PascalUnit> units)
+        {
+            var resolver = new DeepReferenceResolver(units);
+            resolver.ResolveDependencies();
+
+            foreach (var unit in units)
+            {
+                var print = String.Format("Unitname: {0}{1}Uses:{1}{2}", unit.UnitName, Environment.NewLine, string.Join("|", unit.DeepReferences.Select(x => x.UnitName)));
+                Console.WriteLine(print);
+            }
+
+        }
+
+        private static void PrintAllUnitNames(IEnumerable<PascalUnit> units)
+        {
+            var print = string.Join("|", units.Select(x=>x.UnitNameLowered));
+            Console.WriteLine(print);
+
+        }
+
     }
 }
