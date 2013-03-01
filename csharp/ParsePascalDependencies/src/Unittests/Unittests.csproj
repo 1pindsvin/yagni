@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppRunnerFixture.cs" />
     <Compile Include="DeepReferenceResolverFixture.cs" />
     <Compile Include="RegexParserFixture.cs" />
     <Compile Include="PascalUnitFixture.cs" />

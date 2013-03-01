@@ -22,8 +22,8 @@ namespace ParsePascalDependencies
         [Test]
         public void CreateWithBadParametersFails()
         {
-            Assert.Throws<ArgumentException>(() => new PascalUnit("", TestConstants.PathNotImportant));
-            Assert.Throws<ArgumentException>(() => new PascalUnit(null, TestConstants.PathNotImportant));
+            Assert.Throws<UnitNameNotFoundException>(() => new PascalUnit("", TestConstants.PathNotImportant));
+            Assert.Throws<UnitNameNotFoundException>(() => new PascalUnit(null, TestConstants.PathNotImportant));
             Assert.Throws<InvalidOperationException>(() => new PascalUnit(TestConstants.PathNotImportant, ""));
             Assert.Throws<InvalidOperationException>(() => new PascalUnit(TestConstants.PathNotImportant, null));
             Assert.Throws<ArgumentException>(() => new PascalUnit(TestConstants.WindowsUnit, ""));

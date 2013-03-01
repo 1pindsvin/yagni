@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ParsePascalDependencies
 {
     internal class PascalUnit
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(PascalUnit));
+
         private readonly string _unitName;
 
         private class PascalUnitComparer : IEqualityComparer<PascalUnit>
@@ -25,6 +28,15 @@ namespace ParsePascalDependencies
 
         internal static PascalUnit CreateInvalidUnit(string name)
         {
+            if (!IsUnitNameValid(name))
+            {
+                if (name.Length>20)
+                {
+                    name = name.Substring(0, 20);
+                }
+                Log.Debug(String.Format("Name was not resolved for this name [{0}]. Properply an error in parsing of the uses statement CreateInvalidUnit was called!", name));
+                name = Guid.NewGuid().ToString();
+            }
             return new PascalUnit(name, "not found in filesystem") {IsValidReference = false};
         }
 
@@ -59,12 +71,26 @@ namespace ParsePascalDependencies
         private readonly List<string> _uses;
         private static readonly UnitNameComparer UnitNameComparer = new UnitNameComparer();
 
+
+        public static bool IsUnitNameValid(string unitName)
+        {
+            if (String.IsNullOrEmpty(unitName))
+            {
+                return false;
+            }
+            if (unitName.Contains(@"\") || unitName.Contains(@"/") || unitName.Contains(" "))
+            {
+                return false;
+            }
+            return true;
+        }
+
         public PascalUnit(string unitName, string path)
         {
             _unitName = unitName;
             if (String.IsNullOrEmpty(unitName))
             {
-                throw new ArgumentException("unitName");
+                throw new UnitNameNotFoundException(path);
             }
             if (_unitName.Contains(@"\") || _unitName.Contains(@"/"))
             {
