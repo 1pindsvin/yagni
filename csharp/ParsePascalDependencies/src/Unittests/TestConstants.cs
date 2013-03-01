@@ -7,6 +7,9 @@ namespace ParsePascalDependencies
 {
     public class TestConstants
     {
+
+        public const string PathNotImportant = "some/file/path/name.not.important";
+
         public const string VariantsUnit = "Variants";
         public const string WindowsUnit = "Windows";
         public const string MessagesUnit = "Messages";
@@ -22,7 +25,9 @@ namespace ParsePascalDependencies
             get { return MyUnits; }
         }
 
-        public static readonly string AllUnits = string.Join(", ", Units); // "Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms";
+        // "Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms";
+        public static readonly string AllUnits = string.Join(", ", Units); 
         public static readonly string UsesStatement = Environment.NewLine + "uses" + Environment.NewLine + "  " + AllUnits + ";";
+        public static readonly string UnitHeaderWithUnitName = Environment.NewLine + "unit" + "  " + "  " + WindowsUnit + " ;";
     }
 }

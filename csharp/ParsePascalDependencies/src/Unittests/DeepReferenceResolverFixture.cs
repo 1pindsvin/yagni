@@ -21,17 +21,16 @@ namespace ParsePascalDependencies
 
         private static IEnumerable<PascalUnit> BuildUnits()
         {
-            var unit = new PascalUnit(TestConstants.WindowsUnit);
-            unit.AddUses(
+            var unit = new PascalUnit(TestConstants.WindowsUnit, TestConstants.PathNotImportant);
+            unit.AddUnitNames(
                 new[]
                     {
                         TestConstants.MessagesUnit
                     }
                 );
             yield return unit;
-
-            unit = new PascalUnit(TestConstants.MessagesUnit);
-            unit.AddUses(
+            unit = new PascalUnit(TestConstants.MessagesUnit, TestConstants.PathNotImportant);
+            unit.AddUnitNames(
                 new[]
                     {
                         TestConstants.ClassesUnit
@@ -44,13 +43,8 @@ namespace ParsePascalDependencies
         [Test]
         public void CanResolveEmptySetDependencies()
         {
-            //var nums = Enumerable.Range(0, 2).Select(x=>x.ToString());
-            var unit = new PascalUnit(TestConstants.WindowsUnit);
-
             var e = new DeepReferenceResolver(new List<PascalUnit>());
             e.ResolveDependencies();
-
-
         }
 
         [Test]

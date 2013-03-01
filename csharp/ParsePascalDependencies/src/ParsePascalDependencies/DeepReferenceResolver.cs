@@ -9,9 +9,6 @@ namespace ParsePascalDependencies
     {
         private readonly List<PascalUnit> _units;
 
-        
-
-
         public DeepReferenceResolver(List<PascalUnit>  units)
         {
             _units = units;
@@ -21,7 +18,6 @@ namespace ParsePascalDependencies
         {
             return unitNamesLowered.Select(unitName => _units.Find(x => x.UnitNameLowered.Equals(unitName)) ?? PascalUnit.CreateInvalidUnit(unitName));
         }
-
 
         public void ResolveDependencies()
         {

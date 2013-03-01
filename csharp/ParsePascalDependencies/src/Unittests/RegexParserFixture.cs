@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -9,22 +10,22 @@ namespace ParsePascalDependencies
     [TestFixture]
     class RegexParserFixture
     {
-        private Regex _regEx;
+        private Regex _usesUnitsRegEx;
+        private Regex _unitNameRegEx;
 
         [SetUp]
         public void Setup()
         {
-            //const string pattern = @"\s+uses\b(.+?)\;";
-            const string pattern = @"\buses\b(.+?)\;";
-            _regEx = new Regex(pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            _usesUnitsRegEx = new Regex(Constants.UsesUnitsPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            _unitNameRegEx = new Regex(Constants.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         }
 
         [Test]
         public void CanFindUses()
         {
             var text = TestConstants.UsesStatement.Replace(Environment.NewLine, " ");
-            Assert.True(_regEx.IsMatch(text));
-            var matches = _regEx.Matches(text).Cast<Match>();
+            Assert.True(_usesUnitsRegEx.IsMatch(text));
+            var matches = _usesUnitsRegEx.Matches(text).Cast<Match>();
             var match = matches.First();
             var matchInParanthetis = match.Groups[1].Value;
             Assert.AreEqual(TestConstants.AllUnits,matchInParanthetis.TrimStart());
@@ -38,8 +39,13 @@ namespace ParsePascalDependencies
             Assert.AreEqual(8, res.Count);
         }
 
-
-
+        [Test]
+        public void CanResolveUnitName()
+        {
+            var text = TestConstants.UnitHeaderWithUnitName.Replace(Environment.NewLine, " ");
+            Debug.Print("[" + text + "]");
+            Assert.True(_unitNameRegEx.IsMatch(text));
+        }
 
     }
 }

@@ -13,29 +13,32 @@ namespace ParsePascalDependencies
 
         public static void Main(string[] args)
         {
-            const string pattern = @"\s+uses\b(.+?)\;";
-            var regEx = new Regex(pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            var regEx = new Regex(Constants.UsesUnitsPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            var unitNameRegex = new Regex(Constants.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
             var units = new List<PascalUnit>();
             var files = Directory.EnumerateFiles(OP_DIR, "*.pas", SearchOption.AllDirectories);
             const int max = 7;
-            foreach (var file in files)
+            foreach (var path in files)
             {
-                var text = File.ReadAllText(file).Replace(Environment.NewLine, " ");
-                var unit = new PascalUnit(file);
+                var text = File.ReadAllText(path).Replace(Environment.NewLine, " ");
+                var unitName = unitNameRegex.Match(text).Groups[1].Value.Trim();
+                var unit = new PascalUnit(unitName, path);
                 units.Add(unit);
                 foreach (var match in regEx.Matches(text).Cast<Match>())
                 {
                     var matchInParanthetis = match.Groups[1].Value;
                     var parser = new RawoutPutFromRegexMatcParser(matchInParanthetis);
-                    unit.AddUses(parser.AsIEnumerable());
+                    unit.AddUnitNames(parser.AsIEnumerable());
                 }
-                if (units.Count >= max)
+                if (units.Count < max)
                 {
-                    var uses = units.Select(x => string.Join("|", x.DistinctUses));
-                    var print = string.Join("|", uses);
-                    Console.WriteLine(print);
-                    break;
+                    continue;
                 }
+                var uses = units.Select(x => string.Join("|", x.DistinctUses));
+                var print = string.Join("|", uses);
+                Console.WriteLine(print);
+                break;
             }
             Console.Read();
         }
