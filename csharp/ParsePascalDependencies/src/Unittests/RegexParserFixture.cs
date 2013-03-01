@@ -27,13 +27,13 @@ namespace ParsePascalDependencies
             var matches = _regEx.Matches(text).Cast<Match>();
             var match = matches.First();
             var matchInParanthetis = match.Groups[1].Value;
-            Assert.AreEqual(TestConstants.Uses,matchInParanthetis.TrimStart());
+            Assert.AreEqual(TestConstants.AllUnits,matchInParanthetis.TrimStart());
         }
 
         [Test]
         public void CanConvertToEnumerable()
         {
-            var parser = new RawoutPutFromRegexMatcParser(TestConstants.Uses);
+            var parser = new RawoutPutFromRegexMatcParser(TestConstants.AllUnits);
             var res = parser.AsIEnumerable().ToList();
             Assert.AreEqual(8, res.Count);
         }

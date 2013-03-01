@@ -49,16 +49,21 @@ namespace ParsePascalDependencies
             Assert.True(other.References(unit));
             Assert.True(unit.References(other));                
 
-            Assert.True(unit.IsReferencedBy(other));
-            Assert.True(other.IsReferencedBy(unit));
+            Assert.True(unit.IsReferencedByUnitName(other));
+            Assert.True(other.IsReferencedByUnitName(unit));
 
             Assert.False(other.References(other));
             Assert.False(unit.References(unit));
-            Assert.False(other.IsReferencedBy(other));
-            Assert.False(unit.IsReferencedBy(unit));
+            Assert.False(other.IsReferencedByUnitName(other));
+            Assert.False(unit.IsReferencedByUnitName(unit));
 
 
         }
 
+        [Test]
+        public void DeepReferences()
+        {
+
+        }
     }
 }

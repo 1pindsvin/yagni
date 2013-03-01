@@ -6,6 +6,56 @@ namespace ParsePascalDependencies
 {
     internal class PascalUnit
     {
+        private class PascalUnitComparer : IEqualityComparer<PascalUnit>
+        {
+            public bool Equals(PascalUnit x, PascalUnit y)
+            {
+                return x.UnitNameLowered.Equals(y.UnitNameLowered);
+            }
+
+            public int GetHashCode(PascalUnit obj)
+            {
+                return obj.UnitName.GetHashCode();
+            }
+        }
+
+        public bool IsValidReference { get; private set; }
+
+        internal static PascalUnit CreateInvalidUnit(string name)
+        {
+            return new PascalUnit(name) {IsValidReference = false};
+        }
+
+        public string UnitNameLowered {
+            get { return UnitName.ToLower(); }
+        }
+
+        private static readonly PascalUnitComparer UnitComparer = new PascalUnitComparer();
+
+        public IEnumerable<PascalUnit> DeepReferences
+        {
+            get
+            {
+                foreach (var pascalUnit in Units)
+                {
+                    yield return pascalUnit;
+                    foreach (var deepRef in pascalUnit.Units.ToList())
+                    {
+                        if (!deepRef.HasSameUnitNameAs(this))
+                        {
+                            yield return deepRef;
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool HasSameUnitNameAs(PascalUnit pascalUnit)
+        {
+            return UnitNameLowered.Equals(pascalUnit.UnitNameLowered);
+        }
+
+        public List<PascalUnit> Units { get; set; }
 
         private readonly List<string> _uses;
         private static readonly UnitNameComparer UnitNameComparer = new UnitNameComparer();
@@ -20,7 +70,8 @@ namespace ParsePascalDependencies
             _uses = new List<string>();
         }
 
-        public string UnitName {
+        public string UnitName
+        {
             get { return Name; }
         }
 
@@ -29,7 +80,8 @@ namespace ParsePascalDependencies
             return DistinctUses.Contains(other.Name, UnitNameComparer);
         }
 
-        public bool IsReferencedBy(PascalUnit other)
+
+        public bool IsReferencedByUnitName(PascalUnit other)
         {
             return other.DistinctUses.Contains(Name, UnitNameComparer);
         }
