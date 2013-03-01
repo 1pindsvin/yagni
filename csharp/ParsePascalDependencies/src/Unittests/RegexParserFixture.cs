@@ -16,8 +16,8 @@ namespace ParsePascalDependencies
         [SetUp]
         public void Setup()
         {
-            _usesUnitsRegEx = new Regex(Constants.UsesUnitsPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            _unitNameRegEx = new Regex(Constants.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            _usesUnitsRegEx = new Regex(Patterns.UsesUnitsPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            _unitNameRegEx = new Regex(Patterns.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         }
 
         [Test]

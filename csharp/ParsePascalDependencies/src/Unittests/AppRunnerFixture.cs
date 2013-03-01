@@ -16,6 +16,14 @@ namespace ParsePascalDependencies
             }
         }
 
+        class FakeUnitBuilder : IUnitBuilder
+        {
+            public PascalUnit Build(string path, IEnumerable<string> lines)
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -25,25 +33,12 @@ namespace ParsePascalDependencies
         [Test]
         public void CanCreate()
         {
-            var e = new AppRunner("some/path", new FakeFileEnumerator());
+            var e = BuildAppRunner();
         }
 
-        [Test]
-        public void IsMatchForUnitDeclaration()
+        private static AppRunner BuildAppRunner()
         {
-            var e = new AppRunner("some/path", new FakeFileEnumerator());
-            Assert.True( e.IsMatchForUnitDeclaration("unit Unit1;"));
-        }
-
-
-        [Test]
-        public void IsMatchForUnitName()
-        {
-            var e = new AppRunner("some/path", new FakeFileEnumerator());
-            foreach (var line in new [] { "unit Unit1;", " Unit1 ; ", "Unit1 ; " })
-            {
-                Assert.True(e.IsMatchForUnitName(line));
-            }
+            return new AppRunner("some/path", new FakeFileEnumerator(), new FakeUnitBuilder());
         }
 
     }
