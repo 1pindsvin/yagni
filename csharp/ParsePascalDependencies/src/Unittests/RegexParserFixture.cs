@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,7 +7,7 @@ using NUnit.Framework;
 namespace ParsePascalDependencies
 {
     [TestFixture]
-    class RegexParserFixture
+    internal class RegexParserFixture
     {
         private Regex _usesUnitsRegEx;
         private Regex _unitNameRegEx;
@@ -28,16 +27,9 @@ namespace ParsePascalDependencies
             var matches = _usesUnitsRegEx.Matches(text).Cast<Match>();
             var match = matches.First();
             var matchInParanthetis = match.Groups[1].Value;
-            Assert.AreEqual(TestConstants.AllUnits,matchInParanthetis.TrimStart());
+            Assert.AreEqual(TestConstants.AllUnits, matchInParanthetis.TrimStart());
         }
 
-        [Test]
-        public void CanConvertToEnumerable()
-        {
-            var parser = new RawoutPutFromRegexMatcParser(TestConstants.AllUnits);
-            var res = parser.AsIEnumerable().ToList();
-            Assert.AreEqual(8, res.Count);
-        }
 
         [Test]
         public void CanResolveUnitName()
@@ -46,6 +38,5 @@ namespace ParsePascalDependencies
             Debug.Print("[" + text + "]");
             Assert.True(_unitNameRegEx.IsMatch(text));
         }
-
     }
 }

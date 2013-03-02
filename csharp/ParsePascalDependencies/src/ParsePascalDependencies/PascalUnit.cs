@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using log4net;
 
 namespace ParsePascalDependencies
 {
     internal class PascalUnit
     {
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(PascalUnit));
+        private static readonly ILog Log = LogManager.GetLogger(typeof (PascalUnit));
 
         private readonly string _unitName;
 
@@ -28,12 +28,12 @@ namespace ParsePascalDependencies
 
         internal static PascalUnit CreateInvalidUnitWithPath(string path)
         {
-            return new PascalUnit(UnitNameNotFound,path){IsValidReference = false};
+            return new PascalUnit(UnitNameNotFound, path) {IsValidReference = false};
         }
 
         internal static PascalUnit CreateInvalidUnitWithNameAndPath(string invalidName, string path)
         {
-            return new PascalUnit(invalidName, path) { IsValidReference = false };
+            return new PascalUnit(invalidName, path) {IsValidReference = false};
         }
 
 
@@ -41,21 +41,23 @@ namespace ParsePascalDependencies
         {
             if (!IsUnitNameValid(name))
             {
-                if (name.Length>20)
+                if (name.Length > 20)
                 {
                     name = name.Substring(0, 20);
                 }
-                Log.Debug(String.Format("Name was not resolved for this name [{0}]. Properply an error in parsing of the uses statement CreateInvalidUnit was called!", name));
+                Log.Debug(
+                    String.Format(
+                        "Name was not resolved for this name [{0}]. Properply an error in parsing of the uses statement CreateInvalidUnit was called!",
+                        name));
                 name = Guid.NewGuid().ToString();
             }
             return new PascalUnit(name, "not found in filesystem") {IsValidReference = false};
         }
 
-        public string UnitNameLowered {
+        public string UnitNameLowered
+        {
             get { return UnitName.ToLower(); }
         }
-
-        private static readonly PascalUnitComparer UnitComparer = new PascalUnitComparer();
 
         public IEnumerable<PascalUnit> DeepReferences
         {
@@ -82,6 +84,12 @@ namespace ParsePascalDependencies
         private readonly List<string> _uses;
         private static readonly UnitNameComparer UnitNameComparer = new UnitNameComparer();
 
+        private void UpdateUses(Predicate<string> isValidUnitName)
+        {
+            var validUsesStatements = _uses.Where(x => isValidUnitName(x));
+            _uses.Clear();
+            _uses.AddRange(validUsesStatements);
+        }
 
         public static bool IsUnitNameValid(string unitName)
         {

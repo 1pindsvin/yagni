@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using log4net;
 
 namespace ParsePascalDependencies
@@ -11,7 +9,6 @@ namespace ParsePascalDependencies
     {
         private readonly IFileEnumerator _enumerator;
         private readonly IUnitBuilder _builder;
-        private readonly string _path;
         private static readonly ILog Log = LogManager.GetLogger(typeof (AppRunner));
         private readonly List<PascalUnit> _units;
 
@@ -21,17 +18,13 @@ namespace ParsePascalDependencies
         }
 
 
-        public static AppRunner CreateDefault(string path)
+        public static AppRunner CreateDefault(string path, Func<string, bool> unitNameFilter)
         {
-            return new AppRunner(path, new FileEnumerator(path, "*.pas"),new UnitBuilder());
+            return new AppRunner(new FileEnumerator(path, "*.pas"), new UnitBuilder(unitNameFilter));
         }
 
-        public AppRunner(string path, IFileEnumerator enumerator, IUnitBuilder builder)
+        public AppRunner(IFileEnumerator enumerator, IUnitBuilder builder)
         {
-            if (String.IsNullOrEmpty(path))
-            {
-                throw new ArgumentException("path");
-            }
             if (enumerator == null)
             {
                 throw new ArgumentNullException("enumerator");
@@ -42,10 +35,8 @@ namespace ParsePascalDependencies
             }
             _enumerator = enumerator;
             _builder = builder;
-            _path = path;
             _units = new List<PascalUnit>();
         }
-
 
         public void RunWithLineStrategy()
         {
@@ -56,44 +47,6 @@ namespace ParsePascalDependencies
                 var lines = File.ReadAllLines(path);
                 Units.Add(_builder.Build(path, lines));
             }
-        }
-
-        public void Run()
-        {
-            var regEx = new Regex(Patterns.UsesUnitsPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            var unitNameRegex = new Regex(Patterns.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-
-            var units = new List<PascalUnit>();
-            var files = Directory.EnumerateFiles(_path, "*.pas", SearchOption.AllDirectories);
-
-            foreach (var path in files)
-            {
-                var text = File.ReadAllText(path).Replace(Environment.NewLine, " ");
-                var unitName = unitNameRegex.Match(text).Groups[1].Value.Trim();
-                if (string.IsNullOrEmpty(unitName))
-                {
-                    Log.Debug(string.Format("Unitname not found in unit [{0}]", path));
-                    continue;
-                }
-                if (!PascalUnit.IsUnitNameValid(unitName))
-                {
-                    Log.Debug(string.Format("Unitname could not be resolved [{0}]. Path [{1}]", unitName, path));
-                    continue;
-                }
-                var unit = new PascalUnit(unitName, path);
-                units.Add(unit);
-                foreach (var match in regEx.Matches(text).Cast<Match>())
-                {
-                    var matchInParanthetis = match.Groups[1].Value;
-                    var parser = new RawoutPutFromRegexMatcParser(matchInParanthetis);
-                    unit.AddUnitNames(parser.AsIEnumerable());
-                }
-            }
-            Console.WriteLine("===============================================");
-            //PrintAllUnits(units);
-            Program.PrintSuspectUses(units);
-            Console.Read();
-            Console.WriteLine("===============================================");
         }
     }
 }

@@ -1,20 +1,17 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace ParsePascalDependencies
 {
-    class UnitNameNotFoundException : Exception
+    internal class UnitNameNotFoundException : Exception
     {
         public UnitNameNotFoundException(string path)
-            : base(string.Format("Could not resolve name of unit. Path [{0}]", path ?? "Path not found- this sucks big time"))
+            : base(
+                string.Format("Could not resolve name of unit. Path [{0}]",
+                              path ?? "Path not found- this sucks big time"))
         {
             this.Path = path ?? "Path not found- this sucks big time";
         }
 
-        public string Path
-        {
-            get; private set; 
-        }
+        public string Path { get; private set; }
     }
 }

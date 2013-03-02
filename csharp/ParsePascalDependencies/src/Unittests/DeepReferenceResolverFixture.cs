@@ -54,12 +54,11 @@ namespace ParsePascalDependencies
             var e = new DeepReferenceResolver(units);
             e.ResolveDependencies();
 
-            var unit = units.Single(x=>x.UnitName==TestConstants.WindowsUnit);
+            var unit = units.Single(x => x.UnitName == TestConstants.WindowsUnit);
             Assert.AreEqual(1, unit.Units.Count);
 
             var depends = unit.DeepReferences;
-            Assert.AreEqual(2,depends.Count());
+            Assert.AreEqual(2, depends.Count());
         }
-
     }
 }

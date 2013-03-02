@@ -56,7 +56,6 @@
     <Compile Include="PascalUnit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RawoutPutFromRegexMatcParser.cs" />
     <Compile Include="SearchStateEnum.cs" />
     <Compile Include="UnitBuilder.cs" />
     <Compile Include="UnitNameComparer.cs" />

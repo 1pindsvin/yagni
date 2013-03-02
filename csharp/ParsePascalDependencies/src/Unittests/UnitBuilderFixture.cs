@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 
 namespace ParsePascalDependencies
@@ -7,80 +6,38 @@ namespace ParsePascalDependencies
     [TestFixture]
     internal class UnitBuilderFixture
     {
-
         [SetUp]
         public void Setup()
         {
-
         }
 
-        static IEnumerable<IEnumerable<string>> BuildLinesWithMultiLineComments()
+
+        private Dictionary<string, string> ExpectedFromTestCases()
         {
-            yield return TestConstants.LinesWithMultiLineComments;
-            yield return TestConstants.LinesWithMultiLineCommentInOneLine;
+            return new Dictionary<string, string>
+                {
+                    {"expected", "expe(*crap*)cted"},
+                    {"foo", "fo{crap}o"}
+                };
         }
-            
-            [Test]
-        public void IsMatchForUnitDeclaration()
-        {
-            foreach (var line in new[] { "unit Unit1;", "unit", " unit ","unit "})
-            {
-                Assert.True(UnitBuilder.IsMatchForUnitDeclaration(line));
-            }
-        }
-
 
         [Test]
-        public void IsMatchForUnitNameCanGetUnitName()
+        public void RemovesMultiLineCommentIfFound()
         {
-            foreach (var line in new [] { "unit Unit1;", " Unit1 ; ", "Unit1 ; " })
+            foreach (var test in ExpectedFromTestCases())
             {
-                Assert.True(UnitBuilder.IsMatchForUnitName(line));
-                Assert.True(UnitBuilder.GetUnitName(line).Equals("Unit1"));
+                Assert.AreEqual(test.Key, UnitBuilder.MultiLineCommentRegex.Replace(test.Value, ""));
             }
         }
+
 
         [Test]
         public void RemovesSingleLineCommentIfFound()
         {
-            foreach (var line in new[] { "unit //Unit1;", "{x} unit", " unit ","{dsgdsgdfgdfg} unit ///another " })
+            foreach (var line in new[] {"unit //Unit1;", "{x} unit", " unit ", "{dsgdsgdfgdfg} unit ///another "})
             {
                 Assert.AreEqual("unit", UnitBuilder.FilterSingleLineComment(line).Trim());
             }
         }
-
-        [Test]
-        public void RemovesBeginMultilineComment()
-        {
-            foreach (var line in new[] { "unit (*Unit1;", " unit(*", " unit(*whatever;x " })
-            {
-                Assert.True(UnitBuilder.IsBeginMultiLineComment(line));
-                Assert.AreEqual("unit", UnitBuilder.RemoveBeginMultiLineComment(line).Trim());
-            }
-        }
-
-
-        [Test]
-        public void RemovesEndMultilineComment()
-        {
-            foreach (var line in new[] { " Unit1; *) unit ", "*) unit", " whatever;x *)unit " })
-            {
-                Assert.True(UnitBuilder.IsEndMultiLineComment(line));
-                Assert.AreEqual("unit", UnitBuilder.RemoveEndMultiLineComment(line).Trim());
-            }
-        }
-
-        [Test]
-        public void RemovesMultilineCommentFromLines()
-        {
-            foreach (var lines in BuildLinesWithMultiLineComments())
-            {
-                var expected = new string[] { "unit foo ", " uses bar;" }; 
-                var filtered = UnitBuilder.FilterMultiLineCommments(lines).ToArray();
-                CollectionAssert.AreEqual(expected,filtered);
-            }
-        }
-
-
     }
 }

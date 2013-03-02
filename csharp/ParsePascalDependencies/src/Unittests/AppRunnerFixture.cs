@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace ParsePascalDependencies
@@ -7,27 +7,25 @@ namespace ParsePascalDependencies
     [TestFixture]
     internal class AppRunnerFixture
     {
-
-        class FakeFileEnumerator : IFileEnumerator
+        private class FakeFileEnumerator : IFileEnumerator
         {
             public IEnumerable<string> EnumerateFiles()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
-        class FakeUnitBuilder : IUnitBuilder
+        private class FakeUnitBuilder : IUnitBuilder
         {
             public PascalUnit Build(string path, IEnumerable<string> lines)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
         [SetUp]
         public void Setup()
         {
-
         }
 
         [Test]
@@ -38,8 +36,7 @@ namespace ParsePascalDependencies
 
         private static AppRunner BuildAppRunner()
         {
-            return new AppRunner("some/path", new FakeFileEnumerator(), new FakeUnitBuilder());
+            return new AppRunner(new FakeFileEnumerator(), new FakeUnitBuilder());
         }
-
     }
 }

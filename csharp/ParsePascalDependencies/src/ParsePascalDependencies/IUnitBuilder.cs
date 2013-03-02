@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
 
 namespace ParsePascalDependencies
 {
     internal interface IUnitBuilder
     {
-        PascalUnit Build(string path,IEnumerable<string> lines);
+        PascalUnit Build(string path, IEnumerable<string> lines);
     }
 }

@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System;
-
-namespace ParsePascalDependencies
+﻿namespace ParsePascalDependencies
 {
-    enum SearchStateEnum
+    internal enum SearchStateEnum
     {
-        Unit, UnitName, UsesStatementFound, Uses
+        Unit,
+        UnitName,
+        UsesStatementFound,
+        Uses
     }
 }
