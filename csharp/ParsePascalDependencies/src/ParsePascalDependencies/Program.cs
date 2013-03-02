@@ -48,7 +48,7 @@ namespace ParsePascalDependencies
             var dependencies = mepTypes.DeepReferences.Distinct(PascalUnit.UnitComparer).ToList();
             var header = unitName + ", dependencies";
             Func<PascalUnit, string> toString = x => x.UnitName;
-            PrintResolvedUnits(header,dependencies,toString);
+            PrintResolvedUnits(header,dependencies.OrderBy(x=>x.IsFoundInFileSystem).ThenBy(x=>x.UnitNameLowered),toString);
         }
 
         private static void PrintUnitInfo()
