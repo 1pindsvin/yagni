@@ -68,7 +68,7 @@ namespace ParsePascalDependencies
             var unitName = UnitNameRegex.Match(text).Groups[1].Value.Trim();
             if (string.IsNullOrEmpty(unitName))
             {
-                return PascalUnit.CreateInvalidUnitWithPath(path);
+                return PascalUnit.CreateInvalidUnitFromPath(path);
             }
             if (!PascalUnit.IsUnitNameValid(unitName))
             {

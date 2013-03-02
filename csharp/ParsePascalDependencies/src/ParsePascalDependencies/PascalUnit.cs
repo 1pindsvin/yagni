@@ -1,32 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using log4net;
 
 namespace ParsePascalDependencies
 {
     internal class PascalUnit
     {
+        public static readonly PascalUnitComparer UnitComparer = new PascalUnitComparer();
+
+        private static readonly Regex ValidUnitName = new Regex(@"^\w+$");
+
         private static readonly ILog Log = LogManager.GetLogger(typeof (PascalUnit));
 
         private readonly string _unitName;
-
-        private class PascalUnitComparer : IEqualityComparer<PascalUnit>
-        {
-            public bool Equals(PascalUnit x, PascalUnit y)
-            {
-                return x.HasSameUnitNameAs(y);
-            }
-
-            public int GetHashCode(PascalUnit obj)
-            {
-                return obj.UnitName.GetHashCode();
-            }
-        }
+        
+        const string NotFoundInFilesystem = "not found in filesystem";
 
         public bool IsValidReference { get; private set; }
+        public bool IsFoundInFileSystem { get; private set; }
 
-        internal static PascalUnit CreateInvalidUnitWithPath(string path)
+        internal static PascalUnit CreateInvalidUnitFromPath(string path)
         {
             return new PascalUnit(UnitNameNotFound, path) {IsValidReference = false};
         }
@@ -36,14 +32,24 @@ namespace ParsePascalDependencies
             return new PascalUnit(invalidName, path) {IsValidReference = false};
         }
 
+        internal static PascalUnit CreateUnitWithoutPath(string name)
+        {
+            if (!IsUnitNameValid(name))
+            {
+                return CreateInvalidUnit(name);
+            }
+            var unitWithoutPath = new PascalUnit(name, NotFoundInFilesystem) {IsFoundInFileSystem = false};
+            Debug.Assert(!unitWithoutPath.IsFoundInFileSystem);
+            return unitWithoutPath;
+        }
 
         internal static PascalUnit CreateInvalidUnit(string name)
         {
             if (!IsUnitNameValid(name))
             {
-                if (name.Length > 20)
+                if (name.Length > 50)
                 {
-                    name = name.Substring(0, 20);
+                    name = name.Substring(0, 50);
                 }
                 Log.Debug(
                     String.Format(
@@ -51,7 +57,8 @@ namespace ParsePascalDependencies
                         name));
                 name = Guid.NewGuid().ToString();
             }
-            return new PascalUnit(name, "not found in filesystem") {IsValidReference = false};
+            
+            return new PascalUnit(name, NotFoundInFilesystem) {IsValidReference = false,IsFoundInFileSystem = false};
         }
 
         public string UnitNameLowered
@@ -74,9 +81,9 @@ namespace ParsePascalDependencies
             }
         }
 
-        private bool HasSameUnitNameAs(PascalUnit pascalUnit)
+        public bool HasSameUnitNameAs(PascalUnit other)
         {
-            return UnitNameLowered.Equals(pascalUnit.UnitNameLowered);
+            return UnitNameLowered.Equals(other.UnitNameLowered);
         }
 
         public List<PascalUnit> Units { get; set; }
@@ -84,24 +91,9 @@ namespace ParsePascalDependencies
         private readonly List<string> _uses;
         private static readonly UnitNameComparer UnitNameComparer = new UnitNameComparer();
 
-        private void UpdateUses(Predicate<string> isValidUnitName)
-        {
-            var validUsesStatements = _uses.Where(x => isValidUnitName(x));
-            _uses.Clear();
-            _uses.AddRange(validUsesStatements);
-        }
-
         public static bool IsUnitNameValid(string unitName)
         {
-            if (String.IsNullOrEmpty(unitName))
-            {
-                return false;
-            }
-            if (unitName.Contains(@"\") || unitName.Contains(@"/") || unitName.Contains(" "))
-            {
-                return false;
-            }
-            return true;
+            return ValidUnitName.IsMatch(unitName);
         }
 
         public PascalUnit(string unitName, string path)
@@ -111,7 +103,7 @@ namespace ParsePascalDependencies
             {
                 throw new UnitNameNotFoundException(path);
             }
-            if (_unitName.Contains(@"\") || _unitName.Contains(@"/"))
+            if(!IsUnitNameValid(unitName))
             {
                 throw new InvalidOperationException(string.Format("unitName contained invalid chars [{0}]", _unitName));
             }
@@ -122,6 +114,7 @@ namespace ParsePascalDependencies
             Units = new List<PascalUnit>();
             Path = path;
             IsValidReference = true;
+            IsFoundInFileSystem = true;
             _uses = new List<string>();
         }
 
@@ -142,7 +135,7 @@ namespace ParsePascalDependencies
             get { return _uses.Distinct(UnitNameComparer); }
         }
 
-        public static readonly string UnitNameNotFound = "Unitname not resolved";
+        public static readonly string UnitNameNotFound = "unitname_not_resolved";
 
         public string DistinctUsesToString()
         {
@@ -152,6 +145,11 @@ namespace ParsePascalDependencies
         public override string ToString()
         {
             return string.Format("Unit name: [{0}]" + "Distinct uses: {1}", UnitName, DistinctUsesToString());
+        }
+
+        public string ToNameAndPathString()
+        {
+            return string.Format("Name [{0}], Path [{1}]", UnitName, Path);
         }
     }
 }

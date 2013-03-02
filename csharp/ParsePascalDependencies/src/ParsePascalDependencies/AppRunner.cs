@@ -9,14 +9,12 @@ namespace ParsePascalDependencies
     {
         private readonly IFileEnumerator _enumerator;
         private readonly IUnitBuilder _builder;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (AppRunner));
         private readonly List<PascalUnit> _units;
 
         public List<PascalUnit> Units
         {
             get { return _units; }
         }
-
 
         public static AppRunner CreateDefault(string path, Func<string, bool> unitNameFilter)
         {
@@ -38,7 +36,16 @@ namespace ParsePascalDependencies
             _units = new List<PascalUnit>();
         }
 
-        public void RunWithLineStrategy()
+
+        public void BuildPascalUnitsWithReferences()
+        {
+            BuildPascalUnits();
+            var resolver =new DeepReferenceResolver(Units);
+            resolver.ResolveDependencies();
+        }
+
+
+        public void BuildPascalUnits()
         {
             Units.Clear();
             var files = _enumerator.EnumerateFiles();

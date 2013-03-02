@@ -6,25 +6,40 @@ namespace ParsePascalDependencies
     internal class DeepReferenceResolver
     {
         private readonly List<PascalUnit> _units;
+        private readonly List<PascalUnit> _unitsWithoutPaths;
 
         public DeepReferenceResolver(List<PascalUnit> units)
         {
             _units = units;
+            _unitsWithoutPaths = new List<PascalUnit>();
+        }
+
+        private PascalUnit FindOrCreateUnit(string unitName)
+        {
+            PascalUnit find = _unitsWithoutPaths.Find(x => x.UnitNameLowered.Equals(unitName.ToLower()));
+            if (find == null)
+            {
+                find = PascalUnit.CreateUnitWithoutPath(unitName);
+                _unitsWithoutPaths.Add(find);
+            }
+            return find;
         }
 
         private IEnumerable<PascalUnit> FindByUnitNamesLowered(IEnumerable<string> unitNamesLowered)
         {
-            return
-                unitNamesLowered.Select(
-                    unitName =>
-                    _units.Find(x => x.UnitNameLowered.Equals(unitName)) ?? PascalUnit.CreateInvalidUnit(unitName));
+            foreach (string unitName in unitNamesLowered)
+            {
+                yield return _units.Find(x => x.UnitNameLowered.Equals(unitName)) ?? FindOrCreateUnit(unitName);
+            }
         }
 
         public void ResolveDependencies()
         {
             foreach (var unit in _units)
             {
-                unit.Units = FindByUnitNamesLowered(unit.DistinctUses.Select(x => x.ToLower())).ToList();
+                var unitNamesLowered = unit.DistinctUses.Select(x => x.ToLower());
+                var pascalUnits = FindByUnitNamesLowered(unitNamesLowered).ToList();
+                unit.Units = pascalUnits;
             }
         }
     }

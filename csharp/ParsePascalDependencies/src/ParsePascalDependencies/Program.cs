@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using log4net;
 
 namespace ParsePascalDependencies
@@ -18,18 +18,44 @@ namespace ParsePascalDependencies
 
         public static void Main(string[] args)
         {
-            PrintUnitInfo();
+            //PrintUnitInfo();
+            //PrintUnitnamesNotFoundInFileSystem();
+            PrintDependencies("meptypes");
         }
 
         private const string LineSeparator = "=======================================================";
 
-        private static readonly Regex ValidUnitName = new Regex(@"^\w+$");
+        private static void PrintUnitnamesNotFoundInFileSystem()
+        {
+            var appRunner = AppRunner.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
+            appRunner.BuildPascalUnitsWithReferences();
+            var pascalUnits = appRunner.Units.
+                                        SelectMany(x => x.Units).
+                                        Distinct(PascalUnit.UnitComparer).
+                                        Where(x => !x.IsFoundInFileSystem).
+                                        OrderBy(x => x.UnitNameLowered).
+                                        ToList();
+            var header = string.Format("Number of unique units not found in filesystem: {0}", pascalUnits.Count());
+            Func<PascalUnit, string> toString = x => string.Format(x.ToNameAndPathString());
+            PrintResolvedUnits(header, pascalUnits,toString);
+        }
+
+        private static void PrintDependencies(string unitName)
+        {
+            var appRunner = AppRunner.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
+            appRunner.BuildPascalUnitsWithReferences();
+            var mepTypes = appRunner.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
+            var dependencies = mepTypes.DeepReferences.Distinct(PascalUnit.UnitComparer).ToList();
+            var header = unitName + ", dependencies";
+            Func<PascalUnit, string> toString = x => x.UnitName;
+            PrintResolvedUnits(header,dependencies,toString);
+        }
 
         private static void PrintUnitInfo()
         {
             //Predicate<string> isValidUnitName = ValidUnitName.IsMatch;
-            var appRunner = AppRunner.CreateDefault(OpDir, ValidUnitName.IsMatch);
-            appRunner.RunWithLineStrategy();
+            var appRunner = AppRunner.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
+            appRunner.BuildPascalUnits();
             var sb = new StringBuilder();
             var validUnits = appRunner.Units.Where(x => x.IsValidReference).ToList();
 
@@ -40,7 +66,7 @@ namespace ParsePascalDependencies
                 validUnits.SelectMany(x => x.DistinctUses).Select(x => x.ToLower()).Distinct().ToList();
             sb.AppendLine("Number of unique references (total): [" + distinctUnitReferences.Count() + "]");
             sb.AppendLine(LineSeparator);
-            var invalidUnitNames = distinctUnitReferences.Where(x => !ValidUnitName.IsMatch(x)).ToList();
+            var invalidUnitNames = distinctUnitReferences.Where(x => !PascalUnit.IsUnitNameValid(x)).ToList();
             sb.AppendLine("Number of bad unitnames (total): [" + invalidUnitNames.Count() + "]");
             sb.AppendLine(LineSeparator);
             var value = "[" + string.Join(Environment.NewLine, invalidUnitNames) + "]";
@@ -51,40 +77,14 @@ namespace ParsePascalDependencies
             Console.Read();
         }
 
-        private static void PrintAllUnits(List<PascalUnit> units)
+        private static void PrintResolvedUnits(string header, IEnumerable<PascalUnit> units, Func<PascalUnit, string>  toString)
         {
-            var resolver = new DeepReferenceResolver(units);
-            resolver.ResolveDependencies();
-
-            foreach (var unit in units)
-            {
-                var print = String.Format("Unitname: {0}{1}Uses:{1}{2}", unit.UnitName, Environment.NewLine,
-                                          string.Join("|", unit.DeepReferences.Select(x => x.UnitName)));
-                Console.WriteLine(print);
-            }
-        }
-
-        public static void PrintSuspectUses(List<PascalUnit> units)
-        {
-            var resolver = new DeepReferenceResolver(units);
-            resolver.ResolveDependencies();
-
-            foreach (var unit in units)
-            {
-                var suspectUnits = unit.Units.Where(x => !PascalUnit.IsUnitNameValid(x.UnitName))
-                                       .Select(x => x.UnitName);
-
-                var print = String.Format("Unitname: {0}{1}Has suspect units in uses statement:{1}{2}", unit.UnitName,
-                                          Environment.NewLine, string.Join("|", suspectUnits));
-                Console.WriteLine(print);
-            }
-        }
-
-
-        private static void PrintAllUnitNames(IEnumerable<PascalUnit> units)
-        {
-            var print = string.Join("|", units.Select(x => x.UnitNameLowered));
-            Console.WriteLine(print);
+            var contents = header +
+                           Environment.NewLine +
+                           string.Join(Environment.NewLine, units.Select(x =>string.Format(x.ToNameAndPathString())));
+            File.WriteAllText("unitnames.txt", contents);
+            Console.WriteLine("All done");
+            Console.Read();
         }
     }
 }
