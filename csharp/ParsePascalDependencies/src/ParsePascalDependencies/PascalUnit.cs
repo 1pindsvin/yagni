@@ -16,20 +16,20 @@ namespace ParsePascalDependencies
         private static readonly ILog Log = LogManager.GetLogger(typeof (PascalUnit));
 
         private readonly string _unitName;
-        
-        const string NotFoundInFilesystem = "not found in filesystem";
+
+        private const string NotFoundInFilesystem = "not found in filesystem";
 
         public bool IsValidReference { get; private set; }
         public bool IsFoundInFileSystem { get; private set; }
 
         internal static PascalUnit CreateInvalidUnitFromPath(string path)
         {
-            return new PascalUnit(UnitNameNotFound, path) {IsValidReference = false};
+            return new PascalUnit(UnitNameNotFound,path) {IsValidReference = false};
         }
 
         internal static PascalUnit CreateInvalidUnitWithNameAndPath(string invalidName, string path)
         {
-            return new PascalUnit(invalidName, path) {IsValidReference = false};
+            return new PascalUnit(invalidName,path) {IsValidReference = false};
         }
 
         internal static PascalUnit CreateUnitWithoutPath(string name)
@@ -38,7 +38,7 @@ namespace ParsePascalDependencies
             {
                 return CreateInvalidUnit(name);
             }
-            var unitWithoutPath = new PascalUnit(name, NotFoundInFilesystem) {IsFoundInFileSystem = false};
+            var unitWithoutPath = new PascalUnit(name,NotFoundInFilesystem) {IsFoundInFileSystem = false};
             Debug.Assert(!unitWithoutPath.IsFoundInFileSystem);
             return unitWithoutPath;
         }
@@ -49,16 +49,14 @@ namespace ParsePascalDependencies
             {
                 if (name.Length > 50)
                 {
-                    name = name.Substring(0, 50);
+                    name = name.Substring(0,50);                
                 }
-                Log.Debug(
-                    String.Format(
+                Log.Debug(String.Format(
                         "Name was not resolved for this name [{0}]. Properply an error in parsing of the uses statement CreateInvalidUnit was called!",
                         name));
                 name = Guid.NewGuid().ToString();
             }
-            
-            return new PascalUnit(name, NotFoundInFilesystem) {IsValidReference = false,IsFoundInFileSystem = false};
+            return new PascalUnit(name,NotFoundInFilesystem) {IsValidReference = false, IsFoundInFileSystem = false};
         }
 
         public string UnitNameLowered
@@ -103,9 +101,10 @@ namespace ParsePascalDependencies
             {
                 throw new UnitNameNotFoundException(path);
             }
-            if(!IsUnitNameValid(unitName))
+            if (!IsUnitNameValid(unitName))
             {
-                throw new InvalidOperationException(string.Format("unitName contained invalid chars [{0}]", _unitName));
+                throw new InvalidOperationException(string.Format("unitName contained invalid chars [{0}]",
+                                                                  _unitName));
             }
             if (String.IsNullOrEmpty(path))
             {
@@ -139,17 +138,22 @@ namespace ParsePascalDependencies
 
         public string DistinctUsesToString()
         {
-            return "[" + string.Join("|", DistinctUses) + "]";
+            return "[" + string.Join("|",
+                                     DistinctUses) + "]";
         }
 
         public override string ToString()
         {
-            return string.Format("Unit name: [{0}]" + "Distinct uses: {1}", UnitName, DistinctUsesToString());
+            return string.Format("Unit name: [{0}]" + "Distinct uses: {1}",
+                                 UnitName,
+                                 DistinctUsesToString());
         }
 
         public string ToNameAndPathString()
         {
-            return string.Format("Name [{0}], Path [{1}]", UnitName, Path);
+            return string.Format("Name [{0}], Path [{1}]",
+                                 UnitName,
+                                 Path);
         }
     }
 }

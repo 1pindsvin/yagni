@@ -15,26 +15,27 @@ namespace ParsePascalDependencies
         [SetUp]
         public void Setup()
         {
-            _usesUnitsRegEx = new Regex(Patterns.UsesUnitsPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            _unitNameRegEx = new Regex(Patterns.UnitNamePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            _usesUnitsRegEx = new Regex(Patterns.UsesUnitsPattern,RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            _unitNameRegEx = new Regex(Patterns.UnitNamePattern,RegexOptions.Multiline | RegexOptions.IgnoreCase);
         }
 
         [Test]
         public void CanFindUses()
         {
-            var text = TestConstants.UsesStatement.Replace(Environment.NewLine, " ");
+            var text = TestConstants.UsesStatement.Replace(Environment.NewLine,
+                                                           " ");
             Assert.True(_usesUnitsRegEx.IsMatch(text));
             var matches = _usesUnitsRegEx.Matches(text).Cast<Match>();
             var match = matches.First();
             var matchInParanthetis = match.Groups[1].Value;
-            Assert.AreEqual(TestConstants.AllUnits, matchInParanthetis.TrimStart());
+            Assert.AreEqual(TestConstants.AllUnits,matchInParanthetis.TrimStart());
         }
 
 
         [Test]
         public void CanResolveUnitName()
         {
-            var text = TestConstants.UnitHeaderWithUnitName.Replace(Environment.NewLine, " ");
+            var text = TestConstants.UnitHeaderWithUnitName.Replace(Environment.NewLine," ");
             Debug.Print("[" + text + "]");
             Assert.True(_unitNameRegEx.IsMatch(text));
         }

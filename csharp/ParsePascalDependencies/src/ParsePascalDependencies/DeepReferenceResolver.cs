@@ -16,7 +16,7 @@ namespace ParsePascalDependencies
 
         private PascalUnit FindOrCreateUnit(string unitName)
         {
-            PascalUnit find = _unitsWithoutPaths.Find(x => x.UnitNameLowered.Equals(unitName.ToLower()));
+            var find = _unitsWithoutPaths.Find(x => x.UnitNameLowered.Equals(unitName.ToLower()));
             if (find == null)
             {
                 find = PascalUnit.CreateUnitWithoutPath(unitName);
@@ -27,7 +27,7 @@ namespace ParsePascalDependencies
 
         private IEnumerable<PascalUnit> FindByUnitNamesLowered(IEnumerable<string> unitNamesLowered)
         {
-            foreach (string unitName in unitNamesLowered)
+            foreach (var unitName in unitNamesLowered)
             {
                 yield return _units.Find(x => x.UnitNameLowered.Equals(unitName)) ?? FindOrCreateUnit(unitName);
             }

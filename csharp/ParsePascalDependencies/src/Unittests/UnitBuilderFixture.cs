@@ -26,7 +26,7 @@ namespace ParsePascalDependencies
         {
             foreach (var test in ExpectedFromTestCases())
             {
-                Assert.AreEqual(test.Key, UnitBuilder.MultiLineCommentRegex.Replace(test.Value, ""));
+                Assert.AreEqual(test.Key,UnitBuilder.MultiLineCommentRegex.Replace(test.Value,""));
             }
         }
 
@@ -36,7 +36,7 @@ namespace ParsePascalDependencies
         {
             foreach (var line in new[] {"unit //Unit1;", "{x} unit", " unit ", "{dsgdsgdfgdfg} unit ///another "})
             {
-                Assert.AreEqual("unit", UnitBuilder.FilterSingleLineComment(line).Trim());
+                Assert.AreEqual("unit",UnitBuilder.FilterSingleLineComment(line).Trim());
             }
         }
     }

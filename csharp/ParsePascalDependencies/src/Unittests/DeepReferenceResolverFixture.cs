@@ -21,7 +21,8 @@ namespace ParsePascalDependencies
 
         private static IEnumerable<PascalUnit> BuildUnits()
         {
-            var unit = new PascalUnit(TestConstants.WindowsUnit, TestConstants.PathNotImportant);
+            var unit = new PascalUnit(TestConstants.WindowsUnit,
+                                      TestConstants.PathNotImportant);
             unit.AddUnitNames(
                 new[]
                     {
@@ -29,7 +30,8 @@ namespace ParsePascalDependencies
                     }
                 );
             yield return unit;
-            unit = new PascalUnit(TestConstants.MessagesUnit, TestConstants.PathNotImportant);
+            unit = new PascalUnit(TestConstants.MessagesUnit,
+                                  TestConstants.PathNotImportant);
             unit.AddUnitNames(
                 new[]
                     {
@@ -55,10 +57,10 @@ namespace ParsePascalDependencies
             e.ResolveDependencies();
 
             var unit = units.Single(x => x.UnitName == TestConstants.WindowsUnit);
-            Assert.AreEqual(1, unit.Units.Count);
+            Assert.AreEqual(1,unit.Units.Count);
 
             var depends = unit.DeepReferences;
-            Assert.AreEqual(2, depends.Count());
+            Assert.AreEqual(2,depends.Count());
         }
     }
 }

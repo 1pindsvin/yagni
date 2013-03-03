@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using log4net;
 
 namespace ParsePascalDependencies
 {
@@ -40,7 +39,7 @@ namespace ParsePascalDependencies
         public void BuildPascalUnitsWithReferences()
         {
             BuildPascalUnits();
-            var resolver =new DeepReferenceResolver(Units);
+            var resolver = new DeepReferenceResolver(Units);
             resolver.ResolveDependencies();
         }
 

@@ -36,7 +36,7 @@ namespace ParsePascalDependencies
 
         private static DependencyParser BuildDependencyParser()
         {
-            return new DependencyParser(new FakeFileEnumerator(), new FakeUnitBuilder());
+            return new DependencyParser(new FakeFileEnumerator(),new FakeUnitBuilder());
         }
     }
 }

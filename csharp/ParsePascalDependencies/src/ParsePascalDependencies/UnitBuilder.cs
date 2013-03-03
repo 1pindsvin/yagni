@@ -19,7 +19,8 @@ namespace ParsePascalDependencies
         private static readonly Regex UsesUnitsPatternRegex = new Regex(Patterns.UsesUnitsPattern,
                                                                         RegexOptions.IgnoreCase);
 
-        private static readonly Regex UnitNameRegex = new Regex(Patterns.UnitNamePattern, RegexOptions.IgnoreCase);
+        private static readonly Regex UnitNameRegex = new Regex(Patterns.UnitNamePattern,
+                                                                RegexOptions.IgnoreCase);
 
 
         private static readonly UnitNameComparer IgnoreCaseOnUnitNameComparer = new UnitNameComparer();
@@ -29,11 +30,13 @@ namespace ParsePascalDependencies
         {
             if (SingleLineCommentRegex.IsMatch(line))
             {
-                line = SingleLineCommentRegex.Replace(line, "");
+                line = SingleLineCommentRegex.Replace(line,
+                                                      "");
             }
             if (MultiLineCommentRegex.IsMatch(line))
             {
-                line = MultiLineCommentRegex.Replace(line, "");
+                line = MultiLineCommentRegex.Replace(line,
+                                                     "");
             }
             return line;
         }
@@ -58,8 +61,8 @@ namespace ParsePascalDependencies
 
         private string RemoveComments(IEnumerable<string> lines)
         {
-            var text = string.Join(" ", lines.Select(FilterSingleLineComment));
-            text = MultiLineCommentRegex.Replace(text, "");
+            var text = string.Join(" ",lines.Select(FilterSingleLineComment));
+            text = MultiLineCommentRegex.Replace(text,"");
             return text;
         }
 
@@ -72,15 +75,15 @@ namespace ParsePascalDependencies
             }
             if (!PascalUnit.IsUnitNameValid(unitName))
             {
-                return PascalUnit.CreateInvalidUnitWithNameAndPath(unitName, path);
+                return PascalUnit.CreateInvalidUnitWithNameAndPath(unitName,path);
             }
-            return new PascalUnit(unitName, path);
+            return new PascalUnit(unitName,path);
         }
 
         public PascalUnit Build(string path, IEnumerable<string> lines)
         {
             var text = RemoveComments(lines);
-            var unit = CreateUnit(text, path);
+            var unit = CreateUnit(text,path);
             foreach (var match in UsesUnitsPatternRegex.Matches(text).Cast<Match>())
             {
                 var matchInParanthetis = match.Groups[1].Value;
