@@ -17,29 +17,34 @@ namespace ParsePascalDependencies
             {
                 List<PascalUnit> find;
                 var unitNameLowered = unit.UnitNameLowered;
-                if (_pascalUnits.TryGetValue(unitNameLowered, out find))
+                if (PascalUnits.TryGetValue(unitNameLowered, out find))
                 {
                     Log.Error(string.Format("Unit is allready registered by name: [{0}], Path [{1}]", unit.UnitName, unit.Path));
                 }
                 else
                 {
-                    _pascalUnits.Add(unitNameLowered, new List<PascalUnit> { unit });    
+                    PascalUnits.Add(unitNameLowered, new List<PascalUnit> { unit });    
                 }
                 
             }
-            _units = _pascalUnits.SelectMany(x => x.Value).ToList();
+            _units = PascalUnits.SelectMany(x => x.Value).ToList();
+        }
+
+        public Dictionary<string, List<PascalUnit>> PascalUnits
+        {
+            get { return _pascalUnits; }
         }
 
         private List<PascalUnit> FindOrCreateUnit(string unitName)
         {
             List<PascalUnit> find;
             var unitNameLowered = unitName.ToLower();
-            if (_pascalUnits.TryGetValue(unitNameLowered, out find))
+            if (PascalUnits.TryGetValue(unitNameLowered, out find))
             {
                 return find;
             }
             find = new List<PascalUnit> {PascalUnit.CreateUnitWithoutPath(unitName)};
-            _pascalUnits.Add(unitNameLowered, find);
+            PascalUnits.Add(unitNameLowered, find);
             return find;
         }
 

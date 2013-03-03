@@ -15,6 +15,11 @@ namespace ParsePascalDependencies
             get { return _units; }
         }
 
+        public static DependencyParser CreateDefault(string path)
+        {
+            return CreateDefault(path, PascalUnit.IsUnitNameValid);
+        }
+
         public static DependencyParser CreateDefault(string path, Func<string, bool> unitNameFilter)
         {
             return new DependencyParser(new FileEnumerator(path, "*.pas"), new UnitBuilder(unitNameFilter));

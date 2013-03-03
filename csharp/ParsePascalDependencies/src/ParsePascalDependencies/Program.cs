@@ -11,15 +11,15 @@ namespace ParsePascalDependencies
     {
         internal const String FILE_PATH = "b:/op/AdHoc/Excel/AdoExcel/Unit1.pas";
 
-        private const string OpDir = @"b:\op\bk";
+        private const string OpDir = @"b:\op";
 
         private static readonly ILog Log = LogManager.GetLogger(typeof (Program));
 
 
         public static void Main(string[] args)
         {
-            //PrintUnitInfo();
-            PrintUnitnamesNotFoundInFileSystem();
+            PrintUnitInfo();
+            //PrintUnitnamesNotFoundInFileSystem();
             //PrintDependencies("meptypes");
             //PrintDependencies("BkApp");
         }
@@ -28,7 +28,7 @@ namespace ParsePascalDependencies
 
         private static void PrintUnitnamesNotFoundInFileSystem()
         {
-            var parser = DependencyParser.CreateDefault(OpDir,PascalUnit.IsUnitNameValid);
+            var parser = DependencyParser.CreateDefault(OpDir);
             parser.BuildPascalUnitsWithReferences();
             var pascalUnits = parser.Units.
                                         SelectMany(x => x.Units).
@@ -43,7 +43,7 @@ namespace ParsePascalDependencies
 
         private static void PrintDependencies(string unitName)
         {
-            var parser = DependencyParser.CreateDefault(OpDir,PascalUnit.IsUnitNameValid);
+            var parser = DependencyParser.CreateDefault(OpDir);
             parser.BuildPascalUnitsWithReferences();
             var mepTypes = parser.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
             var dependencies = mepTypes.DeepReferences.Distinct(PascalUnit.UnitComparer).ToList();
@@ -52,15 +52,16 @@ namespace ParsePascalDependencies
             PrintResolvedUnits(header,dependencies.OrderBy(x => x.IsFoundInFileSystem).ThenBy(x => x.UnitNameLowered),toString);
         }
 
+
+
         private static void PrintUnitInfo()
         {
-            //Predicate<string> isValidUnitName = ValidUnitName.IsMatch;
-            var appRunner = DependencyParser.CreateDefault(OpDir,PascalUnit.IsUnitNameValid);
-            appRunner.BuildPascalUnits();
+            var parser = DependencyParser.CreateDefault(OpDir);
+            parser.BuildPascalUnits();
             var sb = new StringBuilder();
-            var validUnits = appRunner.Units.Where(x => x.IsValidReference).ToList();
+            var validUnits = parser.Units.Where(x => x.IsValidReference).ToList();
 
-            sb.AppendLine(string.Format("Number of units searched: [{0}]",appRunner.Units.Count));
+            sb.AppendLine(string.Format("Number of units searched: [{0}]",parser.Units.Count));
             sb.AppendLine(string.Format("Number of valid unitnames resolved: [{0}]",validUnits.Count));
             sb.AppendLine(LineSeparator);
             var distinctUnitReferences = validUnits.SelectMany(x => x.DistinctUses).Select(x => x.ToLower()).Distinct().ToList();

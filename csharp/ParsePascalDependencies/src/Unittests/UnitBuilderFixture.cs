@@ -17,7 +17,9 @@ namespace ParsePascalDependencies
             return new Dictionary<string, string>
                 {
                     {"expected", "expe(*crap*)cted"},
-                    {"foo", "fo{crap}o"}
+                    {"foo", "fo{crap}o"}, 
+                    {" unit","{x} unit"},
+                    {" unit ///another ", "{dsgdsgdfgdfg} unit ///another "}
                 };
         }
 
@@ -34,7 +36,7 @@ namespace ParsePascalDependencies
         [Test]
         public void RemovesSingleLineCommentIfFound()
         {
-            foreach (var line in new[] {"unit //Unit1;", "{x} unit", " unit ", "{dsgdsgdfgdfg} unit ///another "})
+            foreach (var line in new[] {"unit //Unit1;", " unit ", " unit ///another "})
             {
                 Assert.AreEqual("unit",UnitBuilder.FilterSingleLineComment(line).Trim());
             }
