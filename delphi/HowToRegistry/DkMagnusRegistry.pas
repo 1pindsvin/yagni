@@ -22,6 +22,8 @@ type
 
   *)
   TRegistryPath = class(TObject)
+    const
+      MIN_NUMBER_OF_ELEMENTS_IN_PATH = 2;
     private
       fStrings : TStringList;
       function GetKey : string;
@@ -49,7 +51,10 @@ type
     const
       DELEMITER = '\';
       //there are more names: http://en.wikipedia.org/wiki/Windows_Registry
-      VALID_NAMES : array[0..2] of string =('HKEY_CURRENT_USER','HKEY_LOCAL_MACHINE','HKEY_USERS');
+      
+      VALID_NAMES : array[0..5] of string =('HKEY_LOCAL_MACHINE','HKEY_CURRENT_CONFIG','HKEY_CLASSES_ROOT','HKEY_USERS','HKEY_CURRENT_USER','HKEY_PERFORMANCE_DATA');
+
+
   end;
 
   TMagnusRegistry = class(TInterfacedObject)
@@ -66,6 +71,7 @@ type
       function ReadValue() : string;
       procedure WriteValue(const value : string);
       class function CreateDefault(registryPath : TRegistryPath) : TMagnusRegistry;
+
   end;
 
 implementation
@@ -87,6 +93,7 @@ begin
 end;
 
 
+
 class function TMagnusRegistry.CreateDefault(
   registryPath: TRegistryPath): TMagnusRegistry;
 begin
@@ -101,7 +108,7 @@ begin
     FreeAndNil(fRegistry);
   finally
   end;
-  TRegistryPath.FreeIfAssigned(fRegistryPath);
+  fRegistryPath.Free();
   inherited;
 end;
 
@@ -140,8 +147,6 @@ begin
   fStrings := TrimLastItemIfEmpty(CreatePathStrings(path));
   ValidateRegistryPathElements(fStrings);
 end;
-
-
 
 class function TRegistryPath.CreatePathStrings(const path: string): TStringList;
 begin
@@ -264,18 +269,18 @@ begin
   end;
   //Should this be at least four elements (including the root part HKEY_CURRENT_USER)??
   //like so: HKEY_CURRENT_USER\Software\Key\PopertyName
-  if strings.Count < 2 then
+  if strings.Count < MIN_NUMBER_OF_ELEMENTS_IN_PATH then
   begin
-    raise EInvalidRegistryPath.Create(Format('Path must at least contain three elements like so: HKEY_CURRENT_USER\Software\Key\PopertyName  [%s]', [path]));
+    raise EInvalidRegistryPath.Create(Format('Path must at least contain four elements like so: HKEY_CURRENT_USER\Software\Key\PopertyName  [%s]', [path]));
     exit;
   end;
 
-  firstElement := AnsiLowerCase(strings[0]);
+  firstElement := AnsiUpperCase(strings[0]);
   for item in VALID_NAMES do
   begin
-    if CompareStr(AnsiLowerCase(item), firstElement)=0 then
+    if CompareStr(item, firstElement)=0 then
     begin
-      exit;    
+      exit;
     end;
   end;
   raise EInvalidRegistryPath.Create(Format('Path must start with a known windows registry entry i.e HKEY_CURRENT_USER was [%s]', [path]));

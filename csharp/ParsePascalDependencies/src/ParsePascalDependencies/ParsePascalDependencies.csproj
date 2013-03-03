@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppRunner.cs" />
+    <Compile Include="DependencyParser.cs" />
     <Compile Include="IUnitBuilder.cs" />
     <Compile Include="PascalUnitComparer.cs" />
     <Compile Include="Patterns.cs" />

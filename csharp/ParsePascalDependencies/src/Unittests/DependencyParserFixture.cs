@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace ParsePascalDependencies
 {
     [TestFixture]
-    internal class AppRunnerFixture
+    internal class DependencyParserFixture
     {
         private class FakeFileEnumerator : IFileEnumerator
         {
@@ -31,12 +31,12 @@ namespace ParsePascalDependencies
         [Test]
         public void CanCreate()
         {
-            var e = BuildAppRunner();
+            var e = BuildDependencyParser();
         }
 
-        private static AppRunner BuildAppRunner()
+        private static DependencyParser BuildDependencyParser()
         {
-            return new AppRunner(new FakeFileEnumerator(), new FakeUnitBuilder());
+            return new DependencyParser(new FakeFileEnumerator(), new FakeUnitBuilder());
         }
     }
 }

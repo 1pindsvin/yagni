@@ -37,5 +37,6 @@
     </DelphiCompile>
     <DCCReference Include="..\..\log4d\Log4D.pas" />
     <DCCReference Include="TMagnusRegistryTests.pas" />
+    <None Include="ModelSupport_HowToRegistryTests\default.txaPackage" />
   </ItemGroup>
 </Project>

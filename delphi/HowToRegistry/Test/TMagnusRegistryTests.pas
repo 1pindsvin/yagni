@@ -10,6 +10,30 @@ uses
 
 type
 
+  TRegistryIntegrationTestsFixture = class(TTestCase)
+    const
+      USER_NAME = 'PWIH';
+      MAGNUS_INIT_APP_KEY = 'Magnus Informatik\Magnus:Årsafslutning\Init-App';
+      SOFTWARE_SECTION = 'Software';
+      PROPERTY_NAME = 'LastUserName';
+    private
+      fCanActuallyWriteAndRead : boolean;
+    protected
+      procedure SetUp; override;
+      procedure TearDown; override;
+    published
+      procedure CanWriteValue;
+      procedure CanReadValue;
+      procedure CreatesMissingKeysInPath;
+  end;
+
+  TRegistryAdapter = class
+       fRegistry : TRegistry;
+    public
+      constructor Create();
+      destructor Destroy; override;
+  end;
+
   TMagnusRegistryFixture = class(TTestCase)
     const
       USER_NAME = 'PWIH';
@@ -26,7 +50,7 @@ type
     published
       procedure CanWriteToLocalMachine;
       procedure CanReadMagnusLastUserDirectly;
-      procedure CanWriteMagnusLastUser;
+      procedure CanWriteAndReadToRegistry;
       procedure CanCreateKey;
       procedure CanReadMagnusLastUser;
       procedure CanDeleteKeyIfSet;
@@ -105,7 +129,7 @@ begin
   end;
 end;
 
-procedure TMagnusRegistryFixture.CanWriteMagnusLastUser;
+procedure TMagnusRegistryFixture.CanWriteAndReadToRegistry;
 var
   regIni : TRegIniFile;
 begin
@@ -196,7 +220,7 @@ begin
   //'Software\Magnus Informatik\Magnus:Årsafslutning\Init-App'
   registryPath := TRegistryPath.Create(TMagnusRegistry.MAGNUS_LAST_USER_NAME_PATH);
   try
-    expected := TRegistryPath.VALID_NAMES[0];
+    expected := TRegistryPath.VALID_NAMES[4];
     CheckEqualsString(expected, registryPath.Root);
     CheckEqualsString('LastUserName',registryPath.PropertyName);
     CheckEqualsString('Software\Magnus Informatik\Magnus:Årsafslutning\Init-App',registryPath.Section);
@@ -245,11 +269,17 @@ function TRegistryPathFixture.Equals(left, right: TStringList): boolean;
 var idx : integer;
 begin
   result := left.Count = right.Count;
-  if not result then exit;
+  if not result then
+  begin
+    exit;
+  end;
   for idx := 0 to left.Count - 1 do
   begin
     result :=  AnsiCompareStr(left[idx],right[idx])=0;
-    if not result then exit
+    if not result then
+    begin
+      exit
+    end;
   end;
 end;
 
@@ -271,7 +301,112 @@ begin
 end;
 
 
+{ TRegistryFixture }
+
+procedure TRegistryIntegrationTestsFixture.CanReadValue;
+var
+  reg: TRegistry;
+  pathToKey : string;
+  canCreate : boolean;
+  expected : string;
+  valueFromRegistry : string;
+begin
+  if not fCanActuallyWriteAndRead then
+  begin
+    exit;
+  end;
+  canCreate := true;
+  pathToKey := 'Software\Magnus Informatik\Magnus:Årsafslutning\Init-App\Gombert';
+  reg := TRegistry.Create(KEY_ALL_ACCESS);
+  try
+    reg.RootKey := HKEY_CURRENT_USER;
+    CheckTrue(reg.OpenKeyReadOnly(pathToKey));
+    expected := 'PWIH';
+    valueFromRegistry := reg.ReadString('Flandhart');
+    CheckEqualsString(expected,valueFromRegistry);
+    reg.CloseKey();
+  finally
+    reg.Free;
+  end;
+end;
+
+procedure TRegistryIntegrationTestsFixture.CanWriteValue;
+var
+  reg: TRegistry;
+  pathToKey : string;
+  canCreate : boolean;
+begin
+  if not fCanActuallyWriteAndRead then
+  begin
+    exit;
+  end;
+  canCreate := true;
+  pathToKey := 'Software\Magnus Informatik\Magnus:Årsafslutning\Init-App\Gombert';
+  reg := TRegistry.Create(KEY_ALL_ACCESS);
+  try
+    reg.LazyWrite := false;
+    reg.RootKey := HKEY_CURRENT_USER;
+    CheckTrue(reg.OpenKey(pathToKey,canCreate));
+    reg.WriteString('Flandhart', 'PWIH');
+    reg.CloseKey();
+  finally
+    reg.Free;
+  end;
+end;
+
+procedure TRegistryIntegrationTestsFixture.CreatesMissingKeysInPath;
+var
+  reg: TRegistry;
+  pathToKey : string;
+  canCreate : boolean;
+begin
+  if not fCanActuallyWriteAndRead then
+  begin
+    exit;
+  end;
+  canCreate := true;
+  pathToKey := 'Software\XXXX\YYYYY\Gombert';
+  reg := TRegistry.Create(KEY_ALL_ACCESS);
+  try
+    reg.LazyWrite := false;
+    reg.RootKey := HKEY_CURRENT_USER;
+    CheckTrue(reg.OpenKey(pathToKey,canCreate));
+    reg.WriteString('Flandhart', 'PWIH');
+    reg.CloseKey();
+  finally
+    reg.Free;
+  end;
+end;
+
+procedure TRegistryIntegrationTestsFixture.SetUp;
+begin
+  inherited;
+  fCanActuallyWriteAndRead := false;
+end;
+
+procedure TRegistryIntegrationTestsFixture.TearDown;
+begin
+  inherited;
+
+end;
+
+{ TRegistryAdapter }
+
+constructor TRegistryAdapter.Create;
+begin
+  inherited;
+  fRegistry := TRegistry.Create(KEY_ALL_ACCESS);
+  fRegistry.RootKey := HKEY_CURRENT_USER;
+end;
+
+destructor TRegistryAdapter.Destroy;
+begin
+  fRegistry.Free;
+  inherited;
+end;
+
 initialization
   TestFramework.RegisterTest(TMagnusRegistryFixture.Suite);
   TestFramework.RegisterTest(TRegistryPathFixture.Suite);
+  TestFramework.RegisterTest(TRegistryIntegrationTestsFixture.Suite);
 end.

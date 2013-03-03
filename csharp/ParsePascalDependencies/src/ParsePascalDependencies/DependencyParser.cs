@@ -5,7 +5,7 @@ using log4net;
 
 namespace ParsePascalDependencies
 {
-    internal class AppRunner
+    internal class DependencyParser
     {
         private readonly IFileEnumerator _enumerator;
         private readonly IUnitBuilder _builder;
@@ -16,12 +16,12 @@ namespace ParsePascalDependencies
             get { return _units; }
         }
 
-        public static AppRunner CreateDefault(string path, Func<string, bool> unitNameFilter)
+        public static DependencyParser CreateDefault(string path, Func<string, bool> unitNameFilter)
         {
-            return new AppRunner(new FileEnumerator(path, "*.pas"), new UnitBuilder(unitNameFilter));
+            return new DependencyParser(new FileEnumerator(path, "*.pas"), new UnitBuilder(unitNameFilter));
         }
 
-        public AppRunner(IFileEnumerator enumerator, IUnitBuilder builder)
+        public DependencyParser(IFileEnumerator enumerator, IUnitBuilder builder)
         {
             if (enumerator == null)
             {

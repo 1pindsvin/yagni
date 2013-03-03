@@ -27,7 +27,7 @@ namespace ParsePascalDependencies
 
         private static void PrintUnitnamesNotFoundInFileSystem()
         {
-            var appRunner = AppRunner.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
+            var appRunner = DependencyParser.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
             appRunner.BuildPascalUnitsWithReferences();
             var pascalUnits = appRunner.Units.
                                         SelectMany(x => x.Units).
@@ -42,7 +42,7 @@ namespace ParsePascalDependencies
 
         private static void PrintDependencies(string unitName)
         {
-            var appRunner = AppRunner.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
+            var appRunner = DependencyParser.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
             appRunner.BuildPascalUnitsWithReferences();
             var mepTypes = appRunner.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
             var dependencies = mepTypes.DeepReferences.Distinct(PascalUnit.UnitComparer).ToList();
@@ -54,7 +54,7 @@ namespace ParsePascalDependencies
         private static void PrintUnitInfo()
         {
             //Predicate<string> isValidUnitName = ValidUnitName.IsMatch;
-            var appRunner = AppRunner.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
+            var appRunner = DependencyParser.CreateDefault(OpDir, PascalUnit.IsUnitNameValid);
             appRunner.BuildPascalUnits();
             var sb = new StringBuilder();
             var validUnits = appRunner.Units.Where(x => x.IsValidReference).ToList();
