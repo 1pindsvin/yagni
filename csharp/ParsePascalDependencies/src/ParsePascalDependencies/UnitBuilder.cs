@@ -11,7 +11,7 @@ namespace ParsePascalDependencies
         private readonly Func<string, bool> _unitNameFilter;
         private static readonly ILog Log = LogManager.GetLogger(typeof (UnitBuilder));
 
-        private static readonly Regex SingleLineCommentRegex = new Regex(Patterns.SingleLinePattern,
+        private static readonly Regex SingleLineCommentRegex = new Regex(Patterns.SingleLineCommentPattern,
                                                                          RegexOptions.Singleline);
 
         public static readonly Regex MultiLineCommentRegex = new Regex(Patterns.MultiLineCommentInOneLinePattern);
@@ -28,17 +28,7 @@ namespace ParsePascalDependencies
 
         public static string FilterSingleLineComment(string line)
         {
-            if (SingleLineCommentRegex.IsMatch(line))
-            {
-                line = SingleLineCommentRegex.Replace(line,
-                                                      "");
-            }
-            if (MultiLineCommentRegex.IsMatch(line))
-            {
-                line = MultiLineCommentRegex.Replace(line,
-                                                     "");
-            }
-            return line;
+            return SingleLineCommentRegex.Replace(line,""); 
         }
 
 
@@ -59,10 +49,14 @@ namespace ParsePascalDependencies
             _unitNameFilter = unitNameFilter;
         }
 
+        private const string JoinOn = "x_gryffe_x";
+
         private string RemoveComments(IEnumerable<string> lines)
         {
-            var text = string.Join(" ",lines.Select(FilterSingleLineComment));
+            var text = string.Join(JoinOn,lines);
             text = MultiLineCommentRegex.Replace(text,"");
+            var split = text.Split(new[] {JoinOn}, StringSplitOptions.None);
+            text = string.Join(" ", split.Select(x => SingleLineCommentRegex.Replace(x, "")));
             return text;
         }
 

@@ -11,7 +11,7 @@ namespace ParsePascalDependencies
     {
         internal const String FILE_PATH = "b:/op/AdHoc/Excel/AdoExcel/Unit1.pas";
 
-        private const string OpDir = @"b:\op";
+        private const string OpDir = @"b:\op\bk";
 
         private static readonly ILog Log = LogManager.GetLogger(typeof (Program));
 
@@ -19,8 +19,9 @@ namespace ParsePascalDependencies
         public static void Main(string[] args)
         {
             //PrintUnitInfo();
-            //PrintUnitnamesNotFoundInFileSystem();
-            PrintDependencies("meptypes");
+            PrintUnitnamesNotFoundInFileSystem();
+            //PrintDependencies("meptypes");
+            //PrintDependencies("BkApp");
         }
 
         private const string LineSeparator = "=======================================================";
@@ -36,18 +37,18 @@ namespace ParsePascalDependencies
                                         OrderBy(x => x.UnitNameLowered).
                                         ToList();
             var header = string.Format("Number of unique units not found in filesystem: {0}",pascalUnits.Count());
-            Func<PascalUnit, string> toString = x => string.Format(x.ToNameAndPathString());
+            Func<PascalUnit, string> toString = x => string.Format(x.UnitName);
             PrintResolvedUnits(header,pascalUnits,toString);
         }
 
         private static void PrintDependencies(string unitName)
         {
-            var appRunner = DependencyParser.CreateDefault(OpDir,PascalUnit.IsUnitNameValid);
-            appRunner.BuildPascalUnitsWithReferences();
-            var mepTypes = appRunner.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
+            var parser = DependencyParser.CreateDefault(OpDir,PascalUnit.IsUnitNameValid);
+            parser.BuildPascalUnitsWithReferences();
+            var mepTypes = parser.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
             var dependencies = mepTypes.DeepReferences.Distinct(PascalUnit.UnitComparer).ToList();
             var header = unitName + ", dependencies";
-            Func<PascalUnit, string> toString = x => x.UnitName;
+            Func<PascalUnit, string> toString = x => string.Format(x.ToNameAndPathString());
             PrintResolvedUnits(header,dependencies.OrderBy(x => x.IsFoundInFileSystem).ThenBy(x => x.UnitNameLowered),toString);
         }
 
@@ -78,7 +79,7 @@ namespace ParsePascalDependencies
 
         private static void PrintResolvedUnits(string header,IEnumerable<PascalUnit> units,Func<PascalUnit, string> toString)
         {
-            var contents = header + Environment.NewLine + string.Join(Environment.NewLine,units.Select(x => string.Format(x.ToNameAndPathString())));
+            var contents = header + Environment.NewLine + string.Join(Environment.NewLine,units.Select(toString));
             File.WriteAllText("unitnames.txt",contents);
             Console.WriteLine("All done");
             Console.Read();

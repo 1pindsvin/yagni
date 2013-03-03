@@ -1,45 +1,55 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using log4net;
 
 namespace ParsePascalDependencies
 {
     internal class DeepReferenceResolver
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DeepReferenceResolver));
+        private readonly Dictionary<string, List<PascalUnit>> _pascalUnits;
         private readonly List<PascalUnit> _units;
-        private readonly List<PascalUnit> _unitsWithoutPaths;
 
-        public DeepReferenceResolver(List<PascalUnit> units)
+        public DeepReferenceResolver(IEnumerable<PascalUnit> units)
         {
-            _units = units;
-            _unitsWithoutPaths = new List<PascalUnit>();
+            _pascalUnits = new Dictionary<string, List<PascalUnit>>();
+            foreach (var unit in units)
+            {
+                List<PascalUnit> find;
+                var unitNameLowered = unit.UnitNameLowered;
+                if (_pascalUnits.TryGetValue(unitNameLowered, out find))
+                {
+                    Log.Error(string.Format("Unit is allready registered by name: [{0}], Path [{1}]", unit.UnitName, unit.Path));
+                }
+                else
+                {
+                    _pascalUnits.Add(unitNameLowered, new List<PascalUnit> { unit });    
+                }
+                
+            }
+            _units = _pascalUnits.SelectMany(x => x.Value).ToList();
         }
 
-        private PascalUnit FindOrCreateUnit(string unitName)
+        private List<PascalUnit> FindOrCreateUnit(string unitName)
         {
-            var find = _unitsWithoutPaths.Find(x => x.UnitNameLowered.Equals(unitName.ToLower()));
-            if (find == null)
+            List<PascalUnit> find;
+            var unitNameLowered = unitName.ToLower();
+            if (_pascalUnits.TryGetValue(unitNameLowered, out find))
             {
-                find = PascalUnit.CreateUnitWithoutPath(unitName);
-                _unitsWithoutPaths.Add(find);
+                return find;
             }
+            find = new List<PascalUnit> {PascalUnit.CreateUnitWithoutPath(unitName)};
+            _pascalUnits.Add(unitNameLowered, find);
             return find;
         }
 
-        private IEnumerable<PascalUnit> FindByUnitNamesLowered(IEnumerable<string> unitNamesLowered)
-        {
-            foreach (var unitName in unitNamesLowered)
-            {
-                yield return _units.Find(x => x.UnitNameLowered.Equals(unitName)) ?? FindOrCreateUnit(unitName);
-            }
-        }
 
         public void ResolveDependencies()
         {
             foreach (var unit in _units)
             {
-                var unitNamesLowered = unit.DistinctUses.Select(x => x.ToLower());
-                var pascalUnits = FindByUnitNamesLowered(unitNamesLowered).ToList();
-                unit.Units = pascalUnits;
+                var references = unit.DistinctUses.SelectMany(FindOrCreateUnit); //FindByUnitName(unit.DistinctUses).ToList();
+                unit.Units = references.ToList();
             }
         }
     }

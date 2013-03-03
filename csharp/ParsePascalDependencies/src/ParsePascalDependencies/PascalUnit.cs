@@ -103,8 +103,7 @@ namespace ParsePascalDependencies
             }
             if (!IsUnitNameValid(unitName))
             {
-                throw new InvalidOperationException(string.Format("unitName contained invalid chars [{0}]",
-                                                                  _unitName));
+                throw new InvalidOperationException(string.Format("unitName contained invalid chars [{0}]",_unitName));
             }
             if (String.IsNullOrEmpty(path))
             {
@@ -138,8 +137,7 @@ namespace ParsePascalDependencies
 
         public string DistinctUsesToString()
         {
-            return "[" + string.Join("|",
-                                     DistinctUses) + "]";
+            return "[" + string.Join("|",DistinctUses) + "]";
         }
 
         public override string ToString()
