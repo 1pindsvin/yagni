@@ -49,13 +49,14 @@ namespace ParsePascalDependencies
             _unitNameFilter = unitNameFilter;
         }
 
-        private const string JoinOn = "x_gryffe_x";
+
+        private const string JoinOnNotSoCommonString = " x_gryffe_x ";
 
         private string RemoveComments(IEnumerable<string> lines)
         {
-            var text = string.Join(JoinOn,lines);
+            var text = string.Join(JoinOnNotSoCommonString,lines);
             text = MultiLineCommentRegex.Replace(text,"");
-            var split = text.Split(new[] {JoinOn}, StringSplitOptions.None);
+            var split = text.Split(new[] {JoinOnNotSoCommonString}, StringSplitOptions.None);
             text = string.Join(" ", split.Select(x => SingleLineCommentRegex.Replace(x, "")));
             return text;
         }

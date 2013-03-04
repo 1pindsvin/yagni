@@ -11,6 +11,9 @@ namespace ParsePascalDependencies
     {
         public static readonly PascalUnitComparer UnitComparer = new PascalUnitComparer();
 
+        //evaluate a single word - does not accept punctuations: my.library.controls 
+        //these are used by the common language runtime (.net)
+        //refactor?
         private static readonly Regex ValidUnitName = new Regex(@"^\w+$");
 
         private static readonly ILog Log = LogManager.GetLogger(typeof (PascalUnit));

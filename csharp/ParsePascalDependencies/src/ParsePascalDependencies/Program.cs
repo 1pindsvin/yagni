@@ -18,9 +18,9 @@ namespace ParsePascalDependencies
 
         public static void Main(string[] args)
         {
-            PrintUnitInfo();
+            //PrintUnitInfo();
             //PrintUnitnamesNotFoundInFileSystem();
-            //PrintDependencies("meptypes");
+            PrintDependencies("meptypes");
             //PrintDependencies("BkApp");
         }
 
@@ -57,7 +57,7 @@ namespace ParsePascalDependencies
         private static void PrintUnitInfo()
         {
             var parser = DependencyParser.CreateDefault(OpDir);
-            parser.BuildPascalUnits();
+            parser.BuildPascalUnitsWithReferences();
             var sb = new StringBuilder();
             var validUnits = parser.Units.Where(x => x.IsValidReference).ToList();
 

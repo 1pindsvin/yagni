@@ -1,9 +1,4 @@
-Continue - learning tests through dunit implementing something that might help talk to the registry
-Tests implemented in DkAppRunner
-Unable to commit 
-set HOMEPATH=\Users\pwih
-set HOMEDRIVE=c:
-had to clone fresh version from github to get things working
-Installed new version of git client tool
+amend forgot some pattern refactoring and a change in the way the dictionary is built.
+
 
 

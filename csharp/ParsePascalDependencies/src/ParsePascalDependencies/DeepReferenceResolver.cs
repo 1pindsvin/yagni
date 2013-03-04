@@ -13,21 +13,25 @@ namespace ParsePascalDependencies
         public DeepReferenceResolver(IEnumerable<PascalUnit> units)
         {
             _pascalUnits = new Dictionary<string, List<PascalUnit>>();
+            UnitsToDictionay(units);
+            _units = _pascalUnits.SelectMany(x => x.Value).ToList();
+        }
+
+        private void UnitsToDictionay(IEnumerable<PascalUnit> units)
+        {
             foreach (var unit in units)
             {
                 List<PascalUnit> find;
                 var unitNameLowered = unit.UnitNameLowered;
                 if (PascalUnits.TryGetValue(unitNameLowered, out find))
                 {
-                    Log.Error(string.Format("Unit is allready registered by name: [{0}], Path [{1}]", unit.UnitName, unit.Path));
+                    find.Add(unit);
                 }
                 else
                 {
-                    PascalUnits.Add(unitNameLowered, new List<PascalUnit> { unit });    
+                    PascalUnits.Add(unitNameLowered, new List<PascalUnit> {unit});
                 }
-                
             }
-            _units = PascalUnits.SelectMany(x => x.Value).ToList();
         }
 
         public Dictionary<string, List<PascalUnit>> PascalUnits
@@ -48,12 +52,11 @@ namespace ParsePascalDependencies
             return find;
         }
 
-
         public void ResolveDependencies()
         {
             foreach (var unit in _units)
             {
-                var references = unit.DistinctUses.SelectMany(FindOrCreateUnit); //FindByUnitName(unit.DistinctUses).ToList();
+                var references = unit.DistinctUses.SelectMany(FindOrCreateUnit);
                 unit.Units = references.ToList();
             }
         }

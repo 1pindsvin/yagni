@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ParsePascalDependencies
 {
@@ -46,6 +47,8 @@ namespace ParsePascalDependencies
             BuildPascalUnits();
             var resolver = new DeepReferenceResolver(Units);
             resolver.ResolveDependencies();
+            _units.Clear();
+            _units.AddRange(resolver.PascalUnits.SelectMany(x=>x.Value));
         }
 
 
