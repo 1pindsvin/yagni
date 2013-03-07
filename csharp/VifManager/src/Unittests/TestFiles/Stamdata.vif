@@ -1,0 +1,5732 @@
+object VifPackage: TVifPackage
+  Tag = 1
+  ViperVersion = '4.80.1.3'
+  LiftAndExportAttributes.Strings = (
+    'SelectionList_sid1_F23::[STRING]='
+    'GetByListe(" ");'
+    'SelectionList_sid1_F24::[STRING]='
+    'GetKommuneListe(" ");'
+    'SelectionList_sid1_F26::[STRING]='
+    'GetPostNrListe(" ");'
+    'SelectionList_sid1_F22::[STRING]='
+    'IF (sid1.F26 <> "" AND sid1.F47==TRUE) THEN'
+    '  SuggestKommuneNrListe(sid1.F26)'
+    'ELSE'
+    '  GetKommuneNrListe(" ")'
+    ';'
+    'SelectionList_sid1_F51::[STRING]='
+    'GetPostNrListe(" ");'
+    'SelectionList_sid1_F52::[STRING]='
+    'GetByListe(" ");'
+    'SelectionList_sid1_F53::[STRING]='
+    'GetKommuneListe(" ");'
+    'SelectionList_sid1_F54::[STRING]='
+    'IF (sid1.F51 <> "" AND sid1.F65==TRUE) THEN'
+    '  SuggestKommuneNrListe(sid1.F51)'
+    'ELSE'
+    '  GetKommuneNrListe(" ")'
+    ';'
+    'SelectionList_sid1_F90::[STRING]='
+    '["Nej", "Alderspensionist", "Efterlønner mv."];'
+    'SelectionList_sid1_F91::[STRING]='
+    '["Nej", "Alderspensionist", "Efterlønner mv."];'
+    'SelectionList_sid1_F92::[STRING]='
+    '["Nej", "Senest 30/6-04", "Tidligst 17/-04"];'
+    'SelectionList_sid1_F93::[STRING]='
+    '["Nej", "Senest 30/6-04", "Tidligst 17/-04"];')
+  DefaultId = 0
+  HasInstanceLimit = False
+  MinInstance = 0
+  MaxInstance = 1
+  Ident = 'STAMDATA'
+  Log.Strings = (
+    'Log')
+  Comment.Strings = (
+    'Comment')
+  FormDescription = 'Basisoplysninger'
+  Pages.Strings = (
+    'sid1')
+  PopupField = '146'
+  Version = 0
+  EnclosureSerie = 0
+  DelfExport.Strings = (
+    'ALL;')
+  DelfImport.Strings = (
+    '')
+  ModuleId = 'D'
+  NumberOfPages = 1
+  EngineClass = 7
+  FormName = 'STAMDATA'
+  FormType = 2
+  DeklarationsTyp = []
+  ConstAndFunc.Strings = (
+    'object TConstFolder'
+    '  Ident = '#39'Stamdata.vcd'#39
+    '  VersionNr = 1'
+    'end')
+  Consts = Consts
+  DelfAttributes.Strings = (
+    'ChildList::[STRING] = [];'
+    'GfoSettings::INTEGER;'
+    'Person12List::[STRING]=[sid1.F144, sid1.F145];')
+  DCQ = False
+  ShowOnGFO = True
+  Release = 'True'
+  StaConnections.Strings = (
+    '')
+  WysiwygColor1 = clSilver
+  WysiwygColor2 = clGray
+  object Consts: TConstFolder
+  end
+  object FProxyA88B11C6D11E860: TFormProxy
+    Left = 0
+    Top = 0
+    Width = 1500
+    Height = 2000
+    Cursor = crArrow
+    HorzScrollBar.Increment = 21
+    HorzScrollBar.Range = 1500
+    VertScrollBar.Increment = 24
+    VertScrollBar.Range = 2000
+    AutoScroll = False
+    BorderStyle = bsNone
+    Color = 15198183
+    ParentColor = False
+    TabOrder = 1
+    TabStop = True
+    HideFlap = False
+    Caption = 'Forberedelse'
+    IsModal = True
+    ModalPanelButtons = mpbOkCancel
+    TabCaption = 'Basisoplysninger'
+    ActualSizeX = 1500
+    ActualSizeY = 2000
+    WorkingName = 'sid1'
+    Attributes.Strings = (
+      'R75Imported::AMOUNT = 0;'
+      'R75Imported1::BOOLEAN = FALSE;'
+      'R75Imported2::BOOLEAN = FALSE;'
+      ''
+      'UpdateGiftOgSamboendeFalse::BOOLEAN=FALSE'
+      'RESTRICTION Gift!n==FALSE ->'
+      '{'
+      '  SamlevendeAegtefaellerVedAaretsUdloeb!n:= FALSE,'
+      '  AegteskabIAaret!n:= FALSE'
+      '};'
+      ''
+      'UpdateGiftOgSamboendeTrue::BOOLEAN=FALSE'
+      'RESTRICTION Gift!n==TRUE ->'
+      '{'
+      '  SamlevendeAegtefaellerVedAaretsUdloeb!n:= TRUE'
+      '};'
+      ''
+      ''
+      'UpdateOmregningPeriodeTilHelaar_1::BOOLEAN=FALSE'
+      
+        'RESTRICTION AnythingIn(OmregningPgf14_1_1!n) OR AnythingIn(Omreg' +
+        'ningPgf14_2_1!n) ->'
+      '{'
+      '  IF OmregningPgf14_1_1!n == TRUE THEN'
+      '    {OmregningPeriodeTilHelaar_1!n:= TRUE}'
+      '  ELSE'
+      '    {OmregningPeriodeTilHelaar_1!n:= FALSE}'
+      '};'
+      ''
+      'UpdateOmregningPeriodeTilHelaar_2::BOOLEAN=FALSE'
+      
+        'RESTRICTION AnythingIn(OmregningPgf14_1_2!n) OR AnythingIn(Omreg' +
+        'ningPgf14_2_2!n) ->'
+      '{'
+      '  IF OmregningPgf14_1_2!n == TRUE THEN'
+      '    {OmregningPeriodeTilHelaar_2!n:= TRUE}'
+      '  ELSE'
+      '    {OmregningPeriodeTilHelaar_2!n:= FALSE}'
+      '};'
+      ''
+      'UpdateSatser_1::BOOLEAN=FALSE'
+      'RESTRICTION selvdefineredeSatser_1!n==FALSE ->'
+      '{'
+      '  KommSkatSats_1!n^LOCK:= FALSE,'
+      '  KirkeSkatSats_1!n^LOCK:= FALSE'
+      '};'
+      ''
+      'UpdateSatser2::BOOLEAN=FALSE'
+      'RESTRICTION selvdefineredeSatser_2!n==FALSE ->'
+      '{'
+      '  KommSkatSats_2!n^LOCK:= FALSE,'
+      '  KirkeSkatSats_2!n^LOCK:= FALSE'
+      '};'
+      ''
+      'UpdateSatserB::BOOLEAN=FALSE'
+      'RESTRICTION selvdefineredeSatser!n==FALSE ->'
+      '{'
+      '  F88^LOCK:= FALSE,'
+      '  F89^LOCK:= FALSE'
+      '};'
+      ''
+      'UpdateKommune_1::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(KommuneNr_1!n) ->'
+      '{'
+      '  KommuneNavn_1!n^LOCK:= FALSE'
+      '};'
+      ''
+      'UpdateKommune_2::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(KommuneNr_2!n) ->'
+      '{'
+      '  KommuneNavn_2!n^LOCK:= FALSE'
+      '};'
+      ''
+      'UpdateAdressePerson::BOOLEAN=FALSE'
+      'RESTRICTION AdresseBegge!n == TRUE ->'
+      '{'
+      '  AdressePerson!n:=1'
+      '};'
+      ''
+      'UpdateAdressePersonY::BOOLEAN=FALSE'
+      'RESTRICTION AdresseBegge!n == FALSE ->'
+      '{'
+      '  AdressePerson!n:=SenesteAdressePerson!n'
+      '};'
+      ''
+      'UpdateAdressePersonX::BOOLEAN=FALSE'
+      'RESTRICTION Ugift!n == TRUE ->'
+      '{'
+      '  AdresseBegge!n:=TRUE'
+      '};'
+      ''
+      'SuggestKommuneNr_1::BOOLEAN=FALSE'
+      
+        'RESTRICTION (AnythingIn(PostNr_1!n) OR AnythingIn(ByNavn_1!n)) A' +
+        'ND ForeslaaKommune_1!n == TRUE ->'
+      '{'
+      '  KommuneNr_1!n:=Select(1,SuggestKommuneNrListe(PostNr_1!n))'
+      '};'
+      ''
+      'SuggestKommuneNr_2::BOOLEAN=FALSE'
+      
+        'RESTRICTION (AnythingIn(PostNr_2!n) OR AnythingIn(ByNavn_2!n)) A' +
+        'ND ForeslaaKommune_2!n == TRUE ->'
+      '{'
+      '  KommuneNr_2!n:=Select(1,SuggestKommuneNrListe(PostNr_2!n))'
+      '};'
+      ''
+      'UpdateKommuneNr_1::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(KommuneNavn_1!n) ->'
+      '{'
+      '  KommuneNr_1!n:= GetKommuneNr(KommuneNavn_1!n)'
+      '};'
+      ''
+      'UpdateKommuneNr_2::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(KommuneNavn_2!n) ->'
+      '{'
+      '  KommuneNr_2!n:= GetKommuneNr(KommuneNavn_2!n)'
+      '};'
+      ''
+      'UpdateByNavn_1::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(PostNr_1!n) ->'
+      '{'
+      '  ByNavn_1!n:= GetBy(PostNr_1!n)'
+      '};'
+      ''
+      'UpdatePostNr_1::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(ByNavn_1!n) ->'
+      '{'
+      '  PostNr_1!n:= GetPostNr(ByNavn_1!n)'
+      '};'
+      ''
+      'UpdateByNavn_2::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(PostNr_2!n) ->'
+      '{'
+      '  ByNavn_2!n:= GetBy(PostNr_2!n)'
+      '};'
+      ''
+      'UpdatePostNr_2::BOOLEAN=FALSE'
+      'RESTRICTION AnythingIn(ByNavn_2!n) ->'
+      '{'
+      '  PostNr_2!n:= GetPostNr(ByNavn_2!n)'
+      '};'
+      ''
+      'UpdateVedAfdoed::BOOLEAN=FALSE'
+      'RESTRICTION AfdoedIngen!n==TRUE ->'
+      '{'
+      '  SkiftetBo!n:= TRUE,'
+      '  F102:= TRUE,'
+      '  F100:= TRUE,'
+      '  F107:= NewDate(iAar,12,31),'
+      '  F108:= NewDate(iAar,12,31),'
+      '  F109:= NewDate(iAar,12,31),'
+      '  F110:= NewDate(iAar,12,31)'
+      '};'
+      ''
+      'UpdateVedAfdoedPerson_1::BOOLEAN=FALSE'
+      'RESTRICTION AfdoedPerson_1!n==TRUE ->'
+      '{'
+      '  F109:= NewDate(iAar,12,31),'
+      '  F110:= NewDate(iAar,12,31)'
+      '};'
+      ''
+      'UpdateVedAfdoedPerson_2::BOOLEAN=FALSE'
+      'RESTRICTION AfdoedPerson_2!n==TRUE ->'
+      '{'
+      '  F107:= NewDate(iAar,12,31),'
+      '  F108:= NewDate(iAar,12,31)'
+      '};')
+    Handler.Strings = (
+      'Set(x)->'
+      '{'
+      '    IF x==1 THEN'
+      '      {'
+      '        R75Imported1:=FALSE,'
+      '        R75Imported1:=TRUE'
+      '      }'
+      '    ELSE IF x==2 THEN'
+      '      {'
+      '        R75Imported2:=FALSE,'
+      '        R75Imported2:=TRUE'
+      '      }'
+      '}')
+    PageNumber = 1
+    DocName = '<void>'
+    BackgroundAlign = bsTile
+    HelpTopicId = 'D1'
+    VIFColor = vcModern
+    object A118B11C18D56E408: TBevelCtrl
+      Left = 56
+      Top = 1384
+      Width = 745
+      Height = 378
+      Ident = 'Bevel8'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A11B11C26D59E170: TBevelCtrl
+      Left = 56
+      Top = 144
+      Width = 746
+      Height = 224
+      Ident = 'Bevel2'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A154B13C57D49E18: TBevelCtrl
+      Left = 114
+      Top = 1639
+      Width = 643
+      Height = 111
+      Ident = 'Bevel13'
+    end
+    object A140B13C6D19E130: TBevelCtrl
+      Left = 577
+      Top = 1433
+      Width = 179
+      Height = 159
+      Ident = 'Bevel12'
+    end
+    object A137B13C4D19E199: TBevelCtrl
+      Left = 346
+      Top = 1516
+      Width = 179
+      Height = 76
+      Ident = 'Bevel11'
+    end
+    object A135B13C3D27E21: TBevelCtrl
+      Left = 346
+      Top = 1433
+      Width = 179
+      Height = 76
+      Ident = 'Bevel10'
+    end
+    object A129B13C1D26E268: TBevelCtrl
+      Left = 114
+      Top = 1433
+      Width = 179
+      Height = 159
+      Ident = 'Bevel9'
+    end
+    object A44B11C17D45E560: TBevelCtrl
+      Left = 56
+      Top = 1256
+      Width = 745
+      Height = 120
+      Ident = 'Bevel14'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A101B10C21D45E605: TBevelCtrl
+      Left = 56
+      Top = 1056
+      Width = 745
+      Height = 192
+      Ident = 'Bevel7'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A90B10C14D38E675: TBevelCtrl
+      Left = 56
+      Top = 952
+      Width = 745
+      Height = 96
+      Ident = 'Bevel6'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A38B10C4D50E374: TBevelCtrl
+      Left = 56
+      Top = 792
+      Width = 746
+      Height = 152
+      Ident = 'Bevel4'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A74B13C23D36E888: TBevelCtrl
+      Left = 56
+      Top = 672
+      Width = 746
+      Height = 112
+      Ident = 'Bevel5'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A13B11C29D42E819: TBevelCtrl
+      Left = 56
+      Top = 376
+      Width = 747
+      Height = 288
+      Ident = 'Bevel3'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object A10B11C26D38E187: TBevelCtrl
+      Left = 56
+      Top = 56
+      Width = 746
+      Height = 80
+      Ident = 'Bevel1'
+      Style = bvlColored
+      BevelColor = bcColor3
+      UseDots = False
+    end
+    object sid1Label53: TLabelCtrl
+      Left = 535
+      Top = 245
+      Width = 12
+      Height = 19
+      Caption = 'år'
+      Ident = 'Label53'
+      WordWrap = False
+    end
+    object A0B9C10D21E185: TToggleCtrl
+      Left = 824
+      Top = 248
+      Width = 177
+      Height = 15
+      FieldName = 'F135'
+      Caption = 'Sambeskattede ægtefæller?'
+      Formula.Strings = (
+        'IF (BSTAMDATA{MULT 1}.sid1.Gift!n==TRUE) AND'
+        
+          '   (BSTAMDATA{MULT 1}.sid1.SamlevendeAegtefaellerVedAaretsUdloeb' +
+          '!n==TRUE) AND'
+        '     (BegraensetSkpl_1!n==FALSE) AND'
+        '     (BegraensetSkpl_2!n==FALSE) THEN'
+        '  TRUE'
+        'ELSE'
+        '  FALSE')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 7
+      LongIdent = 'SambeskattedeAegtefaellerVedAaretsUdloeb'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A9B13C42D22E930: TFieldCtrl
+      Tag = 16
+      Left = 562
+      Top = 247
+      Width = 83
+      Height = 20
+      FieldName = 'F4'
+      Formula.Strings = (
+        'StringToSSN("101070 0000",TRUE)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'PShowMsg = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 29
+      Kind = fkSSN
+      LongIdent = 'CprNr_2'
+      MaxLength = 11
+      Template = 'StandardSSN'
+      ControlData = {}
+      BoxSizeX = 83
+      BoxSizeY = 20
+    end
+    object A8B13C42D3E349: TFieldCtrl
+      Tag = 16
+      Left = 318
+      Top = 247
+      Width = 83
+      Height = 20
+      FieldName = 'F3'
+      Formula.Strings = (
+        'StringToSSN("101070 0000",TRUE)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PShowMsg = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 27
+      Kind = fkSSN
+      LongIdent = 'CprNr_1'
+      MaxLength = 11
+      Template = 'StandardSSN'
+      ControlData = {}
+      BoxSizeX = 83
+      BoxSizeY = 20
+    end
+    object A3B13C22D24E283: TFieldCtrl
+      Tag = 9
+      Left = 490
+      Top = 247
+      Width = 40
+      Height = 20
+      FieldName = 'F133'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        
+          'IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AND ' +
+          'PnrOk(CprNr_1!n) THEN'
+        '  CPRToAlder(IndkomstAarTil_1!n,SSNToString(CprNr_1!n))'
+        'ELSE'
+        '  NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 28
+      Kind = fkAmount
+      LongIdent = 'AlderVedAaretsUdlob_1'
+      Style = [fsNoThousand]
+      Template = 'StandardAmount'
+      ShowDecimals = False
+      ControlData = {}
+      BoxSizeX = 40
+      BoxSizeY = 20
+    end
+    object A2B13C21D30E254: TFieldCtrl
+      Tag = 9
+      Left = 735
+      Top = 247
+      Width = 40
+      Height = 20
+      FieldName = 'F134'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        
+          'IF AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AND ' +
+          'PnrOk(CprNr_2!n) THEN'
+        '  CPRToAlder(IndkomstAarTil_2!n,SSNToString(CprNr_2!n))'
+        'ELSE'
+        '  NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 30
+      Kind = fkAmount
+      LongIdent = 'AlderVedAaretsUdlob_2'
+      Style = [fsNoThousand]
+      Template = 'StandardAmount'
+      ShowDecimals = False
+      ControlData = {}
+      BoxSizeX = 40
+      BoxSizeY = 20
+    end
+    object A2B10C10D55E441: TFieldCtrl
+      Tag = 14
+      Left = 1128
+      Top = 464
+      Width = 48
+      Height = 20
+      FieldName = 'F132'
+      Formula.Strings = (
+        'IF Trim(KommuneNr_2!n)=="411" THEN'
+        '  GetSats("satsBundskatChristiansoe",iAar)'
+        'ELSE'
+        '  GetSats("satsBundskat",iAar)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 71
+      Kind = fkPercent
+      LongIdent = 'satsBundskat_2'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A1B10C10D55E431: TFieldCtrl
+      Tag = 14
+      Left = 1016
+      Top = 464
+      Width = 48
+      Height = 20
+      FieldName = 'F131'
+      Formula.Strings = (
+        'IF Trim(KommuneNr_1!n)=="411" THEN'
+        '  GetSats("satsBundskatChristiansoe",iAar)'
+        'ELSE'
+        '  GetSats("satsBundskat",iAar)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 70
+      Kind = fkPercent
+      LongIdent = 'satsBundskat_1'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A0B10C10D55E411: TLabelCtrl
+      Left = 816
+      Top = 464
+      Width = 97
+      Height = 19
+      Caption = 'Sats for bundskat'
+      Ident = 'Label52'
+      Visible = False
+      WordWrap = False
+    end
+    object A11B16C32D7E665: TFieldCtrl
+      Tag = 14
+      Left = 1128
+      Top = 440
+      Width = 48
+      Height = 20
+      FieldName = 'F130'
+      Formula.Strings = (
+        'IF Trim(KommuneNr_2!n)=="411" THEN'
+        '  0'
+        'ELSE'
+        '  GetSats("satsSundhedsbidrag",iAar)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 65
+      Kind = fkPercent
+      LongIdent = 'satsSundhedsbidrag_2'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A10B16C32D7E650: TFieldCtrl
+      Tag = 14
+      Left = 1016
+      Top = 440
+      Width = 48
+      Height = 20
+      FieldName = 'F129'
+      Formula.Strings = (
+        'IF Trim(KommuneNr_1!n)=="411" THEN'
+        '  0'
+        'ELSE'
+        '  GetSats("satsSundhedsbidrag",iAar)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 64
+      Kind = fkPercent
+      LongIdent = 'satsSundhedsbidrag_1'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A9B16C32D7E634: TLabelCtrl
+      Left = 816
+      Top = 440
+      Width = 137
+      Height = 19
+      Caption = 'Sats for sundhedsbidrag'
+      Ident = 'Label51'
+      Visible = False
+      WordWrap = False
+    end
+    object A8B16C26D5E908: TFieldCtrl
+      Tag = 14
+      Left = 1128
+      Top = 552
+      Width = 48
+      Height = 20
+      FieldName = 'F128'
+      Formula.Strings = (
+        'KirkeSats365Dage_2!n*KirkeDage_2!n/365.0')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 86
+      Kind = fkPercent
+      LongIdent = 'KirkeSats_2'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A7B16C26D5E892: TFieldCtrl
+      Tag = 14
+      Left = 1016
+      Top = 552
+      Width = 48
+      Height = 20
+      FieldName = 'F127'
+      Formula.Strings = (
+        'KirkeSats365Dage_1!n*KirkeDage_1!n/365.0')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 85
+      Kind = fkPercent
+      LongIdent = 'KirkeSats_1'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A6B16C26D5E892: TLabelCtrl
+      Left = 816
+      Top = 552
+      Width = 95
+      Height = 19
+      Caption = 'Sats for kirkeskat'
+      Ident = 'Label50'
+      Visible = False
+      WordWrap = False
+    end
+    object A5B16C26D5E892: TFieldCtrl
+      Tag = 14
+      Left = 1128
+      Top = 528
+      Width = 48
+      Height = 20
+      FieldName = 'F126'
+      Formula.Strings = (
+        'KirkeSkatSats_2!n')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 83
+      Kind = fkPercent
+      LongIdent = 'KirkeSats365Dage_2'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A4B16C26D5E877: TFieldCtrl
+      Tag = 14
+      Left = 1016
+      Top = 528
+      Width = 48
+      Height = 20
+      FieldName = 'F125'
+      Formula.Strings = (
+        'KirkeSkatSats_1!n')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 82
+      Kind = fkPercent
+      LongIdent = 'KirkeSats365Dage_1'
+      MaxDecimals = 2
+      MaxLength = 6
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 48
+      BoxSizeY = 20
+    end
+    object A3B16C26D5E877: TLabelCtrl
+      Left = 816
+      Top = 528
+      Width = 149
+      Height = 19
+      Caption = 'Sats for kirkeskat, hele året'
+      Ident = 'Label49'
+      Visible = False
+      WordWrap = False
+    end
+    object A2B16C26D5E861: TLabelCtrl
+      Left = 816
+      Top = 504
+      Width = 184
+      Height = 19
+      Caption = 'Medlem af folkekirken, antal dage'
+      Ident = 'Label48'
+      Visible = False
+      WordWrap = False
+    end
+    object A1B16C26D5E845: TFieldCtrl
+      Tag = 9
+      Left = 1128
+      Top = 504
+      Width = 76
+      Height = 20
+      FieldName = 'F124'
+      Formula.Strings = (
+        'IF Kirke_2!n==TRUE THEN'
+        '  IF AnythingIn(IndmeldtDato_2!n) THEN'
+        '    Max(IndkomstAarTil_2!n-(IndmeldtDato_2!n-1),0)'
+        '  ELSE'
+        '    IndkomstAarTil_2!n-(IndkomstAarFra_2!n-1)'
+        'ELSE'
+        '  IF AnythingIn(UdmeldtDato_2!n) THEN'
+        '    Max(UdmeldtDato_2!n-(IndkomstAarFra_2!n-1),0)'
+        '  ELSE'
+        '    IndkomstAarTil_2!n-(IndkomstAarFra_2!n-1)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 77
+      Kind = fkAmount
+      LongIdent = 'KirkeDage_2'
+      Template = 'StandardAmount'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A0B16C26D5E845: TFieldCtrl
+      Tag = 9
+      Left = 1016
+      Top = 504
+      Width = 76
+      Height = 20
+      FieldName = 'F123'
+      Formula.Strings = (
+        'IF Kirke_1!n==TRUE THEN'
+        '  IF AnythingIn(IndmeldtDato_1!n) THEN'
+        '    Max(IndkomstAarTil_1!n-(IndmeldtDato_1!n-1),0)'
+        '  ELSE'
+        '    IndkomstAarTil_1!n-(IndkomstAarFra_1!n-1)'
+        'ELSE'
+        '  IF AnythingIn(UdmeldtDato_1!n) THEN'
+        '    Max(UdmeldtDato_1!n-(IndkomstAarFra_1!n-1),0)'
+        '  ELSE'
+        '    IndkomstAarTil_1!n-(IndkomstAarFra_1!n-1)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 76
+      Kind = fkAmount
+      LongIdent = 'KirkeDage_1'
+      Template = 'StandardAmount'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object sid1Label47: TLabelCtrl
+      Left = 64
+      Top = 1262
+      Width = 143
+      Height = 20
+      Caption = 'Diverse oplysninger'
+      Ident = 'Label47'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A43B11C9D19E554: TToggleCtrl
+      Left = 279
+      Top = 1106
+      Width = 59
+      Height = 15
+      FieldName = 'F120'
+      Caption = 'Toggle'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 114
+      LongIdent = 'selvdefineredeSatser'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A33B9C43D32E937: TToggleCtrl
+      Left = 667
+      Top = 1155
+      Width = 13
+      Height = 13
+      FieldName = 'F119'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF F89==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F117.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 120
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A32B9C43D28E220: TToggleCtrl
+      Left = 423
+      Top = 1155
+      Width = 13
+      Height = 13
+      FieldName = 'F118'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF F83==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE,'
+        'PVisible = TRUE,'
+        'POther = [F112.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 119
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A31B9C43D21E799: TToggleCtrl
+      Left = 667
+      Top = 1131
+      Width = 13
+      Height = 13
+      FieldName = 'F117'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = IF F89==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F119.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 118
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A30B9C42D53E504: TToggleCtrl
+      Left = 423
+      Top = 1131
+      Width = 13
+      Height = 13
+      FieldName = 'F112'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = IF F83==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE,'
+        'POther = [F118.t],'
+        'PNullable = FALSE,'
+        'PVisible = TRUE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 117
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A29B9C42D27E613: TToggleCtrl
+      Left = 667
+      Top = 1107
+      Width = 13
+      Height = 13
+      FieldName = 'F89'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 116
+      LongIdent = 'BegraensetSkpl_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A28B9C42D13E801: TToggleCtrl
+      Left = 423
+      Top = 1107
+      Width = 13
+      Height = 13
+      FieldName = 'F83'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 115
+      LongIdent = 'BegraensetSkpl_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object sid1Label46: TLabelCtrl
+      Left = 81
+      Top = 1155
+      Width = 112
+      Height = 19
+      Caption = 'Uden personfradrag'
+      Ident = 'Label46'
+      WordWrap = False
+    end
+    object sid1Label45: TLabelCtrl
+      Left = 81
+      Top = 1131
+      Width = 105
+      Height = 19
+      Caption = 'Med personfradrag'
+      Ident = 'Label45'
+      WordWrap = False
+    end
+    object sid1Label44: TLabelCtrl
+      Left = 81
+      Top = 1107
+      Width = 121
+      Height = 19
+      Caption = 'Begrænset skattepligt'
+      Ident = 'Label44'
+      WordWrap = False
+    end
+    object sid1Label36: TLabelCtrl
+      Left = 952
+      Top = 128
+      Width = 117
+      Height = 19
+      Caption = 'Vælg beregningstype'
+      Ident = 'Label36'
+      Visible = False
+      WordWrap = False
+    end
+    object A1B10C27D35E157: TToggleCtrl
+      Left = 952
+      Top = 188
+      Width = 65
+      Height = 15
+      FieldName = 'F114'
+      Caption = 'Slutskat'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE,'
+        'POther = [F113.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 20
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A0B10C27D31E731: TToggleCtrl
+      Left = 952
+      Top = 168
+      Width = 96
+      Height = 15
+      FieldName = 'F113'
+      Caption = 'Forskudsskat'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE,'
+        'POther = [F114.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 14
+      LongIdent = 'skatteberegning'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A165B15C21D5E51: TFieldCtrl
+      Tag = 17
+      Left = 64
+      Top = 1400
+      Width = 277
+      Height = 21
+      TextStyle = tsHeader2
+      FieldName = 'F111'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        '"Dødsfald i indkomståret " ++ ToString(iAar)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 127
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 277
+      BoxSizeY = 21
+    end
+    object A162B13C59D40E953: TFieldCtrl
+      Tag = 11
+      Left = 634
+      Top = 1711
+      Width = 76
+      Height = 20
+      FieldName = 'F110'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        
+          'PEnabled = IF ((AfdoedPerson_2!n == TRUE OR AfdoedBegge!n == TRU' +
+          'E) AND F100==TRUE AND F98==TRUE) THEN TRUE'
+        'ELSE FALSE,'
+        
+          'PVisible = IF Ugift!n == FALSE AND F100==TRUE AND F98==TRUE AND ' +
+          '(F96==TRUE OR F97==TRUE) THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 144
+      Kind = fkDate
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A161B13C59D40E948: TFieldCtrl
+      Tag = 11
+      Left = 387
+      Top = 1711
+      Width = 76
+      Height = 20
+      FieldName = 'F109'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        
+          'PEnabled = IF ((AfdoedPerson_1!n == TRUE OR AfdoedBegge!n == TRU' +
+          'E) AND F100==TRUE AND F98==TRUE) THEN TRUE'
+        'ELSE FALSE,'
+        
+          'PVisible = IF F100==TRUE AND F98==TRUE AND (F95==TRUE OR F97==TR' +
+          'UE) THEN TRUE'
+        ' ELSE'
+        'FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 143
+      Kind = fkDate
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A160B13C59D40E943: TFieldCtrl
+      Tag = 11
+      Left = 634
+      Top = 1688
+      Width = 76
+      Height = 20
+      FieldName = 'F108'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        
+          'PEnabled = IF (AfdoedPerson_2!n == TRUE OR AfdoedBegge!n == TRUE' +
+          ') THEN TRUE'
+        'ELSE FALSE,'
+        
+          'PVisible = IF Ugift!n == FALSE AND (F96==TRUE OR F97==TRUE) THEN' +
+          ' TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 142
+      Kind = fkDate
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A159B13C59D40E938: TFieldCtrl
+      Tag = 11
+      Left = 387
+      Top = 1688
+      Width = 76
+      Height = 20
+      FieldName = 'F107'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        
+          'PEnabled = IF (AfdoedPerson_1!n == TRUE OR AfdoedBegge!n == TRUE' +
+          ') THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF F95==TRUE OR F97==TRUE THEN TRUE'
+        ' ELSE'
+        'FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 141
+      Kind = fkDate
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A158B13C59D40E931: TFieldCtrl
+      Tag = 17
+      Left = 550
+      Top = 1663
+      Width = 160
+      Height = 20
+      FieldName = 'F106'
+      Align = faRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF NotEmpty(ForNavn_2!n) THEN ForNavn_2!n'
+        'ELSE F61')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN AfdoedPerson_2!n'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 140
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A157B13C59D40E923: TFieldCtrl
+      Tag = 17
+      Left = 303
+      Top = 1664
+      Width = 160
+      Height = 20
+      FieldName = 'F105'
+      Align = faRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF NotEmpty(ForNavn_1!n) THEN ForNavn_1!n'
+        'ELSE F60')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = AfdoedPerson_1!n')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 139
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A156B13C59D40E912: TLabelCtrl
+      Left = 137
+      Top = 1711
+      Width = 78
+      Height = 19
+      Caption = 'Skæringsdato'
+      Ident = 'Label43'
+      WordWrap = False
+    end
+    object A155B13C59D40E901: TLabelCtrl
+      Left = 137
+      Top = 1688
+      Width = 55
+      Height = 19
+      Caption = 'Dødsdato'
+      Ident = 'Label42'
+      WordWrap = False
+    end
+    object A153B13C57D49E6: TLabelCtrl
+      Left = 122
+      Top = 1643
+      Width = 82
+      Height = 23
+      Caption = 'Dødsdato mv.'
+      Ident = 'Label41'
+    end
+    object A152B13C51D53E987: TToggleCtrl
+      Left = 114
+      Top = 1608
+      Width = 251
+      Height = 15
+      FieldName = 'F104'
+      Caption = 'Efterlevende ægtefælle gift igen i dødsåret'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 138
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A149B13C29D38E397: TToggleCtrl
+      Left = 600
+      Top = 1538
+      Width = 99
+      Height = 15
+      FieldName = 'F103'
+      Caption = 'Faktisk adskilt'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        
+          'PEnabled = IF (Gift!n == TRUE AND AfdoedIngen!n == FALSE) THEN T' +
+          'RUE'
+        'ELSE FALSE,'
+        'POther = [F102.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 135
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A148B13C29D35E744: TToggleCtrl
+      Left = 600
+      Top = 1482
+      Width = 90
+      Height = 15
+      FieldName = 'F102'
+      Caption = 'Samlevende'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        
+          'PEnabled = IF (Gift!n == TRUE AND AfdoedIngen!n == FALSE) THEN T' +
+          'RUE'
+        'ELSE FALSE,'
+        'POther = [F103.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 131
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A145B13C28D49E762: TToggleCtrl
+      Left = 373
+      Top = 1568
+      Width = 109
+      Height = 15
+      FieldName = 'F101'
+      Caption = 'Skattefritaget bo'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        
+          'PEnabled = IF (AfdoedIngen!n == FALSE AND SkiftetBo!n == TRUE) T' +
+          'HEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F100.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 137
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A144B13C28D46E779: TToggleCtrl
+      Left = 373
+      Top = 1544
+      Width = 108
+      Height = 15
+      FieldName = 'F100'
+      Caption = 'Skattepligtigt bo'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        
+          'PEnabled = IF (AfdoedIngen!n == FALSE AND SkiftetBo!n == TRUE) T' +
+          'HEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F101.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 134
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A141B13C6D19E140: TLabelCtrl
+      Left = 586
+      Top = 1437
+      Width = 166
+      Height = 24
+      Caption = 'Samliv ved dødsfald (for gifte)'
+      Ident = 'Label40'
+    end
+    object A136B13C4D19E189: TLabelCtrl
+      Left = 363
+      Top = 1521
+      Width = 68
+      Height = 19
+      Caption = 'Skiftet bo'
+      Ident = 'Label39'
+    end
+    object A134B13C3D27E11: TLabelCtrl
+      Left = 366
+      Top = 1437
+      Width = 26
+      Height = 19
+      Caption = 'Boet'
+      Ident = 'Label38'
+    end
+    object A131B13C2D38E76: TToggleCtrl
+      Left = 373
+      Top = 1483
+      Width = 79
+      Height = 15
+      FieldName = 'F99'
+      Caption = 'Uskiftet bo'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF AfdoedIngen!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F98.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 130
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A130B13C2D35E162: TToggleCtrl
+      Left = 373
+      Top = 1459
+      Width = 71
+      Height = 15
+      FieldName = 'F98'
+      Caption = 'Skiftet bo'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = IF AfdoedIngen!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F99.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 129
+      LongIdent = 'SkiftetBo'
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A124B12C59D18E74: TToggleCtrl
+      Left = 139
+      Top = 1565
+      Width = 57
+      Height = 15
+      FieldName = 'F97'
+      Caption = 'Begge'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F94.t,F95.t,F96.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 136
+      LongIdent = 'AfdoedBegge'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A123B12C59D14E714: TToggleCtrl
+      Left = 139
+      Top = 1531
+      Width = 71
+      Height = 15
+      FieldName = 'F96'
+      Caption = 'Person 2'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F94.t,F95.t,F97.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 133
+      LongIdent = 'AfdoedPerson_2'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A122B12C59D10E334: TToggleCtrl
+      Left = 139
+      Top = 1498
+      Width = 71
+      Height = 15
+      FieldName = 'F95'
+      Caption = 'Person 1'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'POther = [F94.t,F96.t,F97.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 132
+      LongIdent = 'AfdoedPerson_1'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A121B12C58D14E82: TToggleCtrl
+      Left = 139
+      Top = 1464
+      Width = 52
+      Height = 15
+      FieldName = 'F94'
+      Caption = 'Ingen'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'POther = [F95.t,F96.t,F97.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 128
+      LongIdent = 'AfdoedIngen'
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A120B12C57D46E215: TLabelCtrl
+      Left = 122
+      Top = 1437
+      Width = 74
+      Height = 19
+      Caption = 'Afdød person'
+      Ident = 'Label37'
+    end
+    object A116B11C10D36E485: TFieldCtrl
+      Tag = 17
+      Left = 641
+      Top = 1345
+      Width = 146
+      Height = 20
+      FieldName = 'F93'
+      SelectionListKind = skListBox
+      SelectionList.Strings = (
+        '["Nej", "Senest 30/6-04", "Tidligst 17/-04"]')
+      UseSelectionButton = True
+      Formula.Strings = (
+        '"Nej"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 126
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 146
+      BoxSizeY = 20
+    end
+    object A115B11C9D26E786: TFieldCtrl
+      Tag = 17
+      Left = 405
+      Top = 1345
+      Width = 146
+      Height = 20
+      FieldName = 'F92'
+      SelectionListKind = skListBox
+      SelectionList.Strings = (
+        '["Nej", "Senest 30/6-04", "Tidligst 17/-04"]')
+      UseSelectionButton = True
+      Formula.Strings = (
+        '"Nej"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 125
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 146
+      BoxSizeY = 20
+    end
+    object A114B11C9D10E16: TLabelCtrl
+      Left = 80
+      Top = 1342
+      Width = 302
+      Height = 26
+      Caption = 'Valgt beskatning efter KSL §§ 48 E-F (Forskerordning)'
+      Ident = 'Label35'
+    end
+    object A113B11C7D51E951: TFieldCtrl
+      Tag = 17
+      Left = 641
+      Top = 1307
+      Width = 146
+      Height = 20
+      FieldName = 'F91'
+      SelectionListKind = skListBox
+      SelectionList.Strings = (
+        '["Nej", "Alderspensionist", "Efterlønner mv."]')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 124
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 146
+      BoxSizeY = 20
+    end
+    object A112B10C53D38E40: TFieldCtrl
+      Tag = 17
+      Left = 405
+      Top = 1307
+      Width = 146
+      Height = 20
+      FieldName = 'F90'
+      SelectionListKind = skListBox
+      SelectionList.Strings = (
+        '["Nej", "Alderspensionist", "Efterlønner mv."]')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 123
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 146
+      BoxSizeY = 20
+    end
+    object A111B10C51D29E794: TLabelCtrl
+      Left = 80
+      Top = 1299
+      Width = 281
+      Height = 34
+      Caption = 
+        'Efterlevende ægtefælle til en afdød pensionist eller efterlønsmo' +
+        'dtager. '
+      Ident = 'Label34'
+    end
+    object A110B10C47D26E136: TLabelCtrl
+      Left = 81
+      Top = 1184
+      Width = 337
+      Height = 40
+      Caption = 
+        'Begrænset skattepligtige, der er skattepligtige en del af året: ' +
+        'Benyt personfradrag og omregning'
+      Ident = 'Label33'
+    end
+    object A108B10C40D4E991: TFieldCtrl
+      Tag = 14
+      Left = 213
+      Top = 1109
+      Width = 53
+      Height = 20
+      FieldName = 'F88'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'GetSats("satsBegrskat",iAar)')
+      Params.Strings = (
+        'PEnabled = IF selvdefineredeSatser!n == TRUE THEN TRUE'
+        '  ELSE'
+        'FALSE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 113
+      FieldCaption = '%'
+      IsTransferField = True
+      Kind = fkPercent
+      MaxDecimals = 2
+      MaxLength = 4
+      MinDecimals = 2
+      Decimals = 4
+      ShowPercent = True
+      Template = 'StandardPercent'
+      ControlData = {}
+      BoxSizeX = 34
+      BoxSizeY = 20
+    end
+    object A107B10C39D39E862: TToggleCtrl
+      Left = 663
+      Top = 1204
+      Width = 13
+      Height = 13
+      FieldName = 'F87'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        
+          'PEnabled = IF (BegraensetSkpl_2!n == TRUE AND F159==TRUE AND F11' +
+          '7==TRUE) THEN TRUE'
+        '  ELSE'
+        '  FALSE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 122
+      LongIdent = 'BegraensetSkattepligt_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A106B10C38D16E116: TFieldCtrl
+      Tag = 17
+      Left = 564
+      Top = 1077
+      Width = 160
+      Height = 20
+      FieldName = 'F86'
+      Align = faRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF NotEmpty(ForNavn_2!n) THEN ForNavn_2!n'
+        'ELSE F61')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 112
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A105B10C38D16E109: TFieldCtrl
+      Tag = 17
+      Left = 317
+      Top = 1078
+      Width = 160
+      Height = 20
+      FieldName = 'F85'
+      Align = faRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF NotEmpty(ForNavn_1!n) THEN ForNavn_1!n'
+        'ELSE F60')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 111
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A104B10C38D1E858: TToggleCtrl
+      Left = 421
+      Top = 1199
+      Width = 13
+      Height = 13
+      FieldName = 'F84'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        
+          'PEnabled = IF (BegraensetSkpl_1!n == TRUE AND F158==TRUE AND F11' +
+          '2==TRUE) THEN TRUE'
+        '  ELSE'
+        '  FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 121
+      LongIdent = 'BegraensetSkattepligt_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A102B10C22D13E351: TLabelCtrl
+      Left = 64
+      Top = 1068
+      Width = 157
+      Height = 20
+      Caption = 'Begrænset skattepligt'
+      Ident = 'Label32'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A100B10C18D52E435: TFieldCtrl
+      Tag = 17
+      Left = 457
+      Top = 1019
+      Width = 220
+      Height = 20
+      FieldName = 'F82'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 110
+      Kind = fkText
+      LongIdent = 'Revisor2Titel'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 220
+      BoxSizeY = 20
+    end
+    object A99B10C18D52E428: TFieldCtrl
+      Tag = 17
+      Left = 457
+      Top = 992
+      Width = 221
+      Height = 20
+      FieldName = 'F81'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 108
+      Kind = fkText
+      LongIdent = 'Revisor2Navn'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 221
+      BoxSizeY = 20
+    end
+    object A98B10C18D52E421: TLabelCtrl
+      Left = 407
+      Top = 1019
+      Width = 24
+      Height = 19
+      Caption = 'Titel'
+      Ident = 'Label31'
+      WordWrap = False
+    end
+    object A97B10C18D52E413: TLabelCtrl
+      Left = 407
+      Top = 992
+      Width = 29
+      Height = 19
+      Caption = 'Navn'
+      Ident = 'Label30'
+      WordWrap = False
+    end
+    object A96B10C17D29E343: TFieldCtrl
+      Tag = 17
+      Left = 131
+      Top = 1019
+      Width = 220
+      Height = 20
+      FieldName = 'F80'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 109
+      Kind = fkText
+      LongIdent = 'Revisor1Titel'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 220
+      BoxSizeY = 20
+    end
+    object A95B10C17D29E336: TLabelCtrl
+      Left = 81
+      Top = 1019
+      Width = 24
+      Height = 19
+      Caption = 'Titel'
+      Ident = 'Label29'
+      WordWrap = False
+    end
+    object A94B10C17D7E226: TLabelCtrl
+      Left = 81
+      Top = 992
+      Width = 29
+      Height = 19
+      Caption = 'Navn'
+      Ident = 'Label25'
+      WordWrap = False
+    end
+    object A93B10C16D50E163: TFieldCtrl
+      Tag = 17
+      Left = 131
+      Top = 992
+      Width = 221
+      Height = 20
+      FieldName = 'F79'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 107
+      Kind = fkText
+      LongIdent = 'Revisor1Navn'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 221
+      BoxSizeY = 20
+    end
+    object A92B10C16D26E360: TLabelCtrl
+      Left = 383
+      Top = 965
+      Width = 68
+      Height = 20
+      Caption = 'Revisor 2'
+      Ident = 'Label24'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A91B10C15D59E271: TLabelCtrl
+      Left = 64
+      Top = 963
+      Width = 68
+      Height = 20
+      Caption = 'Revisor 1'
+      Ident = 'Label23'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A86B9C23D13E221: TLabelCtrl
+      Left = 81
+      Top = 734
+      Width = 46
+      Height = 19
+      Caption = 'Slutdato'
+      Ident = 'Label19'
+      WordWrap = False
+    end
+    object A85B9C23D13E213: TLabelCtrl
+      Left = 81
+      Top = 711
+      Width = 50
+      Height = 19
+      Caption = 'Startdato'
+      Ident = 'Label3'
+      WordWrap = False
+    end
+    object A84B14C28D55E646: TFieldCtrl
+      Tag = 11
+      Left = 714
+      Top = 340
+      Width = 76
+      Height = 20
+      FieldName = 'F76'
+      Formula.Strings = (
+        'IF Kirke_2!n==FALSE AND KirkeMedlem_2!n==2 THEN MedlemsDato_2!n'
+        '  ELSE'
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  IF Ugift!n == FALSE THEN TRUE'
+        '    ELSE'
+        '      FALSE'
+        'ELSE'
+        '  FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 48
+      Kind = fkDate
+      LongIdent = 'UdmeldtDato_2'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A83B14C28D19E85: TFieldCtrl
+      Tag = 11
+      Left = 485
+      Top = 340
+      Width = 76
+      Height = 20
+      FieldName = 'F75'
+      Formula.Strings = (
+        'IF Kirke_1!n==FALSE AND KirkeMedlem_1!n==2 THEN MedlemsDato_1!n'
+        '  ELSE'
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  TRUE'
+        'ELSE'
+        '  FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 44
+      Kind = fkDate
+      LongIdent = 'UdmeldtDato_1'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A82B14C23D36E496: TFieldCtrl
+      Tag = 11
+      Left = 635
+      Top = 340
+      Width = 76
+      Height = 20
+      FieldName = 'F74'
+      Formula.Strings = (
+        'IF Kirke_2!n==TRUE AND KirkeMedlem_2!n==2 THEN MedlemsDato_2!n'
+        '  ELSE'
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  IF Ugift!n == FALSE THEN TRUE'
+        '    ELSE'
+        '      FALSE'
+        'ELSE'
+        '  FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 47
+      Kind = fkDate
+      LongIdent = 'IndmeldtDato_2'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A81B14C17D39E55: TFieldCtrl
+      Tag = 11
+      Left = 407
+      Top = 340
+      Width = 76
+      Height = 20
+      FieldName = 'F73'
+      Formula.Strings = (
+        'IF Kirke_1!n==TRUE AND KirkeMedlem_1!n==2 THEN MedlemsDato_1!n'
+        '  ELSE'
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  TRUE'
+        'ELSE'
+        '  FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 43
+      Kind = fkDate
+      LongIdent = 'IndmeldtDato_1'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A80B14C12D5E315: TFieldCtrl
+      Tag = 9
+      Left = 595
+      Top = 340
+      Width = 30
+      Height = 20
+      FieldName = 'F72'
+      Formula.Strings = (
+        
+          'IF (Kirke_2!n == TRUE) AND (Day(MedlemsDato_2!n)==1) AND (Month(' +
+          'MedlemsDato_2!n)==1) THEN'
+        '  0'
+        
+          'ELSE IF (Kirke_2!n == FALSE) AND (Day(MedlemsDato_2!n)==1) AND (' +
+          'Month(MedlemsDato_2!n)==1) OR (Year(MedlemsDato_1!n)<iAar) THEN'
+        '  1'
+        'ELSE'
+        '  2')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE'
+        'ELSE'
+        '  FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 46
+      Kind = fkAmount
+      LongIdent = 'KirkeMedlem_2'
+      Template = 'StandardAmount'
+      ControlData = {}
+      BoxSizeX = 30
+      BoxSizeY = 20
+    end
+    object A79B13C46D40E168: TFieldCtrl
+      Tag = 9
+      Left = 365
+      Top = 340
+      Width = 30
+      Height = 20
+      FieldName = 'F71'
+      Formula.Strings = (
+        
+          'IF (Kirke_1!n == TRUE) AND (Day(MedlemsDato_1!n)==1) AND (Month(' +
+          'MedlemsDato_1!n)==1) THEN'
+        '  0'
+        
+          'ELSE IF ((Kirke_1!n == FALSE) AND (Day(MedlemsDato_1!n)==1) AND ' +
+          '(Month(MedlemsDato_1!n)==1) OR (Year(MedlemsDato_1!n)<iAar)) THE' +
+          'N'
+        '  1'
+        'ELSE'
+        '  2')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  TRUE'
+        'ELSE'
+        '  FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 42
+      Kind = fkAmount
+      LongIdent = 'KirkeMedlem_1'
+      Template = 'StandardAmount'
+      ControlData = {}
+      BoxSizeX = 30
+      BoxSizeY = 20
+    end
+    object A78B13C34D7E634: TFieldCtrl
+      Tag = 11
+      Left = 717
+      Top = 318
+      Width = 76
+      Height = 20
+      FieldName = 'F70'
+      Formula.Strings = (
+        'NewDate(iAar,1,1)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 40
+      Kind = fkDate
+      LongIdent = 'MedlemsDato_2'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A77B13C34D7E629: TFieldCtrl
+      Tag = 17
+      Left = 583
+      Top = 318
+      Width = 127
+      Height = 20
+      FieldName = 'F69'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF Kirke_2!n == TRUE THEN'
+        '  "Evt. indmeldelsesdato"'
+        'ELSE'
+        '  "Evt. udmeldelsesdato"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 39
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 127
+      BoxSizeY = 20
+    end
+    object A76B13C28D59E759: TFieldCtrl
+      Tag = 11
+      Left = 472
+      Top = 318
+      Width = 76
+      Height = 20
+      FieldName = 'F68'
+      Formula.Strings = (
+        'NewDate(iAar,1,1)'
+        '/*<<2012-01-01>>*/'
+        '/*Day(1) + Month(1) + Year(2012)*/')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 37
+      Kind = fkDate
+      LongIdent = 'MedlemsDato_1'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A75B13C27D1E971: TFieldCtrl
+      Tag = 17
+      Left = 339
+      Top = 318
+      Width = 127
+      Height = 20
+      FieldName = 'F67'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF Kirke_1!n == TRUE THEN'
+        '  "Evt. indmeldelsesdato"'
+        'ELSE'
+        '  "Evt. udmeldelsesdato"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 36
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 127
+      BoxSizeY = 20
+    end
+    object A73B13C23D36E881: TLabelCtrl
+      Left = 64
+      Top = 678
+      Width = 183
+      Height = 20
+      Caption = 'Indkomstår (evt. forskudt)'
+      Ident = 'Label2'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A68B14C48D44E170: TFieldCtrl
+      Tag = 17
+      Left = 64
+      Top = 148
+      Width = 96
+      Height = 21
+      TextStyle = tsHeader2
+      FieldName = 'F66'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF Ugift!n==TRUE THEN "Person"'
+        'ELSE'
+        '"Personer"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 10
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 96
+      BoxSizeY = 21
+    end
+    object A67B14C30D2E938: TToggleCtrl
+      Left = 448
+      Top = 586
+      Width = 122
+      Height = 15
+      FieldName = 'F65'
+      Caption = 'Foreslå kommune'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 81
+      LongIdent = 'ForeslaaKommune_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A66B14C5D8E208: TFieldCtrl
+      Tag = 9
+      Left = 64
+      Top = 504
+      Width = 76
+      Height = 20
+      FieldName = 'F64'
+      Formula.Strings = (
+        '1')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 61
+      Kind = fkAmount
+      LongIdent = 'SenesteAdressePerson'
+      Template = 'StandardAmount'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A65B14C0D54E735: TFieldCtrl
+      Tag = 17
+      Left = 302
+      Top = 817
+      Width = 160
+      Height = 20
+      FieldName = 'F63'
+      Align = faRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF NotEmpty(ForNavn_1!n) THEN ForNavn_1!n'
+        'ELSE F60')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 95
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A64B14C0D54E730: TFieldCtrl
+      Tag = 17
+      Left = 551
+      Top = 816
+      Width = 160
+      Height = 20
+      FieldName = 'F62'
+      Align = faRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF NotEmpty(ForNavn_2!n) THEN ForNavn_2!n'
+        'ELSE F61')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 96
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A63B14C0D1E201: TFieldCtrl
+      Tag = 17
+      Left = 612
+      Top = 174
+      Width = 160
+      Height = 20
+      FieldName = 'F61'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        '"Person 2"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 18
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A62B13C58D14E536: TFieldCtrl
+      Tag = 17
+      Left = 365
+      Top = 175
+      Width = 160
+      Height = 20
+      FieldName = 'F60'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        '"Person 1"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 17
+      Kind = fkText
+      MaxLength = 60
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 160
+      BoxSizeY = 20
+    end
+    object A61B13C22D49E494: TToggleCtrl
+      Left = 485
+      Top = 386
+      Width = 273
+      Height = 15
+      FieldName = 'F59'
+      Caption = 'Adresseoplysninger gælder også for person 2'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF Ugift!n <> TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 51
+      LongIdent = 'AdresseBegge'
+      Kind = tkCheck
+      State = cbChecked
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A60B13C14D18E115: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 577
+      Width = 205
+      Height = 20
+      FieldName = 'F58'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 78
+      Kind = fkText
+      LongIdent = 'Telefon_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 205
+      BoxSizeY = 20
+    end
+    object A59B13C13D16E231: TFieldCtrl
+      Tag = 14
+      Left = 350
+      Top = 639
+      Width = 60
+      Height = 20
+      FieldName = 'F57'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'GetKirkeSkatteProcent(KommuneNr_2!n)/100')
+      Params.Strings = (
+        
+          'PEnabled = IF (selvdefineredeSatser_2!n AND AdressePerson!n==2) ' +
+          'THEN TRUE'
+        'ELSE'
+        'FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 90
+      FieldCaption = '%'
+      IsTransferField = True
+      Kind = fkPercent
+      LongIdent = 'KirkeSkatSats_2'
+      MaxDecimals = 2
+      MaxLength = 5
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      ControlData = {}
+      BoxSizeX = 41
+      BoxSizeY = 20
+    end
+    object A58B13C12D41E111: TFieldCtrl
+      Tag = 14
+      Left = 218
+      Top = 639
+      Width = 60
+      Height = 20
+      FieldName = 'F56'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'GetKommuneSkatteProcent(KommuneNr_2!n)/100')
+      Params.Strings = (
+        
+          'PEnabled = IF (selvdefineredeSatser_2!n AND AdressePerson!n==2) ' +
+          'THEN TRUE'
+        'ELSE'
+        'FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 87
+      FieldCaption = '%'
+      IsTransferField = True
+      Kind = fkPercent
+      LongIdent = 'KommSkatSats_2'
+      MaxDecimals = 2
+      MaxLength = 5
+      MinDecimals = 2
+      Decimals = 4
+      Template = 'StandardPercent'
+      ControlData = {}
+      BoxSizeX = 41
+      BoxSizeY = 20
+    end
+    object A57B13C9D44E2: TToggleCtrl
+      Left = 448
+      Top = 640
+      Width = 141
+      Height = 15
+      FieldName = 'F55'
+      Caption = 'Selvdefinerede satser'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 92
+      LongIdent = 'selvdefineredeSatser_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A56B13C9D17E921: TFieldCtrl
+      Tag = 17
+      Left = 483
+      Top = 554
+      Width = 86
+      Height = 20
+      FieldName = 'F54'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'IF (sid1.F51 <> "" AND sid1.F65==TRUE) THEN'
+        '  SuggestKommuneNrListe(sid1.F51)'
+        'ELSE'
+        '  GetKommuneNrListe(" ")'
+        '')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'KommuneNr_1!n')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 75
+      Kind = fkText
+      LongIdent = 'KommuneNr_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 86
+      BoxSizeY = 20
+    end
+    object A55B13C8D40E431: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 553
+      Width = 205
+      Height = 20
+      FieldName = 'F53'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'GetKommuneListe(" ")')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'GetKommune(KommuneNr_2!n)')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 73
+      Kind = fkText
+      LongIdent = 'KommuneNavn_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 205
+      BoxSizeY = 20
+    end
+    object A54B13C3D43E907: TFieldCtrl
+      Tag = 17
+      Left = 368
+      Top = 529
+      Width = 205
+      Height = 20
+      FieldName = 'F52'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'GetByListe(" ")')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'ByNavn_1!n')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 69
+      Kind = fkText
+      LongIdent = 'ByNavn_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 205
+      BoxSizeY = 20
+    end
+    object A53B12C53D43E752: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 529
+      Width = 86
+      Height = 20
+      FieldName = 'F51'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'GetPostNrListe(" ")')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'PostNr_1!n')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 67
+      Kind = fkText
+      LongIdent = 'PostNr_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 86
+      BoxSizeY = 20
+    end
+    object A52B12C43D19E451: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 505
+      Width = 498
+      Height = 20
+      FieldName = 'F50'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 63
+      Kind = fkText
+      LongIdent = 'Adresse4_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A51B12C43D13E579: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 481
+      Width = 498
+      Height = 20
+      FieldName = 'F49'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 60
+      Kind = fkText
+      LongIdent = 'Adresse3_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A50B12C43D4E990: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 457
+      Width = 498
+      Height = 20
+      FieldName = 'F48'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 56
+      Kind = fkText
+      LongIdent = 'Adresse2_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A48B11C11D4E932: TToggleCtrl
+      Left = 448
+      Top = 586
+      Width = 122
+      Height = 15
+      FieldName = 'F47'
+      Caption = 'Foreslå kommune'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 80
+      LongIdent = 'ForeslaaKommune_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A47B11C1D27E737: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 433
+      Width = 498
+      Height = 20
+      FieldName = 'F46'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==2 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 53
+      Kind = fkText
+      LongIdent = 'Adresse1_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A46B10C54D57E576: TFieldCtrl
+      Tag = 17
+      Left = 64
+      Top = 382
+      Width = 217
+      Height = 24
+      TextStyle = tsHeader1
+      FieldName = 'F45'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF AdresseBegge!n THEN "Adresse"'
+        'ELSE'
+        '  IF AdressePerson!n==1 THEN'
+        '    IF NotEmpty(ForNavn_1!n) THEN ForNavn_1!n'
+        '    ELSE "Person " ++ ToString(AdressePerson!n)'
+        '  ELSE IF AdressePerson!n==2 THEN'
+        '    IF NotEmpty(ForNavn_2!n) THEN ForNavn_2!n'
+        '    ELSE "Person " ++ ToString(AdressePerson!n)'
+        '  ELSE NOTHING')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 49
+      Kind = fkText
+      MaxLength = 80
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 217
+      BoxSizeY = 24
+    end
+    object A44B10C12D31E691: TFieldCtrl
+      Tag = 17
+      Left = 156
+      Top = 602
+      Width = 410
+      Height = 21
+      TextStyle = tsHeader2
+      FieldName = 'F44'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'IF AdresseBegge!n == TRUE THEN "Satser i bopælskommunen"'
+        'ELSE'
+        
+          '"Satser i person " ++ ToString(AdressePerson!n) ++ "'#39's bopælskom' +
+          'mune"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 84
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 410
+      BoxSizeY = 21
+    end
+    object A43B9C47D32E683: TFieldCtrl
+      Tag = 9
+      Left = 64
+      Top = 482
+      Width = 76
+      Height = 20
+      FieldName = 'F43'
+      Formula.Strings = (
+        '2')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 58
+      Kind = fkAmount
+      LongIdent = 'AdressePersonAnden'
+      Template = 'StandardAmount'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A42B9C47D12E665: TFieldCtrl
+      Tag = 9
+      Left = 64
+      Top = 460
+      Width = 76
+      Height = 20
+      FieldName = 'F42'
+      Formula.Strings = (
+        '1')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 55
+      Kind = fkAmount
+      LongIdent = 'AdressePerson'
+      Template = 'StandardAmount'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A40B9C36D27E533: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 408
+      Width = 571
+      Height = 20
+      TextStyle = tsHeader3
+      FieldName = 'F40'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        
+          '"Person " ++ ToString(AdressePerson!n) ++ "'#39's adresse: (Tryk på ' +
+          'knappen '#39'Skift adresseperson'#39' for at vise/redigere person " ++ T' +
+          'oString(AdressePersonAnden!n) ++ "'#39's adresse)"')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF AdresseBegge!n==TRUE THEN FALSE'
+        'ELSE TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 52
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 571
+      BoxSizeY = 20
+    end
+    object A39B12C54D19E412: TToggleCtrl
+      Left = 448
+      Top = 640
+      Width = 141
+      Height = 15
+      FieldName = 'F29'
+      Caption = 'Selvdefinerede satser'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 91
+      LongIdent = 'selvdefineredeSatser_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A33B13C21D43E899: TToggleCtrl
+      Left = 603
+      Top = 911
+      Width = 13
+      Height = 13
+      FieldName = 'F39'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  IF Ugift!n == FALSE THEN TRUE'
+        '    ELSE'
+        '      FALSE'
+        'ELSE'
+        '  FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 105
+      LongIdent = 'OmregningPeriodeTilHelaar_2'
+      Kind = tkCheck
+      State = cbChecked
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A32B13C21D43E897: TToggleCtrl
+      Left = 634
+      Top = 895
+      Width = 80
+      Height = 15
+      FieldName = 'F38'
+      Caption = '§ 14, stk. 1'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        
+          'PEnabled = IF Day(IndkomstAarFra_2!n) <> 1 OR Month(IndkomstAarF' +
+          'ra_2!n)<> 1 OR Day(IndkomstAarTil_2!n) <> 31 OR Month(IndkomstAa' +
+          'rTil_2!n)<> 12 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'PNullable = FALSE,'
+        'POther = [F37.t],'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 102
+      LongIdent = 'OmregningPgf14_1_2'
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A31B13C21D43E894: TToggleCtrl
+      Left = 634
+      Top = 919
+      Width = 80
+      Height = 15
+      FieldName = 'F37'
+      Caption = '§ 14, stk. 2'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        
+          'PEnabled = IF Day(IndkomstAarFra_2!n) <> 1 OR Month(IndkomstAarF' +
+          'ra_2!n)<> 1 OR Day(IndkomstAarTil_2!n) <> 31 OR Month(IndkomstAa' +
+          'rTil_2!n)<> 12 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'PNullable = FALSE,'
+        'POther = [F38.t],'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 106
+      LongIdent = 'OmregningPgf14_2_2'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A30B13C15D6E18: TToggleCtrl
+      Left = 353
+      Top = 911
+      Width = 13
+      Height = 13
+      FieldName = 'F36'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = IF Debug == TRUE THEN'
+        '  TRUE'
+        'ELSE'
+        '  FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 103
+      LongIdent = 'OmregningPeriodeTilHelaar_1'
+      Kind = tkCheck
+      State = cbChecked
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A25B11C52D24E590: TToggleCtrl
+      Left = 384
+      Top = 895
+      Width = 80
+      Height = 15
+      FieldName = 'F35'
+      Caption = '§ 14, stk. 1'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        
+          'PEnabled = IF Day(IndkomstAarFra_1!n) <> 1 OR Month(IndkomstAarF' +
+          'ra_1!n)<> 1 OR Day(IndkomstAarTil_1!n) <> 31 OR Month(IndkomstAa' +
+          'rTil_1!n)<> 12 THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F34.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 101
+      LongIdent = 'OmregningPgf14_1_1'
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A24B11C51D45E686: TToggleCtrl
+      Left = 384
+      Top = 919
+      Width = 80
+      Height = 15
+      FieldName = 'F34'
+      Caption = '§ 14, stk. 2'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        
+          'PEnabled = IF Day(IndkomstAarFra_1!n) <> 1 OR Month(IndkomstAarF' +
+          'ra_1!n)<> 1 OR Day(IndkomstAarTil_1!n) <> 31 OR Month(IndkomstAa' +
+          'rTil_1!n)<> 12 THEN TRUE'
+        'ELSE FALSE,'
+        'POther = [F35.t],'
+        'PNullable = FALSE,'
+        'PCode = 0,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 104
+      LongIdent = 'OmregningPgf14_2_1'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A23B11C50D58E932: TLabelCtrl
+      Left = 81
+      Top = 899
+      Width = 241
+      Height = 19
+      Caption = 'Vælg helårsindkomst jf. personskattelovens'
+      Ident = 'Label28'
+      WordWrap = False
+    end
+    object A21B11C47D49E230: TFieldCtrl
+      Tag = 11
+      Left = 634
+      Top = 864
+      Width = 76
+      Height = 20
+      FieldName = 'F33'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 100
+      Kind = fkDate
+      LongIdent = 'IndkomstAarTil_2'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A20B11C47D49E228: TFieldCtrl
+      Tag = 11
+      Left = 634
+      Top = 841
+      Width = 76
+      Height = 20
+      FieldName = 'F32'
+      Formula.Strings = (
+        'NewDate(iAar,1,1)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 98
+      Kind = fkDate
+      LongIdent = 'IndkomstAarFra_2'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A19B11C47D17E842: TFieldCtrl
+      Tag = 11
+      Left = 385
+      Top = 864
+      Width = 76
+      Height = 20
+      FieldName = 'F31'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE,'
+        'PCondition = F31<=F30,'
+        'PUseMsg = TRUE,'
+        'PMsgOnce = FALSE,'
+        'PTextType = "I",'
+        'PText = "Slutdato skal være efter startdato",'
+        'PTextAction = "",'
+        'PUsePResult = TRUE,'
+        'PResult = F30+1,'
+        'PUnlock = FALSE,'
+        'PUsePCode = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 99
+      Kind = fkDate
+      LongIdent = 'IndkomstAarTil_1'
+      Template = 'ConditionalDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A18B11C36D33E934: TFieldCtrl
+      Tag = 11
+      Left = 385
+      Top = 841
+      Width = 76
+      Height = 20
+      FieldName = 'F30'
+      Formula.Strings = (
+        'NewDate(iAar,1,1)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 97
+      Kind = fkDate
+      LongIdent = 'IndkomstAarFra_1'
+      Template = 'StandardDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A17B11C34D49E344: TLabelCtrl
+      Left = 81
+      Top = 864
+      Width = 46
+      Height = 19
+      Caption = 'Slutdato'
+      Ident = 'Label27'
+      WordWrap = False
+    end
+    object A16B11C34D9E247: TLabelCtrl
+      Left = 81
+      Top = 841
+      Width = 50
+      Height = 19
+      Caption = 'Startdato'
+      Ident = 'Label26'
+      WordWrap = False
+    end
+    object A9B11C7D53E900: TLabelCtrl
+      Left = 64
+      Top = 799
+      Width = 281
+      Height = 20
+      Caption = 'Delårsskattepligtigt (til- eller fraflytning)'
+      Ident = 'Label22'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A7B10C13D14E901: TLabelCtrl
+      Left = 303
+      Top = 637
+      Width = 41
+      Height = 20
+      Caption = 'Kirke'
+      Ident = 'Label21'
+      TextStyle = tsFieldNormal
+      WordWrap = False
+    end
+    object A6B10C13D14E898: TFieldCtrl
+      Tag = 14
+      Left = 350
+      Top = 639
+      Width = 60
+      Height = 20
+      FieldName = 'F28'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'GetKirkeSkatteProcent(KommuneNr_1!n)/100')
+      Params.Strings = (
+        
+          'PEnabled = IF (selvdefineredeSatser_1!n AND AdressePerson!n==1) ' +
+          'THEN TRUE'
+        'ELSE'
+        'FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 89
+      FieldCaption = '%'
+      IsTransferField = True
+      Kind = fkPercent
+      LongIdent = 'KirkeSkatSats_1'
+      MaxDecimals = 2
+      MaxLength = 5
+      MinDecimals = 2
+      Decimals = 4
+      ShowPercent = True
+      Template = 'StandardPercent'
+      ControlData = {}
+      BoxSizeX = 41
+      BoxSizeY = 20
+    end
+    object A5B10C11D41E410: TLabelCtrl
+      Left = 155
+      Top = 637
+      Width = 57
+      Height = 20
+      Caption = 'Kommune'
+      Ident = 'Label20'
+      TextStyle = tsFieldNormal
+      WordWrap = False
+    end
+    object A4B10C10D50E247: TFieldCtrl
+      Tag = 14
+      Left = 218
+      Top = 639
+      Width = 60
+      Height = 20
+      FieldName = 'F27'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'GetKommuneSkatteProcent(KommuneNr_1!n)/100')
+      Params.Strings = (
+        
+          'PEnabled = IF (selvdefineredeSatser_1!n AND AdressePerson!n==1) ' +
+          'THEN TRUE'
+        'ELSE'
+        'FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 4,'
+        'PAllowMoreThan100Percent = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 88
+      FieldCaption = '%'
+      IsTransferField = True
+      Kind = fkPercent
+      LongIdent = 'KommSkatSats_1'
+      MaxDecimals = 2
+      MaxLength = 5
+      MinDecimals = 2
+      Decimals = 4
+      ShowPercent = True
+      Template = 'StandardPercent'
+      ControlData = {}
+      BoxSizeX = 41
+      BoxSizeY = 20
+    end
+    object A2B10C3D1E606: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 577
+      Width = 205
+      Height = 20
+      FieldName = 'F25'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 79
+      Kind = fkText
+      LongIdent = 'Telefon_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 205
+      BoxSizeY = 20
+    end
+    object A1B10C3D1E604: TLabelCtrl
+      Left = 136
+      Top = 577
+      Width = 42
+      Height = 19
+      Caption = 'Telefon'
+      Ident = 'Label18'
+      WordWrap = False
+    end
+    object A0B9C45D21E500: TFieldCtrl
+      Tag = 17
+      Left = 483
+      Top = 554
+      Width = 86
+      Height = 20
+      FieldName = 'F22'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'IF (sid1.F26 <> "" AND sid1.F47==TRUE) THEN'
+        '  SuggestKommuneNrListe(sid1.F26)'
+        'ELSE'
+        '  GetKommuneNrListe(" ")'
+        '')
+      UseSelectionButton = True
+      Formula.Strings = (
+        '"751"')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 74
+      Kind = fkText
+      LongIdent = 'KommuneNr_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 86
+      BoxSizeY = 20
+    end
+    object A137B15C13D25E820: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 529
+      Width = 86
+      Height = 20
+      FieldName = 'F26'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'GetPostNrListe(" ")')
+      UseSelectionButton = True
+      Formula.Strings = (
+        '"8000"')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 66
+      Kind = fkText
+      LongIdent = 'PostNr_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 86
+      BoxSizeY = 20
+    end
+    object A132B15C1D35E351: TLabelCtrl
+      Left = 407
+      Top = 554
+      Width = 70
+      Height = 19
+      Caption = 'Kommunenr'
+      Ident = 'Label17'
+      WordWrap = False
+    end
+    object A131B15C1D13E515: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 553
+      Width = 205
+      Height = 20
+      FieldName = 'F24'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'GetKommuneListe(" ")')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'GetKommune(KommuneNr_1!n)')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 72
+      Kind = fkText
+      LongIdent = 'KommuneNavn_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 205
+      BoxSizeY = 20
+    end
+    object A130B14C59D52E237: TLabelCtrl
+      Left = 92
+      Top = 553
+      Width = 85
+      Height = 19
+      Caption = 'Kommunenavn'
+      Ident = 'Label16'
+      WordWrap = False
+    end
+    object A129B14C59D17E537: TFieldCtrl
+      Tag = 17
+      Left = 368
+      Top = 529
+      Width = 205
+      Height = 20
+      FieldName = 'F23'
+      SelectionListKind = skEditListBox
+      SelectionList.Strings = (
+        'GetByListe(" ")')
+      UseSelectionButton = True
+      Formula.Strings = (
+        'GetBy(PostNr_1!n)')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 68
+      Kind = fkText
+      LongIdent = 'ByNavn_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 205
+      BoxSizeY = 20
+    end
+    object A127B13C53D24E540: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 505
+      Width = 498
+      Height = 20
+      FieldName = 'F21'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 62
+      Kind = fkText
+      LongIdent = 'Adresse4_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A126B13C53D20E300: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 481
+      Width = 498
+      Height = 20
+      FieldName = 'F20'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 59
+      Kind = fkText
+      LongIdent = 'Adresse3_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A125B13C53D14E334: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 457
+      Width = 498
+      Height = 20
+      FieldName = 'F19'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 57
+      Kind = fkText
+      LongIdent = 'Adresse2_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A124B13C51D36E808: TLabelCtrl
+      Left = 306
+      Top = 529
+      Width = 40
+      Height = 19
+      Caption = 'Bynavn'
+      Ident = 'Label15'
+      WordWrap = False
+    end
+    object A123B13C51D31E880: TLabelCtrl
+      Left = 140
+      Top = 529
+      Width = 37
+      Height = 19
+      Caption = 'Postnr'
+      Ident = 'Label14'
+      WordWrap = False
+    end
+    object A121B13C50D43E75: TFieldCtrl
+      Tag = 17
+      Left = 193
+      Top = 433
+      Width = 498
+      Height = 20
+      FieldName = 'F18'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE,'
+        'PVisible = IF AdressePerson!n==1 THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 54
+      Kind = fkText
+      LongIdent = 'Adresse1_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 498
+      BoxSizeY = 20
+    end
+    object A120B13C11D57E45: TLabelCtrl
+      Left = 130
+      Top = 433
+      Width = 47
+      Height = 19
+      Caption = 'Adresse'
+      Ident = 'Label13'
+      WordWrap = False
+    end
+    object A119B13C1D22E535: TToggleCtrl
+      Left = 515
+      Top = 104
+      Width = 265
+      Height = 15
+      FieldName = 'F17'
+      Caption = 'Gift og samlevende ved indkomstårets udløb'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = IF Gift!n==TRUE THEN TRUE'
+        'ELSE'
+        'FALSE,'
+        'PVisible = IF Gift!n == TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 6
+      LongIdent = 'SamlevendeAegtefaellerVedAaretsUdloeb'
+      Kind = tkCheck
+      State = cbChecked
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A118B13C0D59E504: TToggleCtrl
+      Left = 515
+      Top = 86
+      Width = 194
+      Height = 15
+      FieldName = 'F16'
+      Caption = 'Ægteskab indgået i løbet af året'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = IF Gift!n==TRUE THEN TRUE'
+        'ELSE'
+        'FALSE,'
+        'PVisible = IF Gift!n == TRUE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 2
+      LongIdent = 'AegteskabIAaret'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A114B12C59D26E961: TLabelCtrl
+      Left = 407
+      Top = 79
+      Width = 69
+      Height = 19
+      Caption = 'Samboende'
+      Ident = 'Label12'
+      WordWrap = False
+    end
+    object A113B12C59D10E677: TLabelCtrl
+      Left = 339
+      Top = 79
+      Width = 26
+      Height = 19
+      Caption = 'Ugift'
+      Ident = 'Label11'
+      WordWrap = False
+    end
+    object sid1Label10: TLabelCtrl
+      Left = 248
+      Top = 79
+      Width = 19
+      Height = 19
+      Caption = 'Gift'
+      Ident = 'Label10'
+      WordWrap = False
+    end
+    object A112B12C58D28E89: TToggleCtrl
+      Left = 436
+      Top = 111
+      Width = 13
+      Height = 13
+      FieldName = 'F15'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'POther = [F13.t,F14.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 5
+      LongIdent = 'Samboende'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A111B12C58D26E40: TToggleCtrl
+      Left = 345
+      Top = 111
+      Width = 13
+      Height = 13
+      FieldName = 'F14'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'POther = [F13.t,F15.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 4
+      LongIdent = 'Ugift'
+      Kind = tkRadio
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A110B12C58D23E862: TToggleCtrl
+      Left = 252
+      Top = 111
+      Width = 13
+      Height = 13
+      FieldName = 'F13'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'POther = [F14.t,F15.t],'
+        'PNullable = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 3
+      LongIdent = 'Gift'
+      Kind = tkRadio
+      State = cbChecked
+      Template = 'GroupBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object sid1Label9: TLabelCtrl
+      Left = 64
+      Top = 63
+      Width = 71
+      Height = 20
+      Caption = 'Civilstand'
+      Ident = 'Label9'
+      TextStyle = tsHeader2
+      WordWrap = False
+    end
+    object A109B12C46D53E134: TToggleCtrl
+      Left = 562
+      Top = 341
+      Width = 13
+      Height = 13
+      FieldName = 'F12'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 45
+      LongIdent = 'EftlonForPens_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A108B12C46D53E133: TToggleCtrl
+      Left = 318
+      Top = 341
+      Width = 13
+      Height = 13
+      FieldName = 'F11'
+      Formula.Strings = (
+        'FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 41
+      LongIdent = 'EftlonForPens_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A107B12C46D8E856: TToggleCtrl
+      Left = 562
+      Top = 320
+      Width = 13
+      Height = 13
+      FieldName = 'F10'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 38
+      LongIdent = 'Kirke_2'
+      Kind = tkCheck
+      State = cbChecked
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A106B12C46D5E278: TToggleCtrl
+      Left = 318
+      Top = 320
+      Width = 13
+      Height = 13
+      FieldName = 'F9'
+      Formula.Strings = (
+        'TRUE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 35
+      LongIdent = 'Kirke_1'
+      Kind = tkCheck
+      State = cbChecked
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A105B12C45D12E90: TLabelCtrl
+      Left = 81
+      Top = 341
+      Width = 225
+      Height = 19
+      Caption = 'Efterlønsmodtager eller førtidspensionist'
+      Ident = 'Label8'
+      WordWrap = False
+    end
+    object A104B12C44D55E850: TLabelCtrl
+      Left = 81
+      Top = 318
+      Width = 181
+      Height = 19
+      Caption = 'Medlem af folkekirken ultimo året'
+      Ident = 'Label7'
+      WordWrap = False
+    end
+    object A103B12C44D12E39: TFieldCtrl
+      Tag = 17
+      Left = 562
+      Top = 295
+      Width = 230
+      Height = 20
+      FieldName = 'F8'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 34
+      Kind = fkText
+      LongIdent = 'TastSelvKode_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 230
+      BoxSizeY = 20
+    end
+    object A102B12C44D12E38: TFieldCtrl
+      Tag = 17
+      Left = 318
+      Top = 295
+      Width = 229
+      Height = 20
+      FieldName = 'F7'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 33
+      Kind = fkText
+      LongIdent = 'TastSelvKode_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 229
+      BoxSizeY = 20
+    end
+    object A101B12C43D36E871: TLabelCtrl
+      Left = 81
+      Top = 295
+      Width = 79
+      Height = 19
+      Caption = 'TastSelv-kode'
+      Ident = 'Label6'
+      WordWrap = False
+    end
+    object A100B11C56D19E105: TFieldCtrl
+      Tag = 9
+      Left = 562
+      Top = 271
+      Width = 44
+      Height = 20
+      FieldName = 'F6'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 32
+      Kind = fkAmount
+      LongIdent = 'AntalBarn_2'
+      MaxLength = 2
+      Template = 'StandardAmount'
+      ControlData = {}
+      BoxSizeX = 44
+      BoxSizeY = 20
+    end
+    object A99B11C56D15E561: TFieldCtrl
+      Tag = 9
+      Left = 318
+      Top = 271
+      Width = 43
+      Height = 20
+      FieldName = 'F5'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 31
+      Kind = fkAmount
+      LongIdent = 'AntalBarn_1'
+      MaxLength = 2
+      Template = 'StandardAmount'
+      ControlData = {}
+      BoxSizeX = 43
+      BoxSizeY = 20
+    end
+    object A98B11C52D3E977: TLabelCtrl
+      Left = 81
+      Top = 271
+      Width = 218
+      Height = 19
+      Caption = 'Antal børn, der berettiger til "grøn check"'
+      Ident = 'Label5'
+      WordWrap = False
+    end
+    object A95B11C50D47E814: TLabelCtrl
+      Left = 81
+      Top = 247
+      Width = 196
+      Height = 19
+      Caption = 'Cpr-nummer / alder ved årets udløb'
+      Ident = 'Label4'
+      WordWrap = False
+    end
+    object A94B11C50D15E632: TFieldCtrl
+      Tag = 17
+      Left = 562
+      Top = 223
+      Width = 230
+      Height = 20
+      FieldName = 'F2'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 26
+      Kind = fkText
+      LongIdent = 'EfterNavn_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 230
+      BoxSizeY = 20
+    end
+    object sid1Label1: TLabelCtrl
+      Left = 81
+      Top = 223
+      Width = 52
+      Height = 19
+      Caption = 'Efternavn'
+      Ident = 'Label1'
+      WordWrap = False
+    end
+    object A93B11C49D35E0: TFieldCtrl
+      Tag = 17
+      Left = 318
+      Top = 223
+      Width = 229
+      Height = 20
+      FieldName = 'F1'
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 25
+      Kind = fkText
+      LongIdent = 'EfterNavn_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 229
+      BoxSizeY = 20
+    end
+    object A0B11C46D38E248: TToggleCtrl
+      Left = 824
+      Top = 306
+      Width = 71
+      Height = 15
+      FieldName = 'F138'
+      Caption = 'EVSL § 8'
+      Formula.Strings = (
+        'IF SambeskattedeAegtefaellerVedAaretsUdloeb!n THEN'
+        
+          '  IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AN' +
+          'D PnrOk(CprNr_1!n) AND'
+        
+          '     AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AN' +
+          'D PnrOk(CprNr_2!n) THEN'
+        
+          '       (FolkePensionist(IndkomstAarTil_1!n,SSNToString(CprNr_1!n' +
+          ')) OR FolkePensionist(IndkomstAarTil_2!n,SSNToString(CprNr_2!n))' +
+          ')'
+        '  ELSE NOTHING'
+        'ELSE'
+        
+          '  IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AN' +
+          'D PnrOk(CprNr_1!n) THEN'
+        
+          '        FolkePensionist(IndkomstAarTil_1!n,SSNToString(CprNr_1!n' +
+          '))'
+        '  ELSE NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 15
+      LongIdent = 'EVSLpgf8_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A1B11C46D42E448: TToggleCtrl
+      Left = 832
+      Top = 386
+      Width = 13
+      Height = 13
+      FieldName = 'F139'
+      Formula.Strings = (
+        'IF SambeskattedeAegtefaellerVedAaretsUdloeb!n THEN'
+        
+          '  IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AN' +
+          'D PnrOk(CprNr_1!n) AND'
+        
+          '     AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AN' +
+          'D PnrOk(CprNr_2!n) THEN'
+        
+          '       (FolkePensionist(IndkomstAarTil_1!n,SSNToString(CprNr_1!n' +
+          ')) OR FolkePensionist(IndkomstAarTil_2!n,SSNToString(CprNr_2!n))' +
+          ')'
+        '  ELSE NOTHING'
+        'ELSE'
+        
+          '  IF AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AN' +
+          'D PnrOk(CprNr_2!n) THEN'
+        
+          '        FolkePensionist(IndkomstAarTil_2!n,SSNToString(CprNr_2!n' +
+          '))'
+        '  ELSE NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 16
+      LongIdent = 'EVSLpgf8_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A2B11C59D45E988: TToggleCtrl
+      Left = 824
+      Top = 330
+      Width = 71
+      Height = 15
+      FieldName = 'F140'
+      Caption = 'EVSL § 9'
+      Formula.Strings = (
+        'IF SambeskattedeAegtefaellerVedAaretsUdloeb!n THEN'
+        
+          '  IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AN' +
+          'D PnrOk(CprNr_1!n) AND'
+        
+          '     AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AN' +
+          'D PnrOk(CprNr_2!n) THEN'
+        
+          '      (FolkePensionist(IndkomstAarTil_1!n,SSNToString(CprNr_1!n)' +
+          ') OR (EftlonForPens_1!n AND AlderVedAaretsUdlob_1!n >= 60)) OR'
+        
+          '      (FolkePensionist(IndkomstAarTil_2!n,SSNToString(CprNr_2!n)' +
+          ') OR (EftlonForPens_2!n AND AlderVedAaretsUdlob_2!n >= 60))'
+        '  ELSE NOTHING'
+        'ELSE'
+        
+          '  IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AN' +
+          'D PnrOk(CprNr_1!n) THEN'
+        
+          '       FolkePensionist(IndkomstAarTil_1!n,SSNToString(CprNr_1!n)' +
+          ') OR (EftlonForPens_1!n AND AlderVedAaretsUdlob_1!n >= 60)'
+        '  ELSE NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 21
+      LongIdent = 'EVSLpgf9_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A3B11C59D46E8: TToggleCtrl
+      Left = 832
+      Top = 410
+      Width = 13
+      Height = 13
+      FieldName = 'F141'
+      Formula.Strings = (
+        'IF SambeskattedeAegtefaellerVedAaretsUdloeb!n THEN'
+        
+          '  IF AnythingIn(IndkomstAarTil_1!n) AND AnythingIn(CprNr_1!n) AN' +
+          'D PnrOk(CprNr_1!n) AND'
+        
+          '     AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AN' +
+          'D PnrOk(CprNr_2!n) THEN'
+        
+          '      (FolkePensionist(IndkomstAarTil_1!n,SSNToString(CprNr_1!n)' +
+          ') OR (EftlonForPens_1!n AND AlderVedAaretsUdlob_1!n >= 60)) OR'
+        
+          '      (FolkePensionist(IndkomstAarTil_2!n,SSNToString(CprNr_2!n)' +
+          ') OR (EftlonForPens_2!n AND AlderVedAaretsUdlob_2!n >= 60))'
+        '  ELSE NOTHING'
+        'ELSE'
+        
+          '  IF AnythingIn(IndkomstAarTil_2!n) AND AnythingIn(CprNr_2!n) AN' +
+          'D PnrOk(CprNr_2!n) THEN'
+        
+          '       FolkePensionist(IndkomstAarTil_2!n,SSNToString(CprNr_2!n)' +
+          ') OR (EftlonForPens_2!n AND AlderVedAaretsUdlob_2!n >= 60)'
+        '  ELSE NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 22
+      LongIdent = 'EVSLpgf9_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A2B14C57D16E868: TFieldCtrl
+      Left = 824
+      Top = 272
+      Width = 76
+      Height = 20
+      FieldName = 'F142'
+      Formula.Strings = (
+        'IF AnythingIn(CprNr_1!n) AND PnrOk(CprNr_1!n) THEN'
+        '  CPRToFPAlder(SSNToString(CprNr_1!n))'
+        'ELSE'
+        '  NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 1')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 8
+      LongIdent = 'FolkePensAlder_1'
+      MaxDecimals = 1
+      MinDecimals = 1
+      Decimals = 1
+      MaxValue = 0
+      Step = 0
+      Template = 'StandardCurrency'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A3B14C57D46E148: TFieldCtrl
+      Left = 829
+      Top = 352
+      Width = 76
+      Height = 20
+      FieldName = 'F143'
+      Formula.Strings = (
+        'IF AnythingIn(CprNr_2!n) AND PnrOk(CprNr_2!n) THEN'
+        '  CPRToFPAlder(SSNToString(CprNr_2!n))'
+        'ELSE'
+        '  NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE,'
+        'PDecimals = 1')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 9
+      LongIdent = 'FolkePensAlder_2'
+      MaxDecimals = 1
+      MinDecimals = 1
+      Decimals = 1
+      MaxValue = 0
+      Step = 0
+      Template = 'StandardCurrency'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A0B9C30D34E385: TLabelCtrl
+      Left = 32
+      Top = 15
+      Width = 201
+      Height = 33
+      Caption = 'Basisoplysninger'
+      Ident = 'Label55'
+      TextStyle = tsBigHeader
+      WordWrap = False
+    end
+    object sid1Label56: TLabelCtrl
+      Left = 80
+      Top = 200
+      Width = 60
+      Height = 19
+      Caption = 'Fornavn(e)'
+      Ident = 'Label56'
+      WordWrap = False
+    end
+    object A6B10C49D49E52: TFieldCtrl
+      Tag = 17
+      Left = 318
+      Top = 199
+      Width = 229
+      Height = 20
+      FieldName = 'F144'
+      Formula.Strings = (
+        '"Person 1"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 23
+      Kind = fkText
+      LongIdent = 'ForNavn_1'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 229
+      BoxSizeY = 20
+    end
+    object A7B10C51D20E315: TFieldCtrl
+      Tag = 17
+      Left = 562
+      Top = 199
+      Width = 230
+      Height = 20
+      FieldName = 'F145'
+      Formula.Strings = (
+        '"Person 2"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 24
+      Kind = fkText
+      LongIdent = 'ForNavn_2'
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 230
+      BoxSizeY = 20
+    end
+    object A52B15C11D28E718: TFieldCtrl
+      Tag = 17
+      Left = 320
+      Top = 16
+      Width = 224
+      Height = 20
+      FieldName = 'F146'
+      Formula.Strings = (
+        '"Basisoplysninger"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 1
+      FieldCaption = 'Tekst til GFO'
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 146
+      BoxSizeY = 20
+    end
+    object A5B13C21D54E729: TFieldCtrl
+      Tag = 17
+      Left = 800
+      Top = 200
+      Width = 79
+      Height = 20
+      FieldName = 'F115'
+      Formula.Strings = (
+        'ForNavn_1!n++" "++EfterNavn_1!n')
+      Params.Strings = (
+        'PEnabled = Debug,'
+        'PVisible = Debug')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 145
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 79
+      BoxSizeY = 20
+    end
+    object A6B13C28D16E441: TFieldCtrl
+      Tag = 17
+      Left = 800
+      Top = 224
+      Width = 78
+      Height = 20
+      FieldName = 'F116'
+      Formula.Strings = (
+        'ForNavn_2!n++" "++EfterNavn_2!n')
+      Params.Strings = (
+        'PEnabled = Debug,'
+        'PVisible = Debug')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 146
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 78
+      BoxSizeY = 20
+    end
+    object A3B13C48D23E884: TFieldCtrl
+      Tag = 11
+      Left = 384
+      Top = 712
+      Width = 76
+      Height = 20
+      FieldName = 'F147'
+      Formula.Strings = (
+        'NewDate(iAar,1,1)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE,'
+        
+          'PCondition = value < NewDate(iAar - 1,1,1) OR value > NewDate(iA' +
+          'ar,12,31) OR Day(value) > 1,'
+        'PUseMsg = TRUE,'
+        'PMsgOnce = FALSE,'
+        'PTextType = "F",'
+        'PText = IF'
+        ' value < NewDate(iAar - 1,1,1) THEN'
+        
+          '  "Start på indkomstår kan ikke ligge før " ++ ToString(iAar - 1' +
+          ')'
+        'ELSE'
+        ' IF value > NewDate(iAar,12,31) THEN'
+        '  "Start på indkomstår kan ikke ligge efter " ++ ToString(iAar)'
+        'ELSE'
+        ' IF Day(value) > 1 THEN'
+        '  "Indkomståret skal altid starte primo en måned"'
+        ' ELSE'
+        ' "",'
+        'PTextAction = "Ret til gyldig dato den 1. i en måned",'
+        'PUsePResult = FALSE,'
+        'PResult = NOTHING,'
+        'PUnlock = FALSE,'
+        'PUsePCode = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 147
+      Kind = fkDate
+      LongIdent = 'IndkomstAarStart'
+      Template = 'ConditionalDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A6B14C49D51E922: TFieldCtrl
+      Tag = 11
+      Left = 384
+      Top = 736
+      Width = 76
+      Height = 20
+      FieldName = 'F77'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE,'
+        
+          'PCondition = value < NewDate(iAar,1,1) OR value > NewDate(iAar +' +
+          ' 1,12,31) OR Day(value + 1) > 1,'
+        'PUseMsg = TRUE,'
+        'PMsgOnce = FALSE,'
+        'PTextType = "F",'
+        'PText = IF'
+        ' value < NewDate(iAar,1,1) THEN'
+        '  "Slut på indkomstår kan ikke ligge før " ++ ToString(iAar)'
+        'ELSE'
+        ' IF value > NewDate(iAar + 1,12,31) THEN'
+        
+          '  "Slut på indkomstår kan ikke ligge efter " ++ ToString(iAar + ' +
+          '1)'
+        'ELSE'
+        ' IF Day(value + 1) > 1 THEN'
+        '  "Slut på indkomståret skal være ultimo en måned"'
+        'ELSE'
+        ' "",'
+        'PTextAction = "Ret til gyldig dato ultimo en måned",'
+        'PUsePResult = FALSE,'
+        'PResult = NOTHING,'
+        'PUnlock = FALSE,'
+        'PUsePCode = FALSE,'
+        'PCode = 0')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 93
+      Kind = fkDate
+      LongIdent = 'IndkomstAarSlut'
+      Template = 'ConditionalDate'
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A10B15C44D6E959: TFieldCtrl
+      Tag = 9
+      Left = 888
+      Top = 718
+      Width = 240
+      Height = 20
+      FieldName = 'F149'
+      Alignment = taRightJustify
+      Formula.Strings = (
+        'F148 - F78')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 149
+      FieldCaption = 'Antal dage i indkomståret - 1'
+      Kind = fkAmount
+      LongIdent = 'AntalDage'
+      Template = 'StandardAmount'
+      Visible = False
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A3B14C30D39E975: TFieldCtrl
+      Tag = 11
+      Left = 888
+      Top = 670
+      Width = 76
+      Height = 20
+      FieldName = 'F78'
+      Formula.Strings = (
+        'NewDate(iAar,1,1)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 94
+      Kind = fkDate
+      Template = 'StandardDate'
+      Visible = False
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A4B14C30D55E69: TFieldCtrl
+      Tag = 11
+      Left = 888
+      Top = 694
+      Width = 76
+      Height = 20
+      FieldName = 'F148'
+      Formula.Strings = (
+        'NewDate(iAar,12,31)')
+      Params.Strings = (
+        'PEnabled = FALSE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      Enabled = False
+      EnterOrder = 148
+      Kind = fkDate
+      Template = 'StandardDate'
+      Visible = False
+      DateRuleUsed = 2
+      ControlData = {}
+      BoxSizeX = 76
+      BoxSizeY = 20
+    end
+    object A2B10C30D14E655: TFieldCtrl
+      Tag = 17
+      Left = 780
+      Top = 247
+      Width = 20
+      Height = 20
+      FieldName = 'F150'
+      BorderStyle = bsNone
+      Formula.Strings = (
+        '"år"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 150
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 20
+      BoxSizeY = 20
+    end
+    object A137B13C28D23E752: TFieldCtrl
+      Tag = 9
+      Left = 464
+      Top = 851
+      Width = 70
+      Height = 20
+      FieldName = 'F151'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'F31-F30+1')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 151
+      FieldCaption = 'dage'
+      IsTransferField = True
+      Kind = fkAmount
+      LongIdent = 'AntalDage_1'
+      MaxLength = 4
+      Template = 'StandardAmount'
+      ControlData = {}
+      BoxSizeX = 34
+      BoxSizeY = 20
+    end
+    object A138B13C35D12E898: TFieldCtrl
+      Tag = 9
+      Left = 712
+      Top = 851
+      Width = 70
+      Height = 20
+      FieldName = 'F152'
+      Alignment = taRightJustify
+      BorderStyle = bsNone
+      Formula.Strings = (
+        'F33-F32+1')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE,'
+        'PZeroDisplay = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 152
+      FieldCaption = 'dage'
+      Kind = fkAmount
+      LongIdent = 'AntalDage_2'
+      MaxLength = 4
+      Template = 'StandardAmount'
+      ControlData = {}
+      BoxSizeX = 34
+      BoxSizeY = 20
+    end
+    object A0B9C44D21E72: TToggleCtrl
+      Left = 864
+      Top = 840
+      Width = 114
+      Height = 15
+      FieldName = 'F153'
+      Caption = 'Delår Person 1 ?'
+      Formula.Strings = (
+        
+          'IF ((NewDate(iAar,1,1)<>IndkomstAarFra_1!n) OR (NewDate(iAar,12,' +
+          '31)<>IndkomstAarTil_1!n)) AND F35==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 153
+      LongIdent = 'DelAar_1'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A1B9C49D23E28: TToggleCtrl
+      Left = 864
+      Top = 864
+      Width = 114
+      Height = 15
+      FieldName = 'F154'
+      Caption = 'Delår Person 2 ?'
+      Formula.Strings = (
+        
+          'IF ((NewDate(iAar,1,1)<>IndkomstAarFra_2!n) OR (NewDate(iAar,12,' +
+          '31)<>IndkomstAarTil_2!n)) AND F38==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 154
+      LongIdent = 'DelAar_2'
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A227B14C13D32E320: TToggleCtrl
+      Left = 864
+      Top = 896
+      Width = 178
+      Height = 15
+      FieldName = 'F155'
+      Caption = 'Ingen omregning Person 1 ?'
+      Formula.Strings = (
+        
+          'IF ((NewDate(iAar,1,1)<>IndkomstAarFra_1!n) OR (NewDate(iAar,12,' +
+          '31)<>IndkomstAarTil_1!n)) AND F34==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 155
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A228B14C13D48E617: TToggleCtrl
+      Left = 864
+      Top = 912
+      Width = 178
+      Height = 15
+      FieldName = 'F156'
+      Caption = 'Ingen omregning Person 2 ?'
+      Formula.Strings = (
+        
+          'IF ((NewDate(iAar,1,1)<>IndkomstAarFra_2!n) OR (NewDate(iAar,12,' +
+          '31)<>IndkomstAarTil_2!n)) AND F37==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 156
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      Visible = False
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A1142B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F136')
+      Handler.Strings = (
+        'Button->'
+        '{'
+        '  R75Imported1:= FALSE,'
+        '  R75Imported2:= FALSE'
+        '}')
+      Ident = 'afslutimport'
+    end
+    object A1143B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F112'
+        'F118')
+      Handler.Strings = (
+        'Button() ->'
+        '{'
+        '  IF AdressePerson!n==1 THEN'
+        '  {'
+        '  AdressePerson!n:=2,'
+        '  SenesteAdressePerson!n:=2,'
+        '  AdressePersonAnden!n:=1'
+        '  }'
+        ''
+        '  ELSE IF AdressePerson!n==2 THEN'
+        '  {'
+        '  AdressePerson!n:=1,'
+        '  SenesteAdressePerson!n:=1,'
+        '  AdressePersonAnden!n:=2'
+        '  }'
+        ''
+        ''
+        '}')
+      Ident = 'BegraensetSkplPerson1'
+    end
+    object A1144B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F117'
+        'F119')
+      Ident = 'BegraensetSkplPerson2'
+    end
+    object A1145B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F157')
+      Handler.Strings = (
+        'Button() ->'
+        '{'
+        ''
+        ' CALL GotoPageChangeCurrField("DelaarPSL", ToAmount(1), 1, 1)'
+        ''
+        '}')
+      Ident = 'KnapIndkomster'
+    end
+    object A1146B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F121')
+      Handler.Strings = (
+        'Button->'
+        '{'
+        '  R75Imported1:= TRUE,'
+        '  R75Imported2:= TRUE'
+        '}')
+      Ident = 'import'
+    end
+    object A1147B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F122')
+      Handler.Strings = (
+        'Button() ->'
+        ''
+        '{'
+        '  CALL EnableUndo(TRUE),'
+        '  CALL GotoPage("R75import",1, 1)'
+        '}')
+      Ident = 'R75p1'
+    end
+    object A1148B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F137')
+      Handler.Strings = (
+        'Button() ->'
+        ''
+        '{'
+        '  CALL GotoPage("R75import",2, 1)'
+        '}')
+      Ident = 'R75p2'
+    end
+    object A1149B11C26D2E820: TGroupCtrl
+      Top = 518
+      Fields.Strings = (
+        'F41')
+      Handler.Strings = (
+        'Button->'
+        '{'
+        '  SenesteAdressePerson!n:=AdressePerson!n,'
+        '  AdressePerson!n:=AdressePersonAnden!n,'
+        '  AdressePersonAnden!n:=SenesteAdressePerson!n'
+        '}')
+      Ident = 'SkiftAdresseperson'
+    end
+    object A0B12C42D50E162: TToggleCtrl
+      Left = 864
+      Top = 798
+      Width = 196
+      Height = 15
+      FieldName = 'F158'
+      Caption = 'Er person 1 delårsskattepligtig?'
+      Formula.Strings = (
+        
+          'IF ((NewDate(iAar,1,1)<>IndkomstAarFra_1!n) OR (NewDate(iAar,12,' +
+          '31)<>IndkomstAarTil_1!n)) THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 158
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A1B12C44D22E938: TToggleCtrl
+      Left = 864
+      Top = 814
+      Width = 197
+      Height = 15
+      FieldName = 'F159'
+      Caption = 'Er Person 2 delårsskattepligtig?'
+      Formula.Strings = (
+        
+          'IF ((NewDate(iAar,1,1)<>IndkomstAarFra_2!n) OR (NewDate(iAar,12,' +
+          '31)<>IndkomstAarTil_2!n)) THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 159
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A2B13C36D41E587: TToggleCtrl
+      Left = 872
+      Top = 1124
+      Width = 280
+      Height = 15
+      FieldName = 'F160'
+      Caption = 'Skal der beregnes personfradrag for Person 1?'
+      Formula.Strings = (
+        
+          'IF F83==FALSE OR ((F83==TRUE AND F112==TRUE AND F158==TRUE AND F' +
+          '84==TRUE) OR (F83==TRUE AND F112==TRUE AND F158==FALSE)) THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 160
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A3B13C47D44E464: TToggleCtrl
+      Left = 872
+      Top = 1140
+      Width = 280
+      Height = 15
+      FieldName = 'F161'
+      Caption = 'Skal der beregnes personfradrag for Person 2?'
+      Formula.Strings = (
+        
+          'IF F89==FALSE OR ((F89==TRUE AND F117==TRUE AND F159==TRUE AND F' +
+          '87==TRUE) OR (F89==TRUE AND F117==TRUE AND F159==FALSE)) THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 161
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A4B15C13D25E137: TToggleCtrl
+      Left = 872
+      Top = 1172
+      Width = 196
+      Height = 15
+      FieldName = 'F162'
+      Caption = 'Skal der omregnes for Person 1'
+      Formula.Strings = (
+        
+          'IF (F158==TRUE) OR (F158==TRUE AND F83==TRUE AND F112==TRUE AND ' +
+          'F84==TRUE) THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 162
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A5B15C13D44E53: TToggleCtrl
+      Left = 872
+      Top = 1188
+      Width = 196
+      Height = 15
+      FieldName = 'F163'
+      Caption = 'Skal der omregnes for Person 2'
+      Formula.Strings = (
+        
+          'IF (F159==TRUE) OR (F159==TRUE AND F89==TRUE AND F117==TRUE AND ' +
+          'F87==TRUE) THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 163
+      Kind = tkCheck
+      Template = 'StandardBoolean'
+      TrueText = 'X'
+      ColorEnabled = clWhite
+      ColorDisabled = 15198183
+    end
+    object A41B9C38D57E612: TButtonCtrl
+      Left = 296
+      Top = 380
+      Width = 139
+      Height = 26
+      Command = 0
+      CommandParam = 'Button'
+      Cancel = False
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF AdresseBegge!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      EnterOrder = 50
+      FieldName = 'F41'
+      Kind = bkApplication
+      Template = 'StandardButton'
+      Caption = 'Skift adresseperson'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
+      ShowHint = True
+      TabOrder = 0
+    end
+    object A12B11C28D38E595: TButtonCtrl
+      Left = 808
+      Top = 145
+      Width = 90
+      Height = 22
+      Command = 0
+      CommandParam = 'Button'
+      Cancel = False
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      EnterOrder = 13
+      FieldName = 'F121'
+      Kind = bkApplication
+      Template = 'StandardButton'
+      Caption = 'Importer'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
+      ShowHint = True
+      TabOrder = 1
+      Visible = False
+    end
+    object A16B12C37D36E751: TButtonCtrl
+      Left = 341
+      Top = 145
+      Width = 158
+      Height = 22
+      Command = 0
+      CommandParam = 'Button'
+      Cancel = False
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      EnterOrder = 11
+      FieldName = 'F122'
+      Kind = bkApplication
+      Template = 'StandardButton'
+      Caption = 'Hent R75-data for person 1'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
+      ShowHint = True
+      TabOrder = 2
+    end
+    object A24B14C4D55E268: TButtonCtrl
+      Left = 809
+      Top = 169
+      Width = 90
+      Height = 22
+      Command = 0
+      CommandParam = 'Button'
+      Cancel = False
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = FALSE')
+      EnterOrder = 19
+      FieldName = 'F136'
+      Kind = bkApplication
+      Template = 'StandardButton'
+      Caption = 'Afslut import'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
+      ShowHint = True
+      TabOrder = 3
+      Visible = False
+    end
+    object A50B9C35D1E82: TButtonCtrl
+      Left = 588
+      Top = 145
+      Width = 158
+      Height = 22
+      Command = 0
+      CommandParam = 'Button'
+      Cancel = False
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = IF Ugift!n == FALSE THEN TRUE'
+        'ELSE FALSE')
+      EnterOrder = 12
+      FieldName = 'F137'
+      Kind = bkApplication
+      Template = 'StandardButton'
+      Caption = 'Hent R75-data for person 2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
+      ShowHint = True
+      TabOrder = 4
+    end
+    object A229B15C34D11E385: TButtonCtrl
+      Left = 512
+      Top = 914
+      Width = 75
+      Height = 22
+      Command = 0
+      CommandParam = 'Button'
+      Cancel = False
+      Formula.Strings = (
+        'NOTHING')
+      Params.Strings = (
+        'PEnabled = IF F155==TRUE OR F156==TRUE THEN'
+        ' TRUE'
+        'ELSE'
+        ' FALSE,'
+        'PVisible = TRUE')
+      EnterOrder = 157
+      FieldName = 'F157'
+      Kind = bkApplication
+      Template = 'StandardButton'
+      Caption = 'Indkomster'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
+      ShowHint = True
+      TabOrder = 5
+    end
+  end
+end

@@ -25,6 +25,8 @@ namespace ParsePascalDependencies
         public bool IsValidReference { get; private set; }
         public bool IsFoundInFileSystem { get; private set; }
 
+        public IEnumerable<string> Lines { get; set; }
+
         internal static PascalUnit CreateInvalidUnitFromPath(string path)
         {
             return new PascalUnit(UnitNameNotFound,path) {IsValidReference = false};

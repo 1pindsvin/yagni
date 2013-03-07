@@ -14,13 +14,14 @@ namespace ParsePascalDependencies
         private const string OpDir = @"b:\op";
 
         private static readonly ILog Log = LogManager.GetLogger(typeof (Program));
-
+            
 
         public static void Main(string[] args)
         {
             //PrintUnitInfo();
             //PrintUnitnamesNotFoundInFileSystem();
-            PrintDependencies("meptypes");
+            //PrintDependencies("meptypes");
+            PrintDependencies("TMEPSettings");
             //PrintDependencies("BkApp");
         }
 
