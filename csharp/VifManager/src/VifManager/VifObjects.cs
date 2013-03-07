@@ -4,9 +4,9 @@ using System;
 
 namespace dk.magnus.VifManager
 {
-    class VifObjects
+    internal class VifObjects
     {
-        private List<VifObject> _vifs;
+        private readonly List<VifObject> _vifs;
 
         public VifObjects()
         {

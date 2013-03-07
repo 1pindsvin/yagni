@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace dk.magnus.VifManager
 {
-    class Program
+    internal class Program
     {
-
         private const string Path = @"c:\proj\Dantax\Dev\Op\Sk\Vif";
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             var vifObjects = new VifObjects();
             var fileEnumerator = new FileEnumerator(Path, "*.vif");

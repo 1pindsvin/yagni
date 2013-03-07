@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VifRegExFixture.cs" />
     <Compile Include="VifObjectBuilderIntegrationFixture.cs" />
     <Compile Include="VifObjectBuilderFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

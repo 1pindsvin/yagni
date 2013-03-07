@@ -51,6 +51,7 @@
     <Compile Include="IFileEnumerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VifGrepper.cs" />
     <Compile Include="VifObject.cs" />
     <Compile Include="VifObjectBuilder.cs" />
     <Compile Include="VifObjects.cs" />

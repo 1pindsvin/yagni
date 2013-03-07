@@ -6,36 +6,32 @@ using System.Linq;
 
 namespace dk.magnus.VifManager
 {
-
     [TestFixture]
     public class VifObjectBuilderFixture
     {
-
         [Test]
         public void CanBuildSimpleRecursiveVif()
         {
-            var lines = new[] { "object foo", "object bar", "end", "end" };
+            var lines = new[] {"object foo", "object bar", "end", "end"};
             var vifBuilder = new VifObjectBuilder();
             var first = vifBuilder.Build(lines);
             AssertChildCount(first, 1);
             var firstChild = first.Children.Single();
             AssertChildCount(firstChild, 0);
-            Assert.AreEqual(2,firstChild.Lines.Count());
+            Assert.AreEqual(2, firstChild.Lines.Count());
             Assert.AreEqual(2, first.Lines.Count());
         }
 
 
-
-        void AssertChildCount(VifObject vif, int expectedCount)
+        private void AssertChildCount(VifObject vif, int expectedCount)
         {
             if (expectedCount == 0)
             {
                 Assert.IsFalse(vif.HasChildren);
-
             }
             else
             {
-                Assert.IsTrue(vif.HasChildren);    
+                Assert.IsTrue(vif.HasChildren);
             }
             Assert.AreEqual(expectedCount, vif.Children.Count());
         }
@@ -43,30 +39,30 @@ namespace dk.magnus.VifManager
         [Test]
         public void CanBuildRecursiveVifWithTwoChildren()
         {
-            var lines = new[] { "object foo", "object bar", "end", "object gombert", "end", "end" };
+            var lines = new[] {"object foo", "object bar", "end", "object gombert", "end", "end"};
             var vifBuilder = new VifObjectBuilder();
             var first = vifBuilder.Build(lines);
             AssertChildCount(first, 2);
             foreach (var child in first.Children)
             {
-                AssertChildCount(child,0);
+                AssertChildCount(child, 0);
             }
         }
-        
+
         [Test]
         public void CanBuildSimpleVif()
         {
-            var lines = new[] { "object foo", "end" };
+            var lines = new[] {"object foo", "end"};
             var vifBuilder = new VifObjectBuilder();
-            var single= vifBuilder.Build(lines); 
+            var single = vifBuilder.Build(lines);
             Assert.AreEqual(2, single.Lines.Count());
-            AssertChildCount(single,0);
+            AssertChildCount(single, 0);
         }
 
         [Test]
         public void CanBuildRecursiveVifWithExtralinesInBody()
         {
-            var lines = new[] { "object VifPackage: TVifPackage", "object VifPackage: TVifPackage", "foo", "bar", "end", "foo", "bar", "end" };
+            var lines = new[] {"object VifPackage: TVifPackage", "object VifPackage: TVifPackage", "foo", "bar", "end", "foo", "bar", "end"};
             var vifBuilder = new VifObjectBuilder();
             var single = vifBuilder.Build(lines);
             Assert.AreEqual(4, single.Lines.Count());
@@ -76,16 +72,14 @@ namespace dk.magnus.VifManager
         [Test]
         public void CanBuildThreeLayerRecursiveVif()
         {
-            var lines = new[] { "object foo", "object bar","object gombert", "end", "end", "end" };
+            var lines = new[] {"object foo", "object bar", "object gombert", "end", "end", "end"};
             var vifBuilder = new VifObjectBuilder();
             var single = vifBuilder.Build(lines);
             AssertChildCount(single, 1);
             var firstChild = single.Children.Single();
             var grandChild = firstChild.Children.Single();
-            AssertChildCount(firstChild,1);
+            AssertChildCount(firstChild, 1);
             AssertChildCount(grandChild, 0);
         }
-
-
     }
 }

@@ -21,7 +21,9 @@ namespace ParsePascalDependencies
             //PrintUnitInfo();
             //PrintUnitnamesNotFoundInFileSystem();
             //PrintDependencies("meptypes");
-            PrintDependencies("TMEPSettings");
+            //PrintDependencies("TMEPSettings");
+            PrintDependencies("BkOptionsUtil");
+            
             //PrintDependencies("BkApp");
         }
 
@@ -33,7 +35,7 @@ namespace ParsePascalDependencies
             parser.BuildPascalUnitsWithReferences();
             var pascalUnits = parser.Units.
                                         SelectMany(x => x.Units).
-                                        Distinct(PascalUnit.UnitComparer).
+                                        Distinct(PascalUnit.UnitByNameComparer).
                                         Where(x => !x.IsFoundInFileSystem).
                                         OrderBy(x => x.UnitNameLowered).
                                         ToList();
@@ -46,8 +48,8 @@ namespace ParsePascalDependencies
         {
             var parser = DependencyParser.CreateDefault(OpDir);
             parser.BuildPascalUnitsWithReferences();
-            var mepTypes = parser.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
-            var dependencies = mepTypes.DeepReferences.Distinct(PascalUnit.UnitComparer).ToList();
+            var types = parser.Units.Single(x => x.UnitNameLowered.Equals(unitName.ToLower()));
+            var dependencies = types.DeepReferences.Distinct(PascalUnit.UnitByNameComparer).ToList();
             var header = unitName + ", dependencies";
             Func<PascalUnit, string> toString = x => string.Format(x.ToNameAndPathString());
             PrintResolvedUnits(header,dependencies.OrderBy(x => x.IsFoundInFileSystem).ThenBy(x => x.UnitNameLowered),toString);

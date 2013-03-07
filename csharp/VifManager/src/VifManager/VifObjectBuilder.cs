@@ -5,10 +5,18 @@ using System.Text.RegularExpressions;
 
 namespace dk.magnus.VifManager
 {
+    internal class Patterns
+    {
+        public const string ObjectInline = @"^\s*object\b";
+        public const string EndOfObject = @"^\s*end\b";
+        public const string ObjectTypeAndName = @"^\s*object\s+(\w+)\b\:\s*(\w+)\b";
+    }
+
     internal class VifObjectBuilder
     {
-        private static readonly Regex ObjectInlineRegex = new Regex(@"^\s*object\b", RegexOptions.IgnoreCase);
-        private static readonly Regex EndOfObjectRegex = new Regex(@"^\s*end\b", RegexOptions.IgnoreCase);
+        public static readonly Regex ObjectInlineRegex = new Regex(Patterns.ObjectInline, RegexOptions.IgnoreCase);
+        public static readonly Regex EndOfObjectRegex = new Regex(Patterns.EndOfObject, RegexOptions.IgnoreCase);
+        public static readonly Regex FindObjectTypeAndNameRegex = new Regex(Patterns.ObjectTypeAndName, RegexOptions.IgnoreCase);
 
         internal VifObject Build(IEnumerable<string> lines)
         {

@@ -77,11 +77,29 @@ namespace dk.magnus.VifManager
             get { return _children.Count > 0; }
         }
 
+        public string Clazz
+        {
+            get
+            {
+                var line = Lines.First();
+                var type = VifObjectBuilder.FindObjectTypeAndNameRegex.Match(line).Groups[2].Value;
+                return type;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                var line = Lines.First();
+                var name = VifObjectBuilder.FindObjectTypeAndNameRegex.Match(line).Groups[1].Value;
+                return name;
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("I am a [{0}]. Number of direct children [{1}], Lines [{2}]", GetType().FullName, _children.Count, _lines.Count);
         }
-
-
     }
 }

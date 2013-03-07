@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using NUnit.Framework;
@@ -9,18 +10,29 @@ using System.Linq;
 
 namespace dk.magnus.VifManager
 {
-
-    [TestFixture,Category("integration")]
+    [TestFixture, Category("integration")]
     public class VifObjectBuilderIntegrationFixture
     {
-        const string Path = @"TestFiles\Stamdata.vif";
+        private const string Path = @"TestFiles\Stamdata.vif";
 
         [Test]
-        public void CanVifStructureFromFile()
+        public void CanReadVifStructureFromFile()
         {
-            var firstActualVif = ReadVifFromFile(Path);
-            Debug.WriteLine(firstActualVif.ToString());
+            var vif = ReadVifFromFile(Path);
+            Debug.WriteLine(vif.ToString());
+            Debug.WriteLine(string.Format("Name [{0}], Type: [{1}]", vif.Name, vif.Clazz));
         }
+
+        [Test]
+        public void CanPrintDeepVifInfo()
+        {
+            var vif = ReadVifFromFile(Path);
+            Func<VifObject, string> transformer = x => string.Format("Name [{0}], Type: [{1}]", x.Name, x.Clazz);
+            var grep = new VifGrepper<string>(transformer);
+            var lines = grep.GetDeepVifInfo(vif);
+            Debug.Print(string.Join(Environment.NewLine, lines));
+        }
+
 
         private static VifObject ReadVifFromFile(string path)
         {
@@ -31,7 +43,7 @@ namespace dk.magnus.VifManager
         }
 
 
-        void AppendLines(VifObject vif, List<string> lines)
+        private void AppendLines(VifObject vif, List<string> lines)
         {
             var list = vif.Lines.ToList();
             if (!vif.HasChildren)
@@ -40,10 +52,10 @@ namespace dk.magnus.VifManager
                 return;
             }
             //dump end statement
-            lines.AddRange(list.Take(list.Count-1));
+            lines.AddRange(list.Take(list.Count - 1));
             foreach (var child in vif.Children)
             {
-                AppendLines(child,lines);
+                AppendLines(child, lines);
             }
             lines.Add(list.Last());
         }
@@ -51,12 +63,13 @@ namespace dk.magnus.VifManager
         [Test]
         public void ComparePrintWithOriginalFile()
         {
-            var list = new List<string>();
             var vif = ReadVifFromFile(Path);
             var lines = File.ReadAllLines(Path).ToList();
-            AppendLines(vif,list);
-            CollectionAssert.AreEqual(lines,list);
-        }
 
+            var list = new List<string>();
+            AppendLines(vif, list);
+
+            CollectionAssert.AreEqual(lines, list);
+        }
     }
 }

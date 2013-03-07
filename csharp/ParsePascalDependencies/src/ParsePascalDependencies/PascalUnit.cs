@@ -9,7 +9,7 @@ namespace ParsePascalDependencies
 {
     internal class PascalUnit
     {
-        public static readonly PascalUnitComparer UnitComparer = new PascalUnitComparer();
+        public static readonly PascalUnitComparer UnitByNameComparer = new PascalUnitComparer();
 
         //evaluate a single word - does not accept punctuations: my.library.controls 
         //these are used by the common language runtime (.net)
