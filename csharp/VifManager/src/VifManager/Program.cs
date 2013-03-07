@@ -15,7 +15,7 @@ namespace dk.magnus.VifManager
             var builder = new VifObjectBuilder();
             foreach (var path in fileEnumerator.EnumerateFiles())
             {
-                builder.Build(File.ReadAllLines(path));
+                //builder.Build(File.ReadAllLines(path));
             }
         }
     }

@@ -16,9 +16,8 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "object bar", "end", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.Build(lines);
-            var first = root.Children.First();
-            AssertChildCount(first,1);
+            var first = vifBuilder.Build(lines);
+            AssertChildCount(first, 1);
             var firstChild = first.Children.Single();
             AssertChildCount(firstChild, 0);
             Assert.AreEqual(2,firstChild.Lines.Count());
@@ -46,9 +45,8 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "object bar", "end", "object gombert", "end", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.Build(lines);
-            var first = root.Children.First();
-            AssertChildCount(first,2);
+            var first = vifBuilder.Build(lines);
+            AssertChildCount(first, 2);
             foreach (var child in first.Children)
             {
                 AssertChildCount(child,0);
@@ -60,10 +58,8 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.Build(lines);
-            Assert.IsTrue(root.IsRoot);
-            var single = root.Children.Single();
-            Assert.AreEqual(2,single.Lines.Count());
+            var single= vifBuilder.Build(lines); 
+            Assert.AreEqual(2, single.Lines.Count());
             AssertChildCount(single,0);
         }
 
@@ -72,8 +68,7 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object VifPackage: TVifPackage", "object VifPackage: TVifPackage", "foo", "bar", "end", "foo", "bar", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.Build(lines);
-            var single = root.Children.Single();
+            var single = vifBuilder.Build(lines);
             Assert.AreEqual(4, single.Lines.Count());
             AssertChildCount(single, 1);
         }
@@ -83,8 +78,7 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "object bar","object gombert", "end", "end", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.Build(lines);
-            var single = root.Children.Single();
+            var single = vifBuilder.Build(lines);
             AssertChildCount(single, 1);
             var firstChild = single.Children.Single();
             var grandChild = firstChild.Children.Single();

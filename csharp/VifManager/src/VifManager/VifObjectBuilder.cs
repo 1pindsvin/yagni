@@ -12,11 +12,11 @@ namespace dk.magnus.VifManager
 
         internal VifObject Build(IEnumerable<string> lines)
         {
-            var root = DoBuildVifs(lines);
-            return root;
+            var root = DoBuild(lines);
+            return root.Children.First();
         }
 
-        private static VifObject DoBuildVifs(IEnumerable<string> lines)
+        private static VifObject DoBuild(IEnumerable<string> lines)
         {
             var current = new VifObject {IsRoot = true};
             foreach (var line in lines)

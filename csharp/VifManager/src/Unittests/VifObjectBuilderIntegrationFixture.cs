@@ -27,8 +27,7 @@ namespace dk.magnus.VifManager
             var lines = File.ReadAllLines(path);
             var builder = new VifObjectBuilder();
             var root = builder.Build(lines);
-            var firstActualVif = root.Children.First();
-            return firstActualVif;
+            return root;
         }
 
 
@@ -58,7 +57,6 @@ namespace dk.magnus.VifManager
             AppendLines(vif,list);
             CollectionAssert.AreEqual(lines,list);
         }
-
 
     }
 }
