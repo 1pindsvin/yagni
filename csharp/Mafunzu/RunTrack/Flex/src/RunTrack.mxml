@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application 	
+	minHeight="600"
+	minWidth="800"
+	width="100%"
+	height="100%"
+	initialize="application1_initializeHandler(event);"
+	creationComplete="creationCompleteHandler();"
+	currentState="{_applicationViewModel.state}" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	xmlns:controller="dk.runtrack.controller.*"
+	xmlns:util="dk.runtrack.util.*"
+	xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Declarations>
+		<s:TraceTarget
+			filters="dk.runtrack.*"
+			includeCategory="true"
+			includeDate="true"
+			includeLevel="true"
+			includeTime="true"
+			level="{LogEventLevel.DEBUG}">
+		</s:TraceTarget>	
+		<controller:Services />		
+		<controller:ApplicationController />
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+
+	
+	<fx:Metadata>
+		[ResourceBundle("statusMessages")]
+		[ResourceBundle("commonWords")]
+		[ResourceBundle("applicationMenuBar")]		
+		[ResourceBundle("SharedResources")]		
+	</fx:Metadata>
+	
+	<fx:Script>
+	<![CDATA[
+		import com.adobe.cairngorm.control.CairngormEvent;
+		import com.adobe.cairngorm.model.IModelLocator;
+		
+		import dk.runtrack.commands.UploadWatchDataCommand;
+		import dk.runtrack.commands.interfaces.IRtCommand;
+		import dk.runtrack.commands.locale.ChangeLocaleCommand;
+		import dk.runtrack.events.RunTrackEvent;
+		import dk.runtrack.io.CookieAdapter;
+		import dk.runtrack.model.Constants;
+		import dk.runtrack.presentationmodels.ApplicationPresentationModel;
+		import dk.runtrack.presentationmodels.StatusMessageViewModel;
+		import dk.runtrack.presentationmodels.interfaces.IEditAthletePresentationModel;
+		import dk.runtrack.presentationmodels.interfaces.ILoginPresentationModel;
+		import dk.runtrack.presentationmodels.menu.MenuItem;
+		
+		import mx.events.FlexEvent;
+		import mx.events.MenuEvent;
+		import mx.logging.LogEventLevel;
+		import mx.managers.PopUpManager;
+	
+		[Bindable]
+		private var _athletes : Array;
+		
+		[Bindable]
+		public var model:IModelLocator; 
+	
+		[Bindable]
+		private var _applicationViewModel:ApplicationPresentationModel;
+	
+		private var _athleteViewModel : IEditAthletePresentationModel;
+		
+		[Bindable]
+		private var _userViewModel : ILoginPresentationModel;
+		
+		[Bindable]
+		private var _statusMessageViewModel:StatusMessageViewModel;
+
+		private function ensureLocalesReady() : void
+		{
+			if(parameters.supportedLocales==null)
+			{
+				throw new Error(Constants.RESOURCEMANAGER_NOT_INITIALIZED_EXCEPTION);
+			}
+			
+			var loadedLocales:Array = resourceManager.getLocales();
+			if(loadedLocales==null || loadedLocales.length==0)
+			{
+				throw new Error(Constants.RESOURCEMANAGER_NOT_INITIALIZED_EXCEPTION);
+			}
+			var currentLocale:String = resourceManager.localeChain[0];
+			if(currentLocale==null)
+			{
+				throw new Error(Constants.RESOURCEMANAGER_NOT_INITIALIZED_EXCEPTION);
+			}
+			var dateFormat :String =resourceManager.getString('SharedResources','dateFormat');
+			if(dateFormat==null)
+			{
+				throw new Error(Constants.RESOURCEMANAGER_NOT_INITIALIZED_EXCEPTION);
+			}
+		}
+		
+		private function creationCompleteHandler():void
+		{
+			ensureLocalesReady();
+			
+			_applicationViewModel = presentationModelLocator.applicationPresentationModel;
+			_athleteViewModel = presentationModelLocator.editAthletePresentationModel;
+			_userViewModel = presentationModelLocator.loginPresentationModel;
+			_statusMessageViewModel = presentationModelLocator.statusMessageViewModel;
+			currentState = ApplicationPresentationModel.STATE_NOT_LOGGED_IN;
+			if (parameters.supportedLocales)
+			{
+				var supportedLocales:String = parameters.supportedLocales as String;
+				if (supportedLocales)
+				{
+					var locales:Array = supportedLocales.split(",");
+					_applicationViewModel.supportedLocales = locales;					
+				}						
+			}
+			
+			if (parameters.version)
+			{
+				_applicationViewModel.version = parameters.version as String;
+			}
+			var currentLocale:String = resourceManager.localeChain[0];
+			var localeCommand : IRtCommand = new ChangeLocaleCommand(currentLocale);
+			new RunTrackEvent(localeCommand).dispatch();
+		}
+
+		private function applicationMenuBarMenuShowHandler(event: MenuEvent) : void
+		{
+			if(event.menuBar.selectedIndex!= Constants.DOWNLOAD_MENU_INDEX)
+			{
+				return;
+			}
+			var menuItem:MenuItem = event.menuBar.menuBarItems[Constants.DOWNLOAD_MENU_INDEX].data;
+			if(menuItem==null)
+			{
+				throw new Error(Constants.ARGUMENT_NULL_EXCEPTION + ", menuItem was null => var menuItem:MenuItem = event.menuBar.menuBarItems[DOWNLOAD_MENU_INDEX].data");
+			}
+			var command:IRtCommand = menuItem.action as IRtCommand;
+			if (command == null)
+			{
+				return;
+			}
+			command.execute();			
+		}
+
+	
+		private function ApplicationMenuBarItemClick(event:MenuEvent):void
+		{
+			var menuItem:MenuItem = event.item as MenuItem;
+			if (menuItem == null || menuItem.action == null)
+			{
+				return;
+			}
+			var command : IRtCommand = menuItem.action as IRtCommand;
+			if (command != null)
+			{
+				command.execute();
+				return;
+			}
+			var cairngormEvent:CairngormEvent = menuItem.action as CairngormEvent;
+			if (cairngormEvent == null)
+			{
+				return;
+			}
+			cairngormEvent.dispatch();			
+		}
+
+		protected var _loginview : dk.runtrack.view.components.LoginView;
+
+		protected function enterNotLoggedInStateHandler(event:FlexEvent):void
+		{
+			var justLogMeIn : Boolean = false;
+			if(justLogMeIn)
+			{
+				var loginModel : ILoginPresentationModel =  presentationModelLocator.loginPresentationModel;
+				var cookie : CookieAdapter = new CookieAdapter();
+				loginModel.username =  cookie.userName;
+				loginModel.password = cookie.password;
+				loginModel.login();
+			}
+			else
+			{
+				_loginview = new dk.runtrack.view.components.LoginView();
+				PopUpManager.addPopUp(_loginview, this, true);
+				PopUpManager.centerPopUp(_loginview);					
+			}
+		}
+
+
+		protected function uploadActivitiesLinkButton_clickHandler(event:MouseEvent):void
+		{
+			loadGarmin();
+		}
+
+		private var statusMessages : Array = new Array();
+		public function webserviceStatus(statusmessage : String) : void
+		{
+			statusMessages.push(statusmessage);
+		}
+
+		public function uploadActivity(activity : String) : void
+		{
+			trace(activity.length.toString());
+			var command : IRtCommand = new UploadWatchDataCommand(activity);
+			new RunTrackEvent(command).dispatch();
+		}
+		
+		protected function application1_initializeHandler(event:FlexEvent):void
+		{
+			if (!ExternalInterface.available)
+			{
+				throw new Error(Constants.INVALIDOPERATIONEXCEPTION + " !ExternalInterface.available"); 
+			}
+			ExternalInterface.addCallback("flashUploadActivity", uploadActivity);        
+			ExternalInterface.addCallback("webserviceStatus", webserviceStatus);        
+		}
+
+		public function loadGarmin():void
+		{
+			if (!ExternalInterface.available)
+			{
+				throw new Error(Constants.INVALIDOPERATIONEXCEPTION + " !ExternalInterface.available"); 
+			}
+			ExternalInterface.call("load");
+		}			
+		
+		
+	]]>
+	</fx:Script>
+	
+	<mx:MenuBar 
+		menuShow="applicationMenuBarMenuShowHandler(event);"
+		excludeFrom="notLoggedInState"
+		itemClick="ApplicationMenuBarItemClick(event);"
+		id="ApplicationMenuBar" 		
+		dataProvider="{resourceManager.getObject('menu', 'menuItems')}" 
+		showRoot="true"				 
+		labelField="label" 
+		top="-1"		
+		right="0" 
+		left="0">		  
+	</mx:MenuBar>
+
+	<comp:EditTrainingView 
+		id="editTrainingView" 
+		includeIn="trainingPerspective"
+		top="67" 
+		bottom="58" 
+		left="10" 
+		right="10" >
+	</comp:EditTrainingView>
+
+	<comp:EditTrainingPlanningView 
+		id="editTrainingPlanningView" 
+		includeIn="trainingPlanningPerspective"
+		top="67" 
+		bottom="58" 
+		left="10" 
+		right="10" >
+	</comp:EditTrainingPlanningView>
+	
+	<s:HGroup 
+		id="LogoutVBox"
+		excludeFrom="notLoggedInState"
+		paddingTop="5"
+		paddingLeft="5"
+		paddingRight="5"
+		paddingBottom="5"
+		top="30"
+		right="10">
+		<s:Label id="LoggedInAsLabel" 
+				 paddingTop="2" 
+				 text="{resourceManager.getString('applicationMenuBar','logged.in.as') + ': ' + _userViewModel.username} " />
+		<mx:LinkButton id="LogoutLinkButton" 					 
+					   label="{resourceManager.getString('applicationMenuBar','logoff')}"
+					   click="_userViewModel.logout()" />
+
+		
+		<comp:UploadView id="uploadView" />
+			
+	</s:HGroup>
+
+	<s:states >
+		<s:State name="notLoggedInState" enterState="enterNotLoggedInStateHandler(event)" />
+		<s:State name="trainingPerspective"   />
+		<s:State name="trainingPlanningPerspective"  />
+	</s:states>
+
+</s:Application>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel 
+	title="{resourceManager.getString('loginView','login')}" 	
+	creationComplete="creationCompleted()"
+	currentState="{_userViewModel.state}"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:controller="dk.runtrack.controller.*"
+	>
+	
+	<fx:Metadata>
+		[ResourceBundle("loginView")]
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+
+	<s:states>
+		<mx:State name="searchCredentialsState"  />
+		<mx:State name="loggedInState" enterState="closeLogin();" />
+		<mx:State name="credentialsNotFoundState" />
+		<mx:State name="inputCredentialsState" />
+	</s:states>	
+	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.io.CookieAdapter;
+			import mx.resources.ResourceBundle;
+			import mx.events.StateChangeEvent;
+			import dk.runtrack.presentationmodels.interfaces.ILoginPresentationModel;
+			import dk.runtrack.controller.PresentationModelLocator;
+			import dk.runtrack.presentationmodels.LoginPresentationModel;
+			import mx.managers.PopUpManager;
+			
+			private var _cookie : CookieAdapter;		
+			
+			private function closeLogin():void
+			{
+				PopUpManager.removePopUp(this);			    
+			}
+			
+			[Bindable]
+			private var _userViewModel : ILoginPresentationModel;
+			
+			public function creationCompleted():void
+			{
+				_userViewModel  =  presentationModelLocator.loginPresentationModel;
+				_cookie = new CookieAdapter();
+				_userViewModel.username =  _cookie.userName;
+				_userViewModel.password = _cookie.password;
+				emailTextInput.setFocus();
+			}
+			
+			private function loginButtonClicked() : void
+			{
+				_cookie.userName = _userViewModel.username; 
+				_cookie.password = _userViewModel.password;
+				_userViewModel.login();			
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<mx:Form id="loginForm" >
+		<mx:FormItem label="{resourceManager.getString('loginView', 'email')}:" id="emailFormItem">
+			<s:TextInput 
+				id="emailTextInput" 
+				text="{_userViewModel.username}" 
+				change="{_userViewModel.username=emailTextInput.text;}"
+				/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('loginView', 'password')}:" id="passwordFormItem">
+			<s:TextInput 
+				id="passwordTextInput" 
+				text="{_userViewModel.password}" 
+				change="{_userViewModel.password=passwordTextInput.text;}"
+				displayAsPassword="true"/>
+		</mx:FormItem>
+		<mx:FormItem includeIn="searchCredentialsState" >
+			<mx:ProgressBar 
+				id="loginProgressBar"
+				horizontalCenter="0" 
+				indeterminate="true"
+				label="{resourceManager.getString('loginView', 'processing.login')}"
+				/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:controlBarContent>
+		<comp:ComponentStatusLabel id="statusLabel" resourceBundleName="loginView" status="{_userViewModel.statusMessage}" />
+		<mx:Spacer width="100%" id="spacer1"/>
+		<s:Button label="{resourceManager.getString('loginView', 'login')}" enabled.searchCredentialsState="false" id="loginButton" click="loginButtonClicked();"/>
+	</s:controlBarContent>
+	
+</s:Panel>

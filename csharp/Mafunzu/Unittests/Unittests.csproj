@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CF637CD-B4BB-46BD-AD21-7B86C5E87FAA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unittests</RootNamespace>
+    <AssemblyName>Unittests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FileHelpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Tools\NUnit-2.5.2.9222\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionScriptClassBuilder.cs" />
+    <Compile Include="ActionScriptClassBuilderTester.cs" />
+    <Compile Include="ActionScriptClasses\Classes.cs" />
+    <Compile Include="AthleteTester.cs" />
+    <Compile Include="DataService\DataAccess\AthleteBuilder.cs" />
+    <Compile Include="DataService\DataAccess\CreateUserTester.cs" />
+    <Compile Include="DataService\DataAccess\DataAccessSaveRunTester.cs" />
+    <Compile Include="DataService\DataAccess\BaseDataAccessTester.cs" />
+    <Compile Include="DataService\DataAccess\GetAthleteShoePageTester.cs" />
+    <Compile Include="DataService\DataAccess\GetAthleteShoesTester.cs" />
+    <Compile Include="DataService\DataAccess\GetBestRunsTester.cs" />
+    <Compile Include="DataService\DataAccess\GetHealthHistoryTester.cs" />
+    <Compile Include="DataService\DataAccess\MonthQueryRunsTester.cs" />
+    <Compile Include="DataService\DataAccess\SaveAthleteTester.cs" />
+    <Compile Include="DataService\DataAccess\SaveGoalTester.cs" />
+    <Compile Include="DataService\DataAccess\TrainingPlanBuilder.cs" />
+    <Compile Include="DataService\DataAccess\GetTrainingPlanRunsTester.cs" />
+    <Compile Include="DataService\DataAccess\WorkoutDataAccessTester.cs" />
+    <Compile Include="DataService\Io\CsvDataTester.cs" />
+    <Compile Include="DataService\Io\CsvLineTester.cs" />
+    <Compile Include="DataService\Io\DummyFileSystem.cs" />
+    <Compile Include="DataService\Io\XmlBuilderSaveTester.cs" />
+    <Compile Include="DataService\DataAccess\CreatePlannedRunsTester.cs" />
+    <Compile Include="DataService\Model\CreatePlannedRuns.cs" />
+    <Compile Include="DataService\Model\DayOfWeekTester.cs" />
+    <Compile Include="DataService\Model\DummySequencer.cs" />
+    <Compile Include="DataService\Model\GoaledSequenceTester.cs" />
+    <Compile Include="DataService\Model\SimpleGoaledSequenceTester.cs" />
+    <Compile Include="DataService\Model\SequencerTester.cs" />
+    <Compile Include="DataService\Model\InMemoryDataContext.cs" />
+    <Compile Include="DataService\Model\LabelEnumerationTester.cs" />
+    <Compile Include="DataService\Model\ModelTestConstants.cs" />
+    <Compile Include="DataService\Model\WeekCaculatorTester.cs" />
+    <Compile Include="DataService\Model\WeekdaySelectionEnumerationTester.cs" />
+    <Compile Include="DataService\Model\DbXmlAssociationSetterTester.cs" />
+    <Compile Include="DbTester.cs" />
+    <Compile Include="Garmin\ActivityBuilderTester.cs" />
+    <Compile Include="Garmin\TestConstants.cs" />
+    <Compile Include="Garmin\UudecodedUnGZipperTester.cs" />
+    <Compile Include="Garmin\XmlSanitizerTester.cs" />
+    <Compile Include="RunTrack\DownloadServiceTester.cs" />
+    <Compile Include="LinqStatisticsTests\CovarianceTests.cs" />
+    <Compile Include="LinqStatisticsTests\MedianTests.cs" />
+    <Compile Include="LinqStatisticsTests\ModeTests.cs" />
+    <Compile Include="LinqStatisticsTests\RangeTests.cs" />
+    <Compile Include="LinqStatisticsTests\StandardDeviationTests.cs" />
+    <Compile Include="LinqStatisticsTests\TestData.cs" />
+    <Compile Include="LinqStatisticsTests\VarianceTests.cs" />
+    <Compile Include="LinqStatistics\EnumerableStats.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsCovariance.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsMedian.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsMode.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsPearson.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsRange.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsStandardDeviation.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsStandardDeviationP.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsVariance.cs" />
+    <Compile Include="LinqStatistics\EnumerableStatsVarianceP.cs" />
+    <Compile Include="Statistics\Grouper.cs" />
+    <Compile Include="Statistics\Report.cs" />
+    <Compile Include="Statistics\GrouperTester.cs" />
+    <Compile Include="Statistics\SubReport.cs" />
+    <Compile Include="Statistics\ReportBuilder.cs" />
+    <Compile Include="Statistics\ReportBuilderTester.cs" />
+    <Compile Include="Statistics\ReportTester.cs" />
+    <Compile Include="Statistics\RespondentAnswer.cs" />
+    <Compile Include="Statistics\RespondentData.cs" />
+    <Compile Include="Statistics\Group.cs" />
+    <Compile Include="Statistics\SporgeskemaTester.cs" />
+    <Compile Include="PagingTester.cs" />
+    <Compile Include="RandomProvider.cs" />
+    <Compile Include="RunTester.cs" />
+    <Compile Include="ScriptTypeSearcher.cs" />
+    <Compile Include="ScriptTypeSearcherTester.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statistics\Respondent.cs" />
+    <Compile Include="Statistics\GroupData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataService\DataService.csproj">
+      <Project>{B0D7F4EB-6239-4C69-A2CC-764C450CD8D2}</Project>
+      <Name>DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RunTrack\RunTrack.csproj">
+      <Project>{445EF309-A545-40BA-86D7-F83D8021C6B0}</Project>
+      <Name>RunTrack</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="garmin-uuencoded.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TextFile1.txt" />
+    <Content Include="SporgeskemaReports.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="sporgeskema3.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,4 +1,4 @@
-amend forgot some pattern refactoring and a change in the way the dictionary is built.
+commit some changes imported from mafunzu
 
 
 

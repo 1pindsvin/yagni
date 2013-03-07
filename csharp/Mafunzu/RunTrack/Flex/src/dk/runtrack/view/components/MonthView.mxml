@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup
+	horizontalAlign="right" 
+	width="100%" 
+	height="100%"
+	creationComplete="creationCompleteHandler()"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:controller="dk.runtrack.controller.*"
+	xmlns:components="dk.runtrack.view.components.*" 	
+	xmlns:layouts="dk.runtrack.layouts.*"
+	>
+	<fx:Metadata>
+		[ResourceBundle("monthView")]
+		[ResourceBundle("SharedResources")]
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.interfaces.IMonthViewPresentationModel;
+			import mx.collections.ArrayList;
+			
+			[Bindable]
+			private var _monthViewPresentationModel : IMonthViewPresentationModel;
+
+			private function creationCompleteHandler() : void
+			{
+				_monthViewPresentationModel = presentationModelLocator.monthViewPresentationModel;
+			}
+			
+			private function navigateToDayButtonHandler() : void
+			{
+				var date : Date = new Date();
+				_monthViewPresentationModel.date = date;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%" height="100%" id="dateChooser"  >
+		<s:HGroup 
+			width="100%" 
+			id="navigateMonthHbox" 
+			>
+			<s:Button 
+				label="&lt;" 
+				id="previousButton" 
+				click="{_monthViewPresentationModel.previousMonth()}"  
+				width="80" />
+			<s:Button 
+				label=">" 
+				id="nextButton" 
+				click="{_monthViewPresentationModel.nextMonth()}"  
+				width="80" />
+			<s:Button 
+				label="{resourceManager.getString('monthView', 'navigate.today')}" 
+				id="navigateToDayButton" 
+				click="navigateToDayButtonHandler()"
+				/>
+		</s:HGroup>
+		<s:List 
+			id="dayList" 
+			width="100%" 
+			height="20"
+			itemRenderer="dk.runtrack.renderers.WeekDayRenderer"
+			>
+			<s:layout>
+				<layouts:WeekDayLayout />
+			</s:layout>
+			<s:dataProvider>
+				<s:ArrayList source="{resourceManager.getStringArray('SharedResources', 'dayNames')}" />
+			</s:dataProvider>
+		</s:List>
+		
+		<s:List 
+			id="monthList"
+			itemRenderer="dk.runtrack.renderers.DayRenderer"
+			width="100%"
+			height="100%"
+			>
+			<s:layout>
+				<layouts:MonthViewLayout />
+			</s:layout>
+			<s:dataProvider>
+				<s:ArrayList source="{_monthViewPresentationModel.activities}" />
+			</s:dataProvider>
+		</s:List>
+	</s:VGroup>
+</s:VGroup>

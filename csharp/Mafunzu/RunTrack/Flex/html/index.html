@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <style type="text/css">
+        html, body, #myAlternativeContent
+        {
+            height: 100%;
+            margin: 0px;
+            overflow: hidden;
+            background-color: @app.background.color@;
+        }
+    </style>
+    <title>@document.title@</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+    <script type="text/javascript" src="@prototype.script.path@"></script>
+
+    <script type="text/javascript" src="@garmincontroller.script.path@"></script>
+
+    <script type="text/javascript" src="swfobject.js"></script>
+
+    <script type="text/javascript">
+        var flashvars = {};
+        flashvars.resourceModuleURLs = "@resource.module.urls@";
+        flashvars.localeChain = "@locale.chain@";
+        flashvars.supportedLocales = "@supported.locales@";
+        flashvars.version = "@app.version@";
+
+        var params = {};
+        params.loop = "@loop@";
+        params.quality = "@quality@";
+        params.seamlesstabbing = "@seamless.tabbing@";
+        params.allowfullscreen = "@allow.fullscreen@";
+        params.allowscriptaccess = "@allow.script.access@";
+        params.bgcolor = "@app.background.color@";
+
+        var attributes = {};
+        attributes.name = "@app.name@";
+        attributes.align = "@align@";
+
+        swfobject.embedSWF("@app.file.name@", "myAlternativeContent", "@app.width@", "@app.height@", "@min.player.version@", false, flashvars, params, attributes);
+
+
+        function require(libraryName) {
+            document.write('<script type="text/javascript" src="' + libraryName + '"><\/script>');
+        }
+        var path = "http://" + document.location.host + "/RunTrack/WebORB.js";
+        this.require(path);
+
+
+        var Glash = function() { };
+        Glash = Class.create();
+        Glash.prototype = {
+            initialize: function() {
+                this._responses = new Array();
+                this._statusMessages = new Array();
+                this._errors = new Array();
+                this._processedActivities = 0;
+                this._userID = "dummy";
+            },
+            _isArrayMember: function(element, array) {
+                return array.any(function(str) { return str == element; });
+            },
+            addError: function(errorMessage) {
+                this._errors.push(errorMessage);
+            },
+            addResponse: function(responseText) {
+                this._responses.push(responseText);
+                this.sendFlexStatus(responseText);
+                var hasProcessedAllActivities = this._processedActivities == this._numberOfActivities;
+                if (!hasProcessedAllActivities) {
+                    return;
+                }
+                var hasUploadedAllActivities = this._responses.length == this._processedActivities;
+                if (!hasUploadedAllActivities) {
+                    return;
+                }
+                this.webserviceDone();
+            },
+            webserviceDone: function() {
+                getFlexApp("@app.name@").webserviceDone();
+            },
+            getResponses: function() {
+                return this._responses.join('\n');
+            },
+            setStatus: function(statusKey) {
+                //                this._checkKey(statusKey);
+                //                this._statusMessages.push(statusKey);
+                this.sendFlexStatus(statusKey);
+            },
+            getStatusMessages: function() {
+                return this._statusMessages.join('\n');
+            },
+            clear: function() {
+                this._responses.clear();
+                this._processedActivities = 0;
+            },
+            setNumberOfActivies: function(count) {
+                this._numberOfActivities = count;
+            },
+            setUserID: function(userID) {
+                this._userID = userID;
+            },
+            getUserID: function() {
+                return this._userID;
+            },
+            sendFlexStatus: function(statusmessage) {
+                getFlexApp("@app.name@").webserviceStatus(statusmessage);
+            },
+
+            hasProcessedOneActivity: function() {
+                this._processedActivities += 1;
+            },
+            _removeStatusMessage: function(statusKey) {
+                this._statusMessages = this._statusMessages.without(statusKey);
+            },
+            _isValidStatusmessage: function(statusKey) {
+                return this._isArrayMember(statusKey,
+                [Glash.STATUS.GarminWatchNotFound,
+                Glash.STATUS.NoGarminDevicesFound,
+                Glash.STATUS.MoreThanOneGarminDeviceFound]);
+            },
+            _checkKey: function(statusKey) {
+                if (!this._isValidStatusmessage(statusKey)) {
+                    throw new Error("Glash.STATUS " + statusKey);
+                }
+            }
+        };
+
+        Glash.STATUS = {
+            GarminWatchNotFound: "GarminWatchNotFound",
+            NoGarminDevicesFound: "NoGarminDevicesFound",
+            MoreThanOneGarminDeviceFound: "MoreThanOneGarminDeviceFound"
+        };
+
+
+        function getFlexApp(appName) {
+            if (navigator.appName.indexOf("Microsoft") != -1) {
+                return window[appName];
+            }
+            else {
+                return document[appName];
+            }
+        }
+
+        var glash = new Glash();
+        glash.initialize();
+
+        function setUser(userID) {
+            glash.setUserID(userID);
+        }
+
+        function showStatus() {
+            alert(glash.getStatusMessages());
+        }
+
+        function uploadActivity(activity) {
+            getFlexApp("@app.name@").flashUploadActivity(activity);
+        }
+
+        var showUploadHtml = false;
+
+
+        function doLoad() {
+            $("garminDisplay").update("");
+            if (!showUploadHtml) {
+                $("garminDisplay").setStyle({ diplay: 'none', width: '0px', height: '0px', overflow: 'hidden' });
+            }
+            glash.clear();
+            var display = new Garmin.Controller("garminDisplay", {
+                //autoReadData:true,
+                pathKeyPairsArray: ["http://developer.garmin.com/", "ee3934433a35ee348583236c2eeadbc1"],
+                showReadDataElement: true,
+                showProgressBar: true,
+                showFindDevicesElement: true,
+                showFindDevicesButton: false,
+                showDeviceButtonsOnLoad: false,
+                showDeviceButtonsOnFound: false,
+                autoFindDevices: true,
+                showDeviceSelectOnLoad: true,
+                autoHideUnusedElements: true,
+                showReadDataTypesSelect: false,
+                readDataType: Garmin.DeviceControl.FILE_TYPES.tcxDir,
+                deviceSelectLabel: "Choose Device <br/>",
+                readDataButtonText: "Read activities",
+                showCancelReadDataButton: true,
+                lookingForDevices: 'Searching for Device <br/><br/> <img src="../garmin/device/style/ajax-loader.gif"/>',
+                uploadsFinished: "Transfer Complete",
+                uploadSelectedActivities: true,
+                uploadCompressedData: true,    // Turn on data compression by setting to true.
+                uploadMaximum: 5,
+                dataFound: "#{tracks} activities found on device",
+                showReadDataElementOnDeviceFound: true,
+                sendDataUrl: null, //importen ditch logic in controller
+                postActivityHandler: function(activityXml, display) {
+                    try {
+                        //uploadActivity(activityXml);
+                        uploadActivityThroughWebOrb(false, activityXml);
+                    } catch (uploadException) {
+                        alert("uploadException" + uploadException);
+                    }
+
+                },
+                afterFinishFindDevices: function(controller, arrayOfDevices) {
+                    if (arrayOfDevices.length == 0) {
+                        glash.setStatus(Glash.STATUS.GarminWatchNotFound);
+                        return;
+                    }
+                    if (arrayOfDevices.length > 1) {
+                        glash.setStatus(Glash.STATUS.MoreThanOneGarminDeviceFound);
+                        return;
+                    }
+                    controller.readFromDevice(Garmin.DeviceControl.FILE_TYPES.tcxDir);
+                },
+                afterFinishReadFromDevice: function(dataString, dataDoc, gpsDataType, activities, garminController) {
+                    if (gpsDataType == Garmin.DeviceControl.FILE_TYPES.tcxDir) {
+                        glash.setNumberOfActivies(activities.length);
+                        garminController.selectAndUploadAllActivities();
+                        return;
+                    }
+                    if (gpsDataType == Garmin.DeviceControl.FILE_TYPES.tcxDetail) {
+                        glash.hasProcessedOneActivity();
+                        return;
+                    }
+                }
+            });
+
+        }
+
+        function load() {
+            try {
+                doLoad();
+                
+            } catch (loadException) {
+                alert("Error occured when connecting to your watch: " + loadException);
+            }
+        }
+
+        function switchHtmlVisibility()
+        {
+            showUploadHtml=!showUploadHtml;
+            var newText = showUploadHtml ? 'Hide HTML-data' : 'Show HTML'; 
+            document.getElementById('Button1').value = newText;
+        }
+
+        var webORBURL = "http://" + document.location.host + "/RunTrack/weborb.aspx";
+
+        function uploadActivityThroughWebOrb(syncMode, activity) {
+            var userID = glash.getUserID();
+            var className = "RunTrack.DownloadService";
+            proxy = webORB.bind(className, webORBURL);
+            var responseObj;
+
+            if (syncMode) {
+                responseObj = proxy.UploadWatchData(activity, userID);
+                handleResponse(responseObj);
+            }
+            else {
+                proxy.UploadWatchData(activity, userID, new Async(handleResponse));
+            }
+        }
+
+        function handleResponse(responseObj) {
+            glash.addResponse(responseObj);            
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <input id="Button1" type="button" value="Show HTML" onclick="switchHtmlVisibility();" />
+    <div id="garminDisplay">
+    </div>
+    <div id="myAlternativeContent">
+        <a href="http://www.adobe.com/go/getflashplayer">
+            <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+                alt="Get Adobe Flash player" />
+        </a>
+    </div>
+</body>
+</html>

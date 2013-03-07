@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<project name="runtrack" default="buildLocal">
+
+  <property name="user.home" value="${environment::get-variable('USERPROFILE')}" 
+            if="${environment::variable-exists('USERPROFILE') and platform::is-win32()}" 
+            unless="${property::exists('user.home')}"/> 
+
+  <fail message="The USERPROFILE environment variable is not defined.  Please set it to your home directory." 
+            unless="${property::exists('user.home')}" if="${platform::is-win32()}"/> 
+
+
+  <property name="build.environment.path" value="${user.home}/${build.properties}" />
+
+
+  <fail message="The build has been setup to use the file ${build.environment.path} for build settings, but the file does not exist. Create the file and fill it with the appropriate variables." 
+         unless="${file::exists(build.environment.path)}" />
+
+  <include buildfile="${build.environment.path}" />
+
+  <property name="dataservice.dir" value="DataService" />
+
+  <property name="runtrack.dir" value="RunTrack" />
+
+  <property name="build.dir" value="Build" />
+
+  <property name="tools.dir" value="Tools" />
+
+  <property name="lib.dir" value="Lib" />
+
+  <property name="ant.dir.name" value="apache-ant-1.7.1" />
+  <property name="ant.dir" value="${tools.dir}/${ant.dir.name}" /> 
+
+  <property name="flex.base.dir" value="${runtrack.dir}/Flex" />
+  <property name="flex.build.file.name" value="build.xml" />
+  <property name="flex.build.file.path" value="${flex.base.dir}/${flex.build.file.name}" />
+ 
+  <property name="unittests.dir" value="Unittests" />
+
+  <property name="nunit.dir" value="${tools.dir}/NUnit-2.5.2.9222" />
+
+  <property name="rhino-mocks.dir" value="${tools.dir}/Rhino.Mocks-3.6" />
+
+  <property name="build.bin.dir" value="${build.dir}/bin" />
+
+  <property name="dataservice.projectname" value="DataService" />
+
+  <property name="runtrack.projectname" value="RunTrack" />
+
+  <property name="build.bin.dataservice.dll" value="${build.bin.dir}/${dataservice.projectname}.dll" />
+
+  <property name="build.bin.runtrack.dll" value="${build.bin.dir}/${runtrack.projectname}.dll" />
+
+  <property name="build.bin.unittests.dll" value="${build.bin.dir}/Unittests.dll" />
+
+  <property name="vpnProgram" value="rasdial.exe" />
+
+  <property name="sql.database.file.without-extension" value="${sql.dir}\${sql.database}" />
+
+  <property name="sql.script.dir" value="DbProject/Create Scripts" />
+
+  <property name="sql.script.drop-database.file" value="${sql.script.dir}/DropDatabase.sql" />
+
+  <property name="sql.script.create-logins.file" value="${sql.script.dir}/CreateOnTrackSqlServerUser.sql" />
+
+  <property name="sql.script.create-database.file" value="${sql.script.dir}/CreateSqlServerDatabase.sql" />
+
+  <property name="sql.script.create-tables.file" value="${sql.script.dir}/CreateOnTrackDbFromScratch.MDF.sql" />
+
+  <property name="sql.master-connectionstring" value="Provider=SQLOLEDB.1;Password=${sql.master-password};Persist Security Info=True;User ID=sa;Initial Catalog=master;Data Source=${sql.datasource}" />
+
+  <property name="sql.web.connectionstring" value="Password=${sql.password};Persist Security Info=True;User ID=${sql.database}_Webuser;Initial Catalog=${sql.database};Data Source=${sql.datasource}" />
+
+  <property name="sql.oledb.connectionstring" value="Provider=SQLOLEDB.1;${sql.web.connectionstring}" />
+
+  <loadtasks assembly="Tools/AntTask/AntTask-FW2.0.dll" />
+
+  <fileset id="external.dependencies.fileset" basedir="${lib.dir}">
+    <include name="weborb.dll" />
+    <include name="Mono.Security.dll" />
+    <include name="MySql.Data.dll" />
+    <include name="Npgsql.dll" />
+    <include name="FileHelpers.dll" />
+    <include name="ICSharpCode.SharpZipLib.dll" />
+  </fileset>
+
+
+  <target name="tester">
+    <echo message="build.properties: ${build.environment.path}" />
+  </target>
+
+
+  <target name="setWebConfigConnectionString" depends="copyDependencies" description="Set web.config connection string">
+    <connectionStringSetter
+      connectionStringName="RunTrackDb"
+      newConnectionString="${sql.web.connectionstring}"
+      fileName="${build.dir}\web.config" />
+  </target>
+
+  
+  <target name="startExistingNamedVpnConnection" description="Start existing VPN connection on build machine ">
+    <exec program="rasdial" commandline="${vpnConncetionName} ${vpnUser} ${vpnPassword}" />
+  </target>
+
+  <target name="closeExistingNamedVpnConnection" description="close open VPN connection on build machine ">
+    <exec program="rasdial" commandline=" /d" />
+  </target>
+
+  <target name="mapNetWorkDrive" description="Map network drive to external web server.">
+    <exec
+      program="net"
+      commandline="use ${networkDriveMapAs} \\${webserverNameOrIP}\${webserverRootDriveName}$ /user:${webserverNameOrIP}\${networkDriveUser} ${networkDrivePassword}" />
+  </target>
+
+  <target name="stopInterNetServices" description="Stop internet services on current server">
+    <exec
+      program="iisreset"
+      commandline=" /stop" />
+  </target>
+
+  <target name="startInterNetServices" depends="stopInterNetServices" description="Start internet services on current server">
+    <exec
+      program="iisreset"
+      commandline=" /start" />
+  </target>
+
+  <target name="unMapNetWorkDrive" description="Delete mapped drive to external web server.">
+    <exec program="net" commandline="use ${networkDriveMapAs} /DELETE" />
+  </target>
+
+  <target name="deleteBuildOutputDirectory" description="Delete the build output directory, if found"  >
+    <delete dir="${build.dir}"  if="${directory::exists(build.dir)}" />
+  </target>
+
+  <target name="createBuildDirectory" description="Create the build directory"  >
+    <mkdir dir="${build.dir}" />
+  </target>
+
+  <target name="deleteSqlDB" depends="createBuildDirectory" description="Delete the RunTrack database on SQL-server, if found" >
+    <sql
+      connstring="${sql.master-connectionstring}"
+      transaction="false"
+      delimiter="GO"
+      delimstyle="Line"
+      print="true"
+      source="${sql.script.drop-database.file}"
+      output="${build.dir}/results.txt"
+      expandprops="true"
+      />
+  </target>
+
+  <target name="createSqlDB" depends="deleteSqlDB" description="Create the RunTrack database on SQL server." >
+    <sql
+      connstring="${sql.master-connectionstring}"
+      transaction="false"
+      delimiter="GO"
+      delimstyle="Line"
+      print="true"
+      source="${sql.script.create-database.file}"
+      output="${build.dir}/results.txt"
+      expandprops="true"
+      />
+  </target>
+
+  <target name="createSqlLogins" depends="createSqlDB">
+    <sql
+      connstring="${sql.master-connectionstring}"
+      transaction="false"
+      delimiter="GO"
+      delimstyle="Line"
+      print="true"
+      source="${sql.script.create-logins.file}"
+      output="${build.dir}/results.txt"
+      expandprops="true"
+      />
+  </target>
+
+  <target name="insertSqlData" depends="createSqlLogins" description="Insert data from textfile into RunTrack database" >
+    <sql
+      connstring="${sql.oledb.connectionstring}"
+      transaction="false"
+      delimiter="GO"
+      delimstyle="Line"
+      print="true"
+      source="${sql.script.create-tables.file}"
+      output="${build.dir}/results.txt" />
+  </target>
+
+
+  <target name="build-flex-application" 
+          description="Builds the Flex part of the application"
+          depends="createBuildDirectory">
+
+    <ant antHome="${ant.dir}"
+         buildFile="${flex.build.file.path}">
+       <antTarget name="dist" />
+    </ant>
+
+  </target>
+
+
+  <target name="copyDependencies" 
+          depends="createBuildDirectory, build-flex-application"  
+          description="Copy external libraries + Flex build + web-files to the build output directory" >
+    <copy todir="${build.bin.dir}">
+      <fileset refid="external.dependencies.fileset" />
+    </copy>
+    <copy todir="${build.dir}">
+      <fileset basedir="${runtrack.dir}">
+        <include name="*.aspx" />
+        <include name="Global.asax" />
+        <include name="*.config" />
+        <include name="WEB-INF/flex/data-management-config.xml" />
+        <include name="WEB-INF/flex/messaging-config.xml" />
+        <include name="WEB-INF/flex/remoting-config.xml" />
+        <include name="WEB-INF/flex/services-config.xml"/>
+      </fileset>
+    </copy>
+
+
+    <copy todir="${build.dir}" >
+      <fileset basedir="${runtrack.dir}/Flex/dist">
+        <include name="**/*.*"  />        
+      </fileset>
+    </copy>     
+	
+  </target>
+
+  <target name="compileDataService" depends="copyDependencies"
+        description="compiles the Dataservice project">
+    <csc target="library" output="${build.bin.dataservice.dll}" debug="${debug}">
+      <sources>
+        <include name="${dataservice.dir}/**/*.cs" />
+      </sources>
+      <references refid="external.dependencies.fileset" />
+    </csc>
+  </target>
+
+  <target name="buildLocal" depends="compileDataService, setWebConfigConnectionString"
+        description="compiles the RunTrack project">
+    <csc target="library" output="${build.bin.runtrack.dll}" debug="${debug}">
+      <sources basedir="${runtrack.dir}">
+        <include name="DownloadService.cs" />
+        <include name="Default.aspx.cs" />
+        <include name="Default.aspx.designer.cs" />
+        <include name="Global.asax.cs" />
+        <include name="GarminWebService.asmx.cs" />
+        <include name="Properties/AssemblyInfo.cs" />
+      </sources>
+      <references >
+        <include name="${lib.dir}/weborb.dll" />
+        <include name="${lib.dir}/Mono.Security.dll" />
+        <include name="${lib.dir}/MySql.Data.dll" />
+        <include name="${lib.dir}/Npgsql.dll" />
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${rhino-mocks.dir}/Rhino.Mocks.dll " />
+        <include name="${build.bin.dataservice.dll}" />
+      </references>
+    </csc>
+  </target>
+
+  <target name="buildUnitTests" depends="cleanBuildLocal"
+      description="Compiles unittests for RunTrack">
+    <csc target="library" output="${build.bin.unittests.dll}" debug="${debug}">
+      <sources>
+        <include name="${unittests.dir}/**/*.cs" />
+      </sources>
+      <references  >
+        <include name="${lib.dir}/weborb.dll" />
+        <include name="${lib.dir}/Mono.Security.dll" />
+        <include name="${lib.dir}/MySql.Data.dll" />
+        <include name="${lib.dir}/Npgsql.dll" />
+        <include name="${lib.dir}/FileHelpers.dll" />
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${rhino-mocks.dir}/Rhino.Mocks.dll " />
+        <include name="${build.bin.dataservice.dll}" />
+        <include name="${build.bin.runtrack.dll}" />
+      </references>
+    </csc>
+  </target>
+
+  <target name="runUnitTests" depends="buildUnitTests"
+      description="Runs unittests in unittests.dll">
+    <exec program="${nunit.dir}/nunit-console.exe"
+          workingdir="${nunit.dir}"
+          commandline="${path::get-full-path(build.bin.unittests.dll)}" />
+  </target>
+
+  <target name="cleanBuildLocal" depends="deleteBuildOutputDirectory, buildLocal"
+        description="Rebuilds the RunTrack project">
+  </target>
+
+  <target name="deleteWebDirectory" description="Deletes files in the remote web folder">
+    <delete dir="${web.dir}"  if="${directory::exists(web.dir)}" />
+  </target>
+
+  <target name="copyWebFiles" depends="cleanBuildLocal, deleteWebDirectory"
+        description="copies the compiled project to IIS folder">
+    <copy todir="${web.dir}">
+      <fileset basedir="${build.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <mkdir dir="${web.dir}/Download" />    
+  </target>
+
+
+  <target name="clean" 
+          description="Cleans the output directories">
+
+    <delete dir="${web.dir}" if="${directory::exists(web.dir)}" />
+    <delete dir="${build.dir}" if="${directory::exists(build.dir)}" />
+
+    <ant antHome="${ant.dir}"
+         buildFile="${flex.build.file.path}">
+       <antTarget name="clean" />
+    </ant>
+
+
+  </target>
+
+
+
+  <target name="deploy-local-web" depends="stopInterNetServices, copyWebFiles, startInterNetServices"
+      description="Deployes Ontrack to web folder.">
+  </target>
+
+  <target name="deploy-local-as-remote-web" 
+          depends="insertSqlData, runUnitTests, mapNetWorkDrive, stopInterNetServices, copyWebFiles, startInterNetServices"
+    description="Deployes Ontrack to remote web">
+    <exec program="net" commandline="use ${networkDriveMapAs} /DELETE" />
+  </target>
+
+  <target name="deploy-vesterzone" 
+   depends="runUnitTests, startExistingNamedVpnConnection,insertSqlData, mapNetWorkDrive, copyWebFiles, closeExistingNamedVpnConnection"
+    description="Deployes Ontrack to remote web">
+    <exec program="net" commandline="use ${networkDriveMapAs} /DELETE" />
+  </target>
+
+</project>

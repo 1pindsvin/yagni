@@ -1,0 +1,31 @@
+# Microsoft Developer Studio Project File - Database Project
+Begin DataProject = "OnTrackDB"
+   MSDTVersion = "80"
+   Begin Folder = "Change Scripts"
+      Script = "DeleteImportedActivities.sql"
+   End
+   Begin Folder = "Create Scripts"
+      Script = "CreateActivityTable.sql"
+      Script = "CreateLapTable.sql"
+      Script = "CreateOnTrackDbFromScratch.MDF.sql"
+      Script = "CreateOnTrackSqlServerUser.sql"
+      Script = "CreateSqlServerDatabase.sql"
+      Script = "CreateTrackTable.sql"
+      Script = "DropDatabase.sql"
+   End
+   Begin DBRefFolder = "Database References"
+      Begin DBRefNode = "euclid\sqlexpress.RunTrack.dbo"
+         ConnectStr = "Data Source=.\SQLExpress;Initial Catalog=RunTrack;Integrated Security=True"
+         Provider = "{91510608-8809-4020-8897-FBA057E22D54}"
+         Colorizer = 6
+      End
+   End
+   Begin Folder = "Queries"
+      Query = "DeletePlannedRuns.dtq"
+      Query = "SetUserCustomerID.dtq"
+   End
+   Begin Folder = "Select Scripts"
+      Script = "FindOpenTransactions.sql"
+      Script = "SelectActivities.sql"
+   End
+End

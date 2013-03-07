@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	preinitialize="panel1_preinitializeHandler(event)"
+	creationComplete="panel1_creationCompleteHandler(event)"
+	currentStateChange="skinnablecontainer1_currentStateChangeHandler(event)"
+	currentState="{_pm.state}"
+	width="100%"
+	height="100%"
+	xmlns:controller="dk.runtrack.controller.*">
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.model.AthleteHealth;
+			import dk.runtrack.presentationmodels.interfaces.IAthleteHealthHistoryPresentationModel;
+			
+			import mx.charts.HitData;
+			import mx.charts.events.ChartItemEvent;
+			import mx.charts.series.items.LineSeriesItem;
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
+			import mx.events.StateChangeEvent;
+			
+			[Bindable]
+			public var healths : ArrayCollection;			
+			
+			[Bindable]
+			public var _pm : IAthleteHealthHistoryPresentationModel;
+			
+			protected function panel1_preinitializeHandler(event:FlexEvent):void
+			{
+				healths = new ArrayCollection();
+			}
+			
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_pm = presentationModelLocator.athleteHealthHistoryPresentationModel;
+				_pm.first();
+			}
+			
+			protected function healthChart_itemClickHandler(e:ChartItemEvent):void
+			{
+				trace(e.hitData);	
+				
+			}
+			
+			private function chartDataTipFunction(hitData:HitData):String
+			{
+				var s:String;  
+				s = LineSeries(hitData.element).displayName + "\n";  
+				s += LineSeriesItem(hitData.chartItem).yValue + "\n";  
+				s += hitData.item.Day + " at " + hitData.item.Time;  
+				return s;   
+			}
+
+			
+			protected function skinnablecontainer1_currentStateChangeHandler(event:StateChangeEvent):void
+			{
+				if(_pm==null)
+				{
+					return;
+				}
+				healths.removeAll();
+				
+				var count : int = 0;
+				var map : Function = 
+					function(item:AthleteHealth, index:int, array : Array) : Object 
+					{	
+						return {ID:item.ID, RegisteredAt:item.RegisteredAt ,Weight:item.Weight };
+					};
+				healths.addAll(new ArrayList(_pm.healths.map(map)));
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="On"/>
+		<s:State name="Off"/>
+	</s:states> 
+	
+	<mx:ColumnChart
+		id="healthChart"
+		width="100%" 
+		height="100%"
+		clipContent="false"
+		dataProvider="{healths}" 
+		showDataTips="true"
+		dataTipFunction="chartDataTipFunction"
+		itemClick="healthChart_itemClickHandler(event)"
+		>
+		<mx:horizontalAxis>
+			<mx:CategoryAxis
+				dataProvider="{healths}" 
+				categoryField="RegisteredAt"
+				/>
+		</mx:horizontalAxis>
+		<mx:series >
+			<mx:LineSeries 
+				yField="Weight" 
+				displayName="Weight"
+				
+				>
+				<mx:lineStroke>
+					<mx:Stroke color="0x0099FF" weight="20" alpha=".2" />
+				</mx:lineStroke>
+			</mx:LineSeries>
+			<mx:LineSeries>
+				
+			</mx:LineSeries>
+		</mx:series>
+	</mx:ColumnChart>
+	
+</s:SkinnableContainer>

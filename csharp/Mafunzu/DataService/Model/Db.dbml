@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="RunTrack" Class="DbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=RunTrack;Integrated Security=True" SettingsObjectName="DataService.Properties.Settings" SettingsPropertyName="RunTrackConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Activity" Member="Activities">
+    <Type Name="Activity">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ForeignSystemID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShoeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrainingPlanID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="ActivityType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActivitySubtype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTimeSeconds" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DistanceMeters" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumSpeed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AverageHeartRateBpm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumHeartRateBpm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinimumHeartRateBpm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Workload" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Experience" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Weather" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Labels" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastChanged" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Intensity" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Done" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Athlete_Activity" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+      <Association Name="Shoe_Activity" Member="Shoe" ThisKey="ShoeID" OtherKey="ID" Type="Shoe" IsForeignKey="true" />
+      <Association Name="TrainingPlan_Activity" Member="TrainingPlan" ThisKey="TrainingPlanID" OtherKey="ID" Type="TrainingPlan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Athlete" Member="Athletes">
+    <Type Name="Athlete">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PreferenceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Waist" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Thigh" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Arm" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RestingHeartRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaximumHeartRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ThresholdHeartRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Preference_Athlete" Member="Preference" ThisKey="PreferenceID" OtherKey="ID" Type="Preference" IsForeignKey="true" />
+      <Association Name="User_Athlete" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AthleteHealth" Member="AthleteHealths">
+    <Type Name="AthleteHealth">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegisteredAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Waist" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Thigh" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Arm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RestingHeartRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumHeartRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThresholdHeartRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Athlete_AthleteHealth" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Goal" Member="Goals">
+    <Type Name="Goal">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Goal_TrainingPlan" Member="TrainingPlans" ThisKey="ID" OtherKey="GoalID" Type="TrainingPlan" Cardinality="One" />
+      <Association Name="Athlete_Goal" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lap" Member="Laps">
+    <Type Name="Lap">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="TotalTimeSeconds" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DistanceMeters" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumSpeed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Calories" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AverageHeartRateBpm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumHeartRateBpm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Intensity" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TriggerMethod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Activity_Lap" Member="Activity" ThisKey="ActivityID" OtherKey="ID" Type="Activity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Preference" Member="Preferences">
+    <Type Name="Preference">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PreferedShoeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Shoe_Preference" Member="Shoe" ThisKey="PreferedShoeID" OtherKey="ID" Type="Shoe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Run" Member="Runs">
+    <Type Name="Run">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShoeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrainingPlanID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Labels" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastChanged" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Athlete_Run" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+      <Association Name="Shoe_Run" Member="Shoe" ThisKey="ShoeID" OtherKey="ID" Type="Shoe" IsForeignKey="true" />
+      <Association Name="TrainingPlan_Run" Member="TrainingPlan" ThisKey="TrainingPlanID" OtherKey="ID" Type="TrainingPlan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shoe" Member="Shoes">
+    <Type Name="Shoe">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Durability" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OtherUsage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Athlete_Shoe" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Track" Member="Tracks">
+    <Type Name="Track">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LapID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Lap_Track" Member="Lap" ThisKey="LapID" OtherKey="ID" Type="Lap" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Trackpoint" Member="Trackpoints">
+    <Type Name="Trackpoint">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TrackID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LatitudeDegrees" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LongitudeDegrees" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AltitudeMeters" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DistanceMeters" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HeartRateBpm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SensorState" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Track_Trackpoint" Member="Track" ThisKey="TrackID" OtherKey="ID" Type="Track" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Trainer" Member="Trainers">
+    <Type Name="Trainer">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrainingPlan" Member="TrainingPlans">
+    <Type Name="TrainingPlan">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GoalID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Intensity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Skill" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Workload" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StartDistance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PreferredWeekdays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Athlete_TrainingPlan" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+      <Association Name="Goal_TrainingPlan" Member="Goal" ThisKey="GoalID" OtherKey="ID" Type="Goal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Roles" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CustomerID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Workout" Member="Workouts">
+    <Type Name="Workout">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Start" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Distance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WorkoutType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Athlete_Workout" Member="Athlete" ThisKey="AthleteID" OtherKey="ID" Type="Athlete" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

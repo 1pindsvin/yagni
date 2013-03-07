@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RunTrack" default="make-index-html">
+	
+	
+	<!--
+		=======================================================================
+		BEGIN PROPERTIES
+		=======================================================================
+	-->
+
+	<!-- General project-wide settings -->
+	<property name="project.major.version" value="radcliffe" />
+	<property name="project.app.name" value="RunTrack" />
+	<property name="app.width" value="100%" />
+	<property name="app.height" value="100%" />
+	<property name="app.background.color" value="#869ca7"/>
+	<property name="default.locale" value="en_US" />
+	<property name="context-root" value="RunTrack" />
+	<property name="supported.locales" value="da_DK,en_US" />
+	<property name="resource.bundle.prefix" value="resources" />
+	
+
+	<!-- Common build locations -->
+	<property name="project.dir" value="${basedir}" />
+
+	<!-- Build file location and setup. The ordering is important! This should come first to allow the user of the build file to override stuff. -->
+	<property name="property.file.path" location="${user.home}/flex.properties" />
+	<property file="${property.file.path}" />		
+	<property name="license.file.path" location="flex.license" />
+	<property prefix="licensing" file="flex.license" />
+
+	<!-- Flex SDK settings -->	
+	<property name="flex.sdk.dir" location="${FLEX_HOME}"></property>
+	<property name="flex.bin.dir" location="${FLEX_HOME}/bin" />
+	<property name="flex.frameworks.dir" location="${flex.sdk.dir}/frameworks" />
+	<property name="flex.libs.dir" location="${flex.frameworks.dir}/libs" />
+	<property name="flex.air.dir" location="${flex.libs.dir}/air" />
+	<property name="flex.config.name" value="flex-config.xml" />
+	<property name="flex.config.path" location="${flex.frameworks.dir}/${flex.config.name}" />
+	<property name="air.config.name" value="air-config.xml" />
+	<property name="air.config.path" location="${flex.frameworks.dir}/${air.config.name}" />
+	<property name="html.template.name" value="client-side-detection" />
+
+	<!-- Flex compilation settings -->
+	<property name="build.debug" value="true" />
+	<property name="keep-generated-actionscript" value="false" />
+	<property name="build.incremental" value="true" />
+	<property name="threads.maximum" value="1" />
+
+	<!-- source locations -->
+	<property name="src.dir" location="src" />
+	<property name="unit-test.dir" location="unit-test" />
+	<property name="locales.dir" location="locales" />
+	<property name="html.dir" location="html" />
+	<property name="workspace.dir" location="${src.dir}/../../.." />
+
+	<!-- Output directories -->
+	<property name="build.dir" location="build" />	
+	<property name="build.bin.dir" location="${build.dir}/bin" />
+	<property name="build.unit-test.dir" location="${build.dir}/unit-test" />
+	<property name="build.unit-test.bin.dir" location="${build.unit-test.dir}/bin" />
+	<property name="build.unit-test.data.dir" location="${build.unit-test.dir}/data" />
+	<property name="build.unit-test.reports.dir" location="${build.unit-test.dir}/reports" />
+	<property name="build.locales.dir" location="${build.bin.dir}/locales" />
+	<property name="build.garmin.dir" location="${build.bin.dir}/garmin" />
+	<property name="build.prototype.dir" location="${build.bin.dir}/prototype" />
+	<property name="dist.dir" location="dist" />
+	<property name="dist.locales.dir" location="${dist.dir}/locales" />
+	<property name="dist.garmin.dir" location="${dist.dir}/garmin" />
+	<property name="dist.prototype.dir" location="${dist.dir}/prototype" />
+
+	<!-- Artifact names -->
+	<property name="bin.swf.file.name" value="${project.app.name}.swf" />
+	<property name="unit-test.swf.file.name" value="unit-test-${project.app.name}.swf" />
+	<property name="app.xml.file.name" value="${project.app.name}-app.xml" />
+	<property name="app.mxml.file.name" value="${project.app.name}.mxml" />
+	<property name="unit-test.mxml.file.name" value="AntTestRunner.mxml" />
+	<property name="svn.properties.name" value="svn.properties" />
+	<property name="resource-bundles.list.name" value="needed-resource-bundles.txt" />
+	<property name="index.file.name" value="${project.app.name}.html" />
+	<property name="unit-test.html.file.name" value="unit-test-${project.app.name}.html" />
+	
+	<property name="express.install.name" value="expressInstall.swf" />
+	<property name="swfobject.name" value="swfobject.js" />
+	<property name="services.config.name" value="flex-config.xml" />
+	<property name="index.template.name" value="index.html" />
+
+	<!-- Artifact locations -->
+	<property name="app.xml.path" location="${src.dir}/${app.xml.file.name}" />
+	<property name="app.mxml.path" location="${src.dir}/${app.mxml.file.name}" />
+	<property name="unit-test.mxml.path" location="${unit-test.dir}/${unit-test.mxml.file.name}" />
+	<property name="app.swf.path" location="${build.bin.dir}/${bin.swf.file.name}" />
+	<property name="unit-test.swf.path" location="${build.unit-test.bin.dir}/${unit-test.swf.file.name}" />
+	<property name="svn.properties.path" location="${build.dir}/${svn.properties.name}" />
+	<property name="resource-bundles.list.path" location="${build.dir}/${resource-bundles.list.name}" />
+	<property name="index.file.path" location="${build.bin.dir}/${index.file.name}" />
+
+	<property name="unit-test.html-file.path" location="${build.bin.dir}/${unit-test.html.file.name}" />
+	
+	<property name="express.install.swf.path" location="${html.dir}/${express.install.name}" />
+	<property name="swfobject.js.path" location="${html.dir}/${swfobject.name}" />
+	<property name="services.config.path" location="${basedir}/../WEB-INF/flex/services-config.xml" />
+	<property name="index.template.path" location="${html.dir}/${index.template.name}" />
+	
+	<!-- 3rd party library location -->
+	<property name="libs.dir" location="libs"></property>
+	<property name="garmin.libs.dir" location="${libs.dir}/garmin"></property>
+	<property name="prototype.libs.dir" location="${libs.dir}/prototype"></property>
+
+	
+	<!-- External libs -->
+	<property name="mxmlc.jar" location="${flex.sdk.dir}/lib/mxmlc.jar" />
+	<property name="flextasks.jar" location="${flex.sdk.dir}/ant/lib/flexTasks.jar" />
+	<property name="flexanttasks.jar" location="${libs.dir}/FlexAntTasks.jar" />
+	<property name="flexunit.swc" location="${libs.dir}/FlexUnit.swc" />
+	<property name="flexunitoptional.swc" location="${libs.dir}/FlexUnitOptional.swc" />
+	<property name="cairngorm.swc.name" value="Cairngorm.swc" />
+	<property name="cairngorm.swc.path" location="${libs.dir}/${cairngorm.swc.name}" />
+	<property name="ant-contrib.jar.name" value="ant-contrib-1.0b3.jar" />
+	<property name="ant-contrib.jar.path" value="${libs.dir}/${ant-contrib.jar.name}" />
+	
+	<!-- script path values -->
+	<property name="garmincontroller.script.file.path" value="garmin/device/GarminController.js" />
+	<property name="prototype.script.file.path" value="prototype/prototype.js" />
+	
+	<!-- Repository properties -->
+	<property name="svn.server.host.name" value="https://ontrack.sourcerepo.com" />
+	<property name="project.url" value="ontrack/OnTrack/trunk" />
+	<property name="svn.project.url" value="${svn.server.host.name}/${project.url}" />
+	
+	<path id="svnant.path">
+		<pathelement path="libs/svnant.jar"/>
+		<pathelement path="libs/svnClientAdapter.jar" />
+		<pathelement path="libs/svnjavahl.jar" />
+		<pathelement path="libs/svnkit.jar" />
+	</path>
+	
+	<!-- Task definitions -->
+	<taskdef resource="flexTasks.tasks" classpath="${flextasks.jar}" />
+	<taskdef resource="com/adobe/ac/ant/tasks/tasks.properties" classpath="${flexanttasks.jar}" />
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.path" /> 
+	
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	  <classpath>
+	    <pathelement location="${ant-contrib.jar.path}"/>
+	  </classpath>
+	</taskdef>
+	
+	<macrodef name="replace-html-tokens">
+		<attribute name="garmincontroller.script.path" />
+		<attribute name="prototype.script.path" />
+		<attribute name="document.title" />
+		<attribute name="resource.module.urls" />
+		<attribute name="locale.chain" />
+		<attribute name="supported.locales" />
+		<attribute name="loop" default="false"/>
+		<attribute name="quality" />
+		<attribute name="seamless.tabbing" default="false" />
+		<attribute name="allow.fullscreen" default="true" />
+		<attribute name="allow.script.access" default="sameDomain"/>
+		<attribute name="app.background.color" />
+		<attribute name="app.name" />
+		<attribute name="align" default="middle" />		
+		<attribute name="app.file.name" />		
+		<attribute name="app.width"/>
+		<attribute name="app.height" />
+		<attribute name="app.version" />
+		<attribute name="min.player.version" />		
+		
+		<sequential>
+			
+			<replace file="${build.bin.dir}/${index.file.name}" >
+				<replacefilter token="@garmincontroller.script.path@" value="@{garmincontroller.script.path}"/>				
+				<replacefilter token="@prototype.script.path@" value="@{prototype.script.path}"/>				
+				<replacefilter token="@document.title@" value="@{document.title}"/>				
+				<replacefilter token="@resource.module.urls@" value="@{resource.module.urls}"/>
+				<replacefilter token="@locale.chain@" value="@{locale.chain}"/>
+				<replacefilter token="@supported.locales@" value="@{supported.locales}"/>
+				<replacefilter token="@loop@" value="@{loop}"/>
+				<replacefilter token="@quality@" value="@{quality}"/>								
+				<replacefilter token="@seamless.tabbing@" value="@{seamless.tabbing}"/>
+				<replacefilter token="@allow.fullscreen@" value="@{allow.fullscreen}"/>
+				<replacefilter token="@allow.script.access@" value="@{allow.script.access}"/>
+				<replacefilter token="@app.background.color@" value="@{app.background.color}" />
+				<replacefilter token="@app.name@" value="@{app.name}"/>
+				<replacefilter token="@align@" value="@{align}"/>
+				<replacefilter token="@app.file.name@" value="@{app.file.name}"/>
+				<replacefilter token="@app.width@" value="@{app.width}"/>					
+				<replacefilter token="@app.height@" value="@{app.height}" />
+				<replacefilter token="@app.version@" value="@{app.version}" />
+				<replacefilter token="@min.player.version@" value="@{min.player.version}"/>
+				
+		    </replace>
+			
+		</sequential>
+		
+	</macrodef>
+
+	<macrodef name="replace-unittests-html-tokens">
+		<attribute name="document.title" />
+		<attribute name="resource.module.urls" />
+		<attribute name="locale.chain" />
+		<attribute name="loop" default="false"/>
+		<attribute name="quality" />
+		<attribute name="seamless.tabbing" default="false" />
+		<attribute name="allow.fullscreen" default="true" />
+		<attribute name="allow.script.access" default="sameDomain"/>
+		<attribute name="app.background.color" />
+		<attribute name="app.name" />
+		<attribute name="align" default="middle" />		
+		<attribute name="app.file.name" />		
+		<attribute name="app.width"/>
+		<attribute name="app.height" />
+		<attribute name="min.player.version" />		
+		
+		<sequential>
+			
+			<replace file="${unit-test.html-file.path}" >
+				<replacefilter token="@document.title@" value="@{document.title}"/>				
+				<replacefilter token="@resource.module.urls@" value="@{resource.module.urls}"/>
+				<replacefilter token="@locale.chain@" value="@{locale.chain}"/>
+				<replacefilter token="@loop@" value="@{loop}"/>
+				<replacefilter token="@quality@" value="@{quality}"/>								
+				<replacefilter token="@seamless.tabbing@" value="@{seamless.tabbing}"/>
+				<replacefilter token="@allow.fullscreen@" value="@{allow.fullscreen}"/>
+				<replacefilter token="@allow.script.access@" value="@{allow.script.access}"/>
+				<replacefilter token="@app.background.color@" value="@{app.background.color}" />
+				<replacefilter token="@app.name@" value="@{app.name}"/>
+				<replacefilter token="@align@" value="@{align}"/>
+				<replacefilter token="@app.file.name@" value="@{app.file.name}"/>
+				<replacefilter token="@app.width@" value="@{app.width}"/>					
+				<replacefilter token="@app.height@" value="@{app.height}"/>
+				<replacefilter token="@min.player.version@" value="@{min.player.version}"/>
+		    </replace>
+			
+		</sequential>
+		
+	</macrodef>
+	
+		<macrodef  name="compile-locale" description="Compiles the Resource package for the given locale">
+				
+			<attribute name="locale" default="en_US" />
+				<sequential>
+					
+					<!--
+									Create the Flex Home directory for the language in question.
+									This is necessary to compensate for a bug in pre-3.2 releases of 
+									mxmlc.
+									//rj: update - it seems the bug is also present in 3.2 so we need to keep this.
+									-->
+					 <mkdir dir="${FLEX_HOME}/frameworks/locale/@{locale}"/>
+			
+					
+					 	
+					
+					<loadfile property="needed.bundles" srcfile="${resource-bundles.list.path}">
+						<filterchain>
+							<tokenfilter>					
+								<replacestring from="bundles =" to=""/>
+								<trim/>
+								<replacestring from=" " to=","/>
+							</tokenfilter>
+						</filterchain>
+					</loadfile>
+					
+					<uptodate 
+						property="locale.uptodate"
+						targetfile="${build.locales.dir}/resour">
+						<srcfiles 							
+							dir="${locales.dir}" 
+							includes="**/*.properties">
+						</srcfiles>
+					</uptodate>	
+					
+						<java  jar="${mxmlc.jar}"
+						fork="true"
+						maxmemory="512m"
+						failonerror="true">
+						<arg value="+flexlib=${flex.frameworks.dir}" />
+						<arg line="-locale=@{locale} " />
+						<arg line="-source-path+=${locales.dir}/{locale}" />
+						<arg line="-allow-source-path-overlap=true" />
+						<arg line="-include-resource-bundles=${needed.bundles}" />
+						<arg line="-output=${build.locales.dir}/resources_@{locale}.swf" />
+						</java>
+					</sequential>
+			</macrodef>
+
+	
+	
+	<!-- 
+		=======================================================================
+		BEGIN TARGETS
+		=======================================================================
+	-->
+	
+	<!--
+		================================= 
+		target: clean
+		Deletes the build output directories.
+		=================================
+	-->	
+	<target name="clean" description="Deletes the build output directories.">
+		<delete dir="${build.unit-test.bin.dir}" />
+		<delete dir="${build.unit-test.data.dir}" />
+		<delete dir="${build.unit-test.reports.dir}" />
+		<delete dir="${build.unit-test.dir}" />		
+		<delete dir="${build.bin.dir}" />
+		<delete dir="${build.locales.dir}" />
+		<delete dir="${build.garmin.dir}" />
+		<delete dir="${build.prototype.dir}" />
+		<delete dir="${build.unit-test.bin.dir}" />
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+	
+	
+	<!--
+		================================= 
+		target: init
+		Creates build output directories.
+		=================================
+	-->
+	<target name="init" description="Creates build output directories.">
+		<mkdir dir="${build.dir}"/>		
+		<mkdir dir="${build.bin.dir}"/>
+		<mkdir dir="${build.unit-test.dir}"/>
+		<mkdir dir="${build.unit-test.bin.dir}"/>
+		<mkdir dir="${build.unit-test.data.dir}"/>
+		<mkdir dir="${build.unit-test.reports.dir}"/>
+		<mkdir dir="${build.locales.dir}"/>
+		<mkdir dir="${build.garmin.dir}" />
+		<mkdir dir="${build.prototype.dir}" />
+		<mkdir dir="${dist.dir}"/>
+	</target>
+
+
+	
+	
+	
+	<!-- ================================= 
+          target: compile
+          Compiles the application.              
+         ================================= -->
+    <target name="compile" depends="init" description="Compiles the application.">
+    	<mxmlc fork="true" timeout="30000" 
+    		debug="${build.debug}"
+    		context-root="${context-root}"
+    		services="${services.config.path}"
+    		locale=""
+    		file="${app.mxml.path}"
+    		output="${app.swf.path}"
+    		incremental="${build.incremental}"
+    		resource-bundle-list="${resource-bundles.list.path}"
+    		>
+    		<jvmarg value="-Xms512m" />
+    		<jvmarg value="-Xmx512m" />
+    		<jvmarg value="-XX:MaxPermSize=256m" />
+    		<jvmarg value="-XX:PermSize=64m" />
+    		<license product="${licensing.product}" serial-number="${licensing.license}"/>
+    		<load-config filename="${flex.config.path}" />
+    	</mxmlc>	    	
+    </target>
+	
+	
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: check-locales-uptodate                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="check-locales-uptodate" depends="init">
+        
+    	<outofdate property="locales.outofdate">
+    		<sourcefiles>
+    			<fileset dir="${locales.dir}" includes="**/*.properties" /> 
+    		</sourcefiles>
+    		<targetfiles>
+    			<fileset dir="${build.locales.dir}" includes="**/*.swf" />
+    		</targetfiles>    
+    	</outofdate>
+    	
+    </target>
+
+	
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: compile-locales      
+                  Compiles the locale .swf files if they are not uptodate anymore.        
+         - - - - - - - - - - - - - - - - - -->	
+	<target name="compile-locales" depends="check-locales-uptodate, compile" if="locales.outofdate">
+
+		<parallel threadCount="${threads.maximum}" >
+			<compile-locale locale="en_US" />
+			<compile-locale locale="da_DK"/>
+		</parallel>
+		
+	</target>
+	
+	
+	
+	<!--
+		================================= 
+		target: test-compile
+		=================================
+	-->	
+	<target name="test-compile" depends="compile" description="Compiles test binaries.">
+		<mxmlc 
+			debug="${build.debug}"
+			file="${unit-test.mxml.path}" 
+			output="${unit-test.swf.path}"
+			locale=""
+			incremental="${build.incremental}"
+			fork="true" 
+			timeout="30000"
+			>
+			<load-config filename="${flex.config.path}" />
+			
+
+			<source-path path-element="${flex.frameworks.dir}" />		
+			
+			<source-path path-element="${src.dir}" />		
+
+			<source-path path-element="${unit-test.dir}" />		
+						
+	   		<compiler.library-path dir="${build.dir}" append="true">
+	    			<include name="${bin.swf.file.name}" />    						
+	    		</compiler.library-path>
+			
+			<compiler.library-path dir="${libs.dir}" append="true">
+			  	<include name="*.swc" />				
+			</compiler.library-path>
+    		<jvmarg value="-Xms512m" />
+    		<jvmarg value="-Xmx512m" />
+    		<jvmarg value="-XX:MaxPermSize=256m" />
+    		<jvmarg value="-XX:PermSize=64m" />
+		</mxmlc>
+	</target>
+	
+	<!--
+		================================= 
+		target: run-tests
+		=================================
+	-->	
+	<target name="run-tests" depends="test-compile" description="Runs the unit test binary.">
+		
+		<flexunit 
+			verbose="true"
+			failureproperty="tests.failed"
+			port="1024"
+			swf="${unit-test.swf.path}"
+			todir="${build.unit-test.data.dir}"
+			timeout="0"
+			haltonfailure="false"
+			>
+		</flexunit>		
+		
+		<junitreport todir="${build.unit-test.reports.dir}">
+			<fileset dir="${build.unit-test.data.dir}">
+		    	<include name="TEST-*.xml"/>
+		  	</fileset>				
+			<report format="frames" todir="${build.unit-test.reports.dir}/html"/>
+		</junitreport>	
+		
+		<fail if="tests.failed" message="Tests failed. Check the reports in ${build.unit-test.reports.dir}"/>
+		
+	</target>
+	
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: copy-script-libraries                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="copy-script-libraries" depends="compile">
+        <copy todir="${build.garmin.dir}" >
+        	<fileset dir="${garmin.libs.dir}" />
+    	</copy>
+        <copy todir="${build.prototype.dir}" >
+	    	<fileset dir="${prototype.libs.dir}" />
+    	</copy>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: dist-copy-script-libraries                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="dist-copy-script-libraries" depends="copy-script-libraries">
+        <copy todir="${dist.garmin.dir}">
+        	<fileset dir="${build.garmin.dir}" />
+        </copy>    
+        <copy todir="${dist.prototype.dir}">
+        	<fileset dir="${build.prototype.dir}" />
+        </copy>    
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: copy-binaries                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="copy-binaries" depends="compile">
+        <copy todir="${dist.dir}" file="${app.swf.path}" />    
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: dist-copy-locales                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="dist-copy-locales" depends="compile-locales">
+        <copy todir="${dist.locales.dir}">
+        	<fileset dir="${build.locales.dir}" />
+        </copy>    
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: dist-copy-website                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="dist-copy-website" depends="make-index-html">
+    	<copy file="${app.swf.path}" todir="${dist.dir}" />
+    	<copy file="${index.file.path}" todir="${dist.dir}" />
+    	<copy file="${express.install.swf.path}" todir="${dist.dir}" />
+    	<copy file="${swfobject.js.path}" todir="${dist.dir}" />
+    </target>
+
+	<!-- ================================= 
+	          target: dist              
+	         ================================= -->
+    <target name="dist" depends="dist-copy-website, dist-copy-locales, dist-copy-script-libraries" description="description">
+    	
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: fetch-svn-revision
+          Populates the property build.Revision with the current build revision.                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="fetch-svn-revision" depends="init">
+    	 <exec executable="svn"  output="${svn.properties.path}">
+    	    <arg value="info" />
+    	  </exec>
+    	
+    	  <property prefix="build" file="${svn.properties.path}"/>
+    	
+    </target>
+	
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: make-index-html
+          Generates the index.html file that is to be used
+          as the main entry point for the application. 
+          Fails and makes me tired: , get-svn-info                     
+         - - - - - - - - - - - - - - - - - -->
+    <target name="make-index-html" depends="compile-locales, copy-script-libraries">
+       
+		<copy file="${express.install.swf.path}" todir="${build.bin.dir}" />
+        <copy file="${swfobject.js.path}" todir="${build.bin.dir}" />
+    	<copy file="${index.template.path}" tofile="${index.file.path}" />
+    	
+    	<replace-html-tokens
+    		app.name="${project.app.name}"    		
+			app.width="${app.width}"
+    		app.height="${app.height}"
+    		app.file.name="${bin.swf.file.name}"
+    		app.version="${app.version}"
+    		app.background.color="${app.background.color}"
+    		garmincontroller.script.path="${garmincontroller.script.file.path}"
+    		prototype.script.path="${prototype.script.file.path}"
+    		document.title="${project.app.name}"
+    		resource.module.urls="locales/resources_da_DK.swf"
+    		locale.chain="da_DK"
+    		supported.locales="${supported.locales}"
+    		quality="best"
+    		min.player.version="9.0.124"
+    		/>
+    	
+    </target>
+
+    <target name="clean-build" depends= "clean, make-index-html" />
+
+	
+    <target name="make-unittests-html" depends="test-compile, compile-locales">
+       
+		<copy file="${express.install.swf.path}" todir="${build.bin.dir}" />
+        <copy file="${swfobject.js.path}" todir="${build.bin.dir}" />
+    	
+    	<copy file="${unit-test.swf.path}" todir="${build.bin.dir}" />
+
+    	<copy file="${index.template.path}" tofile="${unit-test.html-file.path}" />
+    	<replace-unittests-html-tokens
+    		app.name="${project.app.name}"    		
+			app.width="${app.width}"
+    		app.height="${app.height}"    		
+    		app.file.name="${unit-test.swf.file.name}"
+    		app.background.color="${app.background.color}"
+    		document.title="${project.app.name}"
+    		resource.module.urls="locales/resources_da_DK.swf"
+    		locale.chain="da_DK"
+    		quality="best"
+    		min.player.version="9.0.124"
+    		/>
+    	
+    </target>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: get-svn-info
+          Reads information from the project repository to make it available to the build.                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="get-svn-info">    	
+        <svn>
+        	<info target="${workspace.dir}" />
+        </svn>
+    	
+    	<property name="app.version" value="${project.app.name}-${project.major.version}.r${svn.info.rev}" />
+    	
+    </target>
+
+	
+
+</project>

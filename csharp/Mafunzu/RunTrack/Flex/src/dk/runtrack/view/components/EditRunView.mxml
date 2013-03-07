@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer
+	creationComplete="creationCompleteHandler()"
+	width="100%" 
+	height="100%"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:controller="dk.runtrack.controller.*"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	>
+
+	<fx:Metadata>
+		[ResourceBundle("editRunView")]
+		[ResourceBundle("validators")]
+	</fx:Metadata>
+
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<fx:Script>
+
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import dk.runtrack.controller.PresentationModelLocator;
+			import dk.runtrack.model.Shoe;
+			import dk.runtrack.presentationmodels.EditRunPresentationModel;
+			import dk.runtrack.presentationmodels.ShoeDataGridViewItem;
+			import dk.runtrack.presentationmodels.interfaces.IEditRunPresentationModel;
+			
+			import mx.events.StateChangeEvent;
+
+			[Bindable]
+			private var _editRunViewModel : IEditRunPresentationModel;
+
+
+			private function resolveShoeDropDownListItemLabel(current:Object) : String
+			{
+				var shoe : Shoe = Shoe(current);
+				if(shoe.ID==Shoe.NULL_SHOE_ID)
+				{
+					return shoe.Brand;
+				}
+				var item : ShoeDataGridViewItem = new ShoeDataGridViewItem(shoe);
+				return item.name + " " + item.restDurability;
+ 			}
+
+			public function creationCompleteHandler():void
+			{
+				_editRunViewModel = presentationModelLocator.editRunViewModel;
+			}
+
+			protected function timeInput_valueCommitHandler(event:FlexEvent):void
+			{
+				_editRunViewModel.hour = timeInput.hour;
+				_editRunViewModel.minute = timeInput.minute;
+				_editRunViewModel.second = timeInput.second;
+			}
+
+		]]>
+	</fx:Script>
+
+	<mx:Form  width="100%" height="100%" >
+		<mx:FormItem required="true" label="{resourceManager.getString('editRunView', 'start')}:" >
+			<s:HGroup>
+				<comp:RunTrackDateField 
+					id="startDateField" 
+					date="{_editRunViewModel.startDate}" 
+					change="{_editRunViewModel.startDate = event.newDate}"
+					width="200" 
+					/> 		  
+	            <s:Button 
+	            	label="{resourceManager.getString('editRunView', 'navigate.today')}" 
+	            	id="navigateToDayButton" 
+	            	click="{_editRunViewModel.startDate=new Date();}"
+            	/>
+			</s:HGroup>
+		</mx:FormItem>
+	    <mx:FormItem required="true" label="{resourceManager.getString('editRunView', 'kilometers')}:" >
+		<comp:NumberTextInput
+			id="kilometersText" 
+			text="{_editRunViewModel.kilometers}"
+			change="{_editRunViewModel.kilometers=kilometersText.text; averageSpeedText.text= _editRunViewModel.averageSpeed};" 
+		 width="80%" toolTip="{resourceManager.getString('editRunView', 'distance.field.required')}"/>
+		</mx:FormItem>
+         <mx:FormItem  required="false" label="{resourceManager.getString('editRunView', 'time')}:" >
+          	<comp:TimeInput 
+          		id="timeInput" 
+				hour="{_editRunViewModel.hour}"
+				minute="{_editRunViewModel.minute}"
+				second="{_editRunViewModel.second}"          		
+          		valueCommit="timeInput_valueCommitHandler(event)"
+				/>
+		</mx:FormItem>
+         <mx:FormItem  required="false" label="{resourceManager.getString('editRunView', 'average.speed')}:" >
+			<s:TextInput 
+				id="averageSpeedText"	
+				enabled="false" 
+				width="80%" 
+				text="{_editRunViewModel.averageSpeed}"
+				/>
+		</mx:FormItem>
+		<mx:FormItem  label="{resourceManager.getString('editRunView', 'shoe.label')}">
+			<s:DropDownList
+				labelFunction="resolveShoeDropDownListItemLabel" 
+				id="shoeDropDownList"					
+				dataProvider="{_editRunViewModel.athleteShoes}" 
+				width="200"  
+				change="{_editRunViewModel.selectedIndex=shoeDropDownList.selectedIndex}" 
+				selectedIndex="{_editRunViewModel.selectedIndex}"
+				/> 
+		</mx:FormItem>		
+		<mx:FormItem horizontalAlign="right">
+			<s:Button
+				enabled="{_editRunViewModel.canSave}"
+				id="saveButton"  
+				label="{resourceManager.getString('editRunView', 'save.run')}" 
+				click="{_editRunViewModel.save()}" />
+		</mx:FormItem>
+	</mx:Form>
+	
+</s:SkinnableContainer>

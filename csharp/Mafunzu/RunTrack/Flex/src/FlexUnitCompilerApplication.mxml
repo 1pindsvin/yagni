@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="768">	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.responders.GetActivitiesForSingleDayResponderTester;
+			import dk.runtrack.model.DegreesConverterTester;
+			
+			import dk.runtrack.model.AthleteHealthQueryTester;
+			
+			private var dk_runtrack_model_AthleteHealthQueryTester_obj:dk.runtrack.model.AthleteHealthQueryTester;
+		]]>
+	</fx:Script>	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.presentationmodels.AthleteHealthHistoryPresentationModelTester;
+			
+			private var dk_runtrack_presentationmodels_AthleteHealthHistoryPresentationModelTester_obj:dk.runtrack.presentationmodels.AthleteHealthHistoryPresentationModelTester;
+		]]>
+	</fx:Script>	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.responders.GetHealthHistoryResponderTester;
+			
+			private var dk_runtrack_responders_GetHealthHistoryResponderTester_obj:dk.runtrack.responders.GetHealthHistoryResponderTester;
+		]]>
+	</fx:Script>	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.commands.athlete.GetHealthHistoryCommandTester;
+			
+			private var dk_runtrack_commands_athlete_GetHealthHistoryCommandTester_obj:dk.runtrack.commands.athlete.GetHealthHistoryCommandTester;
+		]]>
+	</fx:Script>	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.responders.GetBestRunsResponderTester;
+			
+			private var dk_runtrack_responders_GetBestRunsResponderTester_obj:dk.runtrack.responders.GetBestRunsResponderTester;
+		]]>
+	</fx:Script>	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.commands.run.GetBestRunsCommandTester;
+			
+			private var dk_runtrack_commands_run_GetBestRunsCommandTester_obj:dk.runtrack.commands.run.GetBestRunsCommandTester;
+		]]>
+	</fx:Script>	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.commands.user.CreateUserWithAthleteCommandTester;
+			
+			private var dk_runtrack_responders_GetActivitiesForSingleDayResponderTester_obj:dk.runtrack.responders.GetActivitiesForSingleDayResponderTester;
+			
+			
+			private var dk_runtrack_model_DegreesConverterTester_obj:dk.runtrack.model.DegreesConverterTester;
+			
+			
+			private var dk_runtrack_commands_user_CreateUserWithAthleteCommandTester_obj:dk.runtrack.commands.user.CreateUserWithAthleteCommandTester;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:Application>

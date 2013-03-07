@@ -1,0 +1,197 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0D7F4EB-6239-4C69-A2CC-764C450CD8D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataService</RootNamespace>
+    <AssemblyName>DataService</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>http://localhost/DataService/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="weborb, Version=3.6.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\weborb.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\DbConstants.cs" />
+    <Compile Include="Garmin\ActivityBuilder.cs" />
+    <Compile Include="DataAccess\AthleteData.cs" />
+    <Compile Include="DataAccess\AthleteDataAccess.cs" />
+    <Compile Include="DataAccess\WorkoutDataAcces.cs" />
+    <Compile Include="Io\CsvData.cs" />
+    <Compile Include="Garmin\UudecodedUnGZipper.cs" />
+    <Compile Include="Garmin\XmlSanitizer.cs" />
+    <Compile Include="Model\ActivityQuery.cs" />
+    <Compile Include="Model\ActivitySubType.cs" />
+    <Compile Include="Model\ActivityType.cs" />
+    <Compile Include="Model\AthleteHealth.cs" />
+    <Compile Include="Model\AthleteHealthQuery.cs" />
+    <Compile Include="Model\Activity.cs" />
+    <Compile Include="Model\Db.designer.cs">
+      <DependentUpon>Db.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\DateEqualityComparer.cs" />
+    <Compile Include="Io\IFileSystem.cs" />
+    <Compile Include="DataAccess\Pager.cs" />
+    <Compile Include="DataAccess\RunDataAccess.cs" />
+    <Compile Include="Io\RunTrackEnvironment.cs" />
+    <Compile Include="Io\RunTrackFileSystem.cs" />
+    <Compile Include="DataAccess\ShoeDataAccess.cs" />
+    <Compile Include="DataAccess\UserDataAccess.cs" />
+    <Compile Include="DataAccess\Dynamic.cs" />
+    <Compile Include="Io\XmlBuilder.cs" />
+    <Compile Include="Io\XmlUtility.cs" />
+    <Compile Include="Error.cs" />
+    <Compile Include="Model\Athlete.cs" />
+    <Compile Include="Model\DataContextAdapter.cs" />
+    <Compile Include="Model\DayActivity.cs" />
+    <Compile Include="Model\DbDataContext.cs" />
+    <Compile Include="Model\DbOperation.cs" />
+    <Compile Include="Model\DistanceCalculator.cs" />
+    <Compile Include="Model\GoaledSequencer.cs" />
+    <Compile Include="Model\BestRunsQuery.cs" />
+    <Compile Include="Model\Lap.cs" />
+    <Compile Include="Model\PagingData.cs" />
+    <Compile Include="Model\Query.cs" />
+    <Compile Include="Model\SimpleGoaledSequencer.cs" />
+    <Compile Include="Model\ISequencer.cs" />
+    <Compile Include="Model\Sequencer.cs" />
+    <Compile Include="Model\Goal.cs" />
+    <Compile Include="Model\IDataContext.cs" />
+    <Compile Include="Model\LabelEnumeration.cs" />
+    <Compile Include="Model\MonthQuery.cs" />
+    <Compile Include="Model\Preference.cs" />
+    <Compile Include="Model\RunsPage.cs" />
+    <Compile Include="Model\Run.cs" />
+    <Compile Include="Model\Shoe.cs" />
+    <Compile Include="Model\ShoePage.cs" />
+    <Compile Include="Model\Track.cs" />
+    <Compile Include="Model\Trackpoint.cs" />
+    <Compile Include="Model\Trainer.cs" />
+    <Compile Include="Model\TrainingPlan.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\WeekdaySelectionEnumeration.cs" />
+    <Compile Include="Model\Workout.cs" />
+    <Compile Include="Model\WorkoutQuery.cs" />
+    <Compile Include="Model\WorkoutTypeEnumeration.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SecurityHandler.cs" />
+    <Compile Include="Security\SecurityService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SettingsWithConncetionstringSetterProperty.txt" />
+    <Content Include="RefactorDatabaseChange.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\Db.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Db.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\Db.dbml.layout">
+      <DependentUpon>Db.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

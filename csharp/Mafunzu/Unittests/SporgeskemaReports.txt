@@ -1,0 +1,314 @@
+﻿AssertRespondentReport
+
+Paying respondents:
+
+RegisterRunDataWeight: Average: 3,28260869565217, Median: 4, Max: 4, Min: 0, Deviation: 0,98122471043444
+TrainerWeight: Average: 3,15217391304348, Median: 3, Max: 4, Min: 0, Deviation: 1,01033308708559
+StatisticsBestRunsWeight: Average: 2,93478260869565, Median: 3, Max: 4, Min: 0, Deviation: 0,853806481145685
+FetchDataFromWatchWeight: Average: 2,67391304347826, Median: 3, Max: 4, Min: 0, Deviation: 1,21205698117038
+VisualWeightlossWeight: Average: 2,6304347826087, Median: 3, Max: 4, Min: 0, Deviation: 1,04048483681992
+RunCalendarWeight: Average: 2,39130434782609, Median: 2,5, Max: 4, Min: 0, Deviation: 1,0430353327256
+RegisterShoeDataWeight: Average: 2,21739130434783, Median: 2, Max: 4, Min: 0, Deviation: 0,986870327590338
+CompareResultsWithOthersWeight: Average: 1,93478260869565, Median: 2, Max: 4, Min: 0, Deviation: 0,827369967307209
+
+All respondents:
+
+RegisterRunDataWeight: Average: 2,34939759036145, Median: 3, Max: 4, Min: 0, Deviation: 1,61758319491735
+StatisticsBestRunsWeight: Average: 2,10843373493976, Median: 3, Max: 4, Min: 0, Deviation: 1,47719675711081
+TrainerWeight: Average: 2,09036144578313, Median: 3, Max: 4, Min: 0, Deviation: 1,56794514884204
+FetchDataFromWatchWeight: Average: 1,79518072289157, Median: 2, Max: 4, Min: 0, Deviation: 1,5275969335475
+VisualWeightlossWeight: Average: 1,79518072289157, Median: 2, Max: 4, Min: 0, Deviation: 1,37297761922723
+RunCalendarWeight: Average: 1,73493975903614, Median: 2, Max: 4, Min: 0, Deviation: 1,38024448734052
+RegisterShoeDataWeight: Average: 1,56024096385542, Median: 2, Max: 4, Min: 0, Deviation: 1,2182888903591
+CompareResultsWithOthersWeight: Average: 1,40963855421687, Median: 2, Max: 4, Min: 0, Deviation: 1,10136163194599
+
+Not paying respondents:
+
+RegisterRunDataWeight: Average: 1,99166666666667, Median: 3, Max: 4, Min: 0, Deviation: 1,6727968495068
+StatisticsBestRunsWeight: Average: 1,79166666666667, Median: 2, Max: 4, Min: 0, Deviation: 1,54428103710712
+TrainerWeight: Average: 1,68333333333333, Median: 2, Max: 4, Min: 0, Deviation: 1,55559890562512
+RunCalendarWeight: Average: 1,48333333333333, Median: 1, Max: 4, Min: 0, Deviation: 1,41411452434207
+VisualWeightlossWeight: Average: 1,475, Median: 1,5, Max: 4, Min: 0, Deviation: 1,35325626583009
+FetchDataFromWatchWeight: Average: 1,45833333333333, Median: 1, Max: 4, Min: 0, Deviation: 1,50570809347134
+RegisterShoeDataWeight: Average: 1,30833333333333, Median: 1, Max: 4, Min: 0, Deviation: 1,20778868242775
+CompareResultsWithOthersWeight: Average: 1,20833333333333, Median: 1, Max: 4, Min: 0, Deviation: 1,129407023216
+
+http://en.wikipedia.org/wiki/Standard_deviation
+
+Paying respondents:
+
+Hvis svaret på RegisterRunDataWeight ligner en normalfordeling (i praksis kunne man kun svare fra 0 t.o.m 4) vil ca 68% give et svar i intervallet 3 - 4
+
+Kritik: Hvorfor skulle man antage at svaret er normalfordelt. Vi kan også antage at besvarelserne tenderer at være positive fordi jeg som respondent gerne vil have alle faciliteter til rådighed i træningsværktøjet
+
+
+AssertWhatMattersReport (Goal)
+
+Paying respondents
+
+General fitness, percent: 50
+Specific race/event/distance, percent: 15,22
+Improve running speed, percent: 10,87
+Loose weight, percent: 10,87
+No goal, percent: 8,7
+Improve results in other sport, percent: 4,35
+
+
+All respondents
+
+General fitness, percent: 45,18
+No goal, percent: 24,7
+Specific race/event/distance, percent: 10,84
+Loose weight, percent: 10,84
+Improve running speed, percent: 6,02
+Improve results in other sport, percent: 2,41
+
+
+Not paying respondents
+
+General fitness, percent: 43,33
+No goal, percent: 30,83
+Loose weight, percent: 10,83
+Specific race/event/distance, percent: 9,17
+Improve running speed, percent: 4,17
+Improve results in other sport, percent: 1,67
+
+
+===================================================
+Answer CompareResultsWithOthersWeight
+Paying respondents
+
+Ikke vigtig, percent: 52,17
+Unødvendig, percent: 26,09
+Vigtig, percent: 15,22
+Meget vigtig, percent: 4,35
+Ved ikke (eller ikke besvaret), percent: 2,17
+
+
+All respondents
+
+Ikke vigtig, percent: 34,94
+Ved ikke (eller ikke besvaret), percent: 27,71
+Unødvendig, percent: 21,69
+Vigtig, percent: 13,25
+Meget vigtig, percent: 2,41
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 37,5
+Ikke vigtig, percent: 28,33
+Unødvendig, percent: 20
+Vigtig, percent: 12,5
+Meget vigtig, percent: 1,67
+
+
+===================================================
+===================================================
+Answer FetchDataFromWatchWeight
+Paying respondents
+
+Vigtig, percent: 39,13
+Meget vigtig, percent: 26,09
+Ikke vigtig, percent: 21,74
+Ved ikke (eller ikke besvaret), percent: 10,87
+Unødvendig, percent: 2,17
+
+
+All respondents
+
+Ved ikke (eller ikke besvaret), percent: 33,13
+Ikke vigtig, percent: 19,28
+Vigtig, percent: 18,67
+Meget vigtig, percent: 18,67
+Unødvendig, percent: 10,24
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 41,67
+Ikke vigtig, percent: 18,33
+Meget vigtig, percent: 15,83
+Unødvendig, percent: 13,33
+Vigtig, percent: 10,83
+
+
+===================================================
+===================================================
+Answer RegisterRunDataWeight
+Paying respondents
+
+Meget vigtig, percent: 52,17
+Vigtig, percent: 32,61
+Ikke vigtig, percent: 10,87
+Ved ikke (eller ikke besvaret), percent: 4,35
+
+
+All respondents
+
+Meget vigtig, percent: 33,13
+Vigtig, percent: 27,71
+Ved ikke (eller ikke besvaret), percent: 26,51
+Ikke vigtig, percent: 6,63
+Unødvendig, percent: 6,02
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 35
+Vigtig, percent: 25,83
+Meget vigtig, percent: 25,83
+Unødvendig, percent: 8,33
+Ikke vigtig, percent: 5
+
+
+===================================================
+===================================================
+Answer RegisterShoeDataWeight
+Paying respondents
+
+Ikke vigtig, percent: 45,65
+Vigtig, percent: 28,26
+Unødvendig, percent: 10,87
+Meget vigtig, percent: 8,7
+Ved ikke (eller ikke besvaret), percent: 6,52
+
+
+All respondents
+
+Ikke vigtig, percent: 30,72
+Ved ikke (eller ikke besvaret), percent: 27,71
+Vigtig, percent: 19,28
+Unødvendig, percent: 17,47
+Meget vigtig, percent: 4,82
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 35,83
+Ikke vigtig, percent: 25
+Unødvendig, percent: 20
+Vigtig, percent: 15,83
+Meget vigtig, percent: 3,33
+
+
+===================================================
+===================================================
+Answer RunCalendarWeight
+Paying respondents
+
+Vigtig, percent: 36,96
+Ikke vigtig, percent: 30,43
+Unødvendig, percent: 15,22
+Meget vigtig, percent: 13,04
+Ved ikke (eller ikke besvaret), percent: 4,35
+
+
+All respondents
+
+Ved ikke (eller ikke besvaret), percent: 27,71
+Vigtig, percent: 24,7
+Ikke vigtig, percent: 19,28
+Unødvendig, percent: 17,47
+Meget vigtig, percent: 10,84
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 36,67
+Vigtig, percent: 20
+Unødvendig, percent: 18,33
+Ikke vigtig, percent: 15
+Meget vigtig, percent: 10
+
+
+===================================================
+===================================================
+Answer StatisticsBestRunsWeight
+Paying respondents
+
+Vigtig, percent: 52,17
+Meget vigtig, percent: 23,91
+Ikke vigtig, percent: 19,57
+Unødvendig, percent: 2,17
+Ved ikke (eller ikke besvaret), percent: 2,17
+
+
+All respondents
+
+Vigtig, percent: 37,35
+Ved ikke (eller ikke besvaret), percent: 26,51
+Meget vigtig, percent: 16,87
+Ikke vigtig, percent: 12,05
+Unødvendig, percent: 7,23
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 35,83
+Vigtig, percent: 31,67
+Meget vigtig, percent: 14,17
+Ikke vigtig, percent: 9,17
+Unødvendig, percent: 9,17
+
+
+===================================================
+===================================================
+Answer TrainerWeight
+Paying respondents
+
+Vigtig, percent: 50
+Meget vigtig, percent: 39,13
+Ved ikke (eller ikke besvaret), percent: 6,52
+Ikke vigtig, percent: 4,35
+
+
+All respondents
+
+Vigtig, percent: 33,73
+Ved ikke (eller ikke besvaret), percent: 30,12
+Meget vigtig, percent: 21,08
+Ikke vigtig, percent: 8,43
+Unødvendig, percent: 6,63
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 39,17
+Vigtig, percent: 27,5
+Meget vigtig, percent: 14,17
+Ikke vigtig, percent: 10
+Unødvendig, percent: 9,17
+
+
+===================================================
+===================================================
+Answer VisualWeightlossWeight
+Paying respondents
+
+Ikke vigtig, percent: 32,61
+Vigtig, percent: 30,43
+Meget vigtig, percent: 23,91
+Unødvendig, percent: 10,87
+Ved ikke (eller ikke besvaret), percent: 2,17
+
+
+All respondents
+
+Ved ikke (eller ikke besvaret), percent: 27,71
+Vigtig, percent: 25,3
+Ikke vigtig, percent: 24,1
+Unødvendig, percent: 12,05
+Meget vigtig, percent: 10,84
+
+
+Not paying respondents
+
+Ved ikke (eller ikke besvaret), percent: 37,5
+Vigtig, percent: 23,33
+Ikke vigtig, percent: 20,83
+Unødvendig, percent: 12,5
+Meget vigtig, percent: 5,83
+
+
+===================================================

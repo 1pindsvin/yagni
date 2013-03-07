@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	width="100%">
+	<mx:DateField id="fromDateField" change="rangeChanged()"  />
+	<s:Label  text=" - "/>
+	<mx:DateField id="toDateField" change="rangeChanged()"  />
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			private function equals(d1:Date, d2:Date) : Boolean
+			{
+				if(d1==null )
+				{
+					if(d2==null)
+					{
+						return true;
+					}
+					return false;
+				}
+				if(d2==null)
+				{
+					return false;
+				}
+				return d1.fullYear == d2.fullYear &&
+					d1.month == d2.month &&
+					d1.date == d2.date;
+			}
+			
+			public function set from(v:Date) : void
+			{
+				if(equals( v,fromDateField.selectedDate))
+				{
+					return;
+				}
+				fromDateField.selectedDate = v;
+				rangeChanged();
+			}
+			
+			public function get from() : Date
+			{
+				return fromDateField.selectedDate;
+			}
+			
+			public function set to(v:Date) : void
+			{
+				if(equals( v,toDateField.selectedDate))
+				{
+					return;
+				}
+				toDateField.selectedDate = v;
+				rangeChanged();
+			}
+			
+			public function get to() : Date
+			{
+				return toDateField.selectedDate;
+				
+			}
+			
+			private function rangeChanged() : void
+			{
+				dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+			}
+			
+		]]>
+	</fx:Script>		
+</s:HGroup>

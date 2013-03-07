@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel
+	title="{resourceManager.getString('bestRunsView','title')}"
+	width="700" 
+	height="500"
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:controller="dk.runtrack.controller.*"
+	creationComplete="panel1_creationCompleteHandler(event)"
+	xmlns:components="dk.runtrack.view.components.*">
+	<fx:Metadata>
+		[ResourceBundle("bestRunsView")]
+	</fx:Metadata>
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+		<s:ArrayList id="dateRanges" source="{resourceManager.getStringArray('bestRunsView', 'date.ranges')}" />
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout paddingLeft="20" paddingRight="20" paddingTop="10" paddingBottom="10" />
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.interfaces.IBestRunsPresentationModel;
+			
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			private var _pm : IBestRunsPresentationModel;
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_pm = presentationModelLocator.bestRunsPresentationModel;
+				dateWithInDropDownList.selectedIndex = 0;
+			}
+			
+
+			protected function dateWithInDropDownList_changeHandler(event:IndexChangeEvent):void
+			{
+				//date.ranges=Alle,seneste 2 år,12 måneder,6 måneder,3 måneder
+				var selectedIndex:int=dateWithInDropDownList.selectedIndex
+				var monthDic : Array = [0, 24, 12, 6, 3];
+				var months : int = monthDic[selectedIndex]; 
+
+				if(months==0)
+				{
+					dateRange.from = null;
+					dateRange.to = null;
+					return;
+				}
+				var now : Date = new Date();
+				dateRange.to = now;
+				now.month -= months;
+				dateRange.from = now;
+			}
+
+
+			protected function dateRange_valueCommitHandler(event:FlexEvent):void
+			{
+				_pm.from = dateRange.from;
+				_pm.to = dateRange.to;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<mx:VDividedBox height="100%" width="100%" dividerThickness="5" >
+		<mx:Form id="topSearchForm" width="100%" height="50%" >
+			<mx:FormItem label="{resourceManager.getString('bestRunsView','distance')}">
+				<components:NumberTextInput 
+					id="distanceNumberTextInput"
+					text="{_pm.distance}"
+					change="{_pm.distance=distanceNumberTextInput.text;}" 
+					width="80%" 
+					/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString('bestRunsView','date.within')}">
+				<s:DropDownList 
+					id="dateWithInDropDownList" 
+					dataProvider="{dateRanges}"
+					width="200"  
+					change="dateWithInDropDownList_changeHandler(event)"
+					/> 
+				
+			</mx:FormItem>
+			<mx:FormItem >
+				<components:DateRange id="dateRange" valueCommit="dateRange_valueCommitHandler(event)" />
+			</mx:FormItem>
+			<mx:FormItem horizontalAlign="right">
+				<s:Button
+					id="searchButton"  
+					label="{resourceManager.getString('bestRunsView', 'search')}" 
+					click="{_pm.search()}" />
+			</mx:FormItem>
+		</mx:Form>
+		<components:RunActivityView id="runActivityView"/>		
+		
+	</mx:VDividedBox>
+	
+	<s:controlBarContent>
+		<s:Button id="myCloseButton" click="{PopUpManager.removePopUp(this);}" label="{resourceManager.getString('bestRunsView','close')}" />
+	</s:controlBarContent>
+	
+</s:Panel>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	currentStateChange="dayCellRenderer_currentStateChangeHandler(event)"
+	>
+	
+	<s:states>
+		<s:State name="normal"/>            
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+		<s:State name="normalAndShowsCaret"/>
+		<s:State name="hoveredAndShowsCaret"/>
+		<s:State name="selectedAndShowsCaret"/>
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.interfaces.IDayCellPresenter;
+			
+			import mx.core.IVisualElement;
+			import mx.events.StateChangeEvent; 
+			
+			[Bindable("dataChanged")]
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				contentGroup.removeAllElements();
+				contentGroup.addElement(IVisualElement(value));
+			}
+
+			public var dayCellPresenter : IDayCellPresenter;
+			
+			protected function dayCellRenderer_currentStateChangeHandler(event:StateChangeEvent):void
+			{
+				if(event.newState  == "selectedAndShowsCaret" )
+				{
+					dayCellPresenter.selected = true;
+				}	
+			}
+
+			private var selectionColor : uint = 1;
+			private var contentBackgroundColor : uint = 2;
+			private var rollOverColor : uint = 3;
+
+		]]>
+	</fx:Script>
+	
+	<s:Rect id="dayCellRendererRect" left="0" right="0" top="0" bottom="0" >
+		<s:stroke.normalAndShowsCaret>
+			<s:SolidColorStroke 
+				color="{selectionColor}" 
+				weight="1"/>
+		</s:stroke.normalAndShowsCaret>
+		<s:stroke.hoveredAndShowsCaret>
+			<s:SolidColorStroke 
+				color="{selectionColor}" 
+				weight="1"/>
+		</s:stroke.hoveredAndShowsCaret>
+		<s:stroke.selectedAndShowsCaret>
+			<s:SolidColorStroke 
+				color="{selectionColor}" 
+				weight="1"/>
+		</s:stroke.selectedAndShowsCaret>
+		<s:fill>
+			<s:SolidColor 
+				color.normal= "{contentBackgroundColor}"
+				color.normalAndShowsCaret="{contentBackgroundColor}" 
+				color.hovered="{rollOverColor}"
+				color.hoveredAndShowsCaret="{rollOverColor}"
+				color.selected="{selectionColor}"
+				color.selectedAndShowsCaret="{selectionColor}"
+				/>
+		</s:fill>
+	</s:Rect>
+	<s:Group id="contentGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
+	
+</s:ItemRenderer>

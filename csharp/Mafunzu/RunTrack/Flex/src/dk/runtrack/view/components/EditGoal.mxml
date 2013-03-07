@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:components="dk.runtrack.view.components.*" 	
+		 xmlns:controller="dk.runtrack.controller.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" 
+		 creationComplete="editGoal_creationCompleteHandler(event)"
+		 >
+
+	<fx:Metadata>
+		[ResourceBundle("editGoal")]
+	</fx:Metadata>
+
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.interfaces.IEditGoalPresentationModel;
+			
+			import mx.events.FlexEvent;
+
+			[Bindable]
+			private var _editGoalPresentationModel : IEditGoalPresentationModel;
+
+			protected function timeInput_valueCommitHandler(event:FlexEvent):void
+			{
+				_editGoalPresentationModel.hour = timeInput.hour;
+				_editGoalPresentationModel.minute = timeInput.minute;
+				_editGoalPresentationModel.second = timeInput.second;
+			}
+
+			
+			protected function editGoal_creationCompleteHandler(event:FlexEvent):void
+			{
+				_editGoalPresentationModel = presentationModelLocator.editGoalPresentationModel;	
+			}
+
+		]]>
+	</fx:Script>
+
+	
+	<mx:Form  width="100%" height="100%" >
+		<mx:FormItem id="myGoalFormItem" label="{resourceManager.getString('editGoal', 'my.goal')}" />
+		<mx:FormItem required="true" label="{resourceManager.getString('editGoal', 'kilometers')}:" >
+			<components:NumberTextInput
+				id="kilometersText" 
+				text="{_editGoalPresentationModel.kilometers}"
+				change="{_editGoalPresentationModel.kilometers=kilometersText.text};" 
+				width="80%" toolTip="{resourceManager.getString('editGoal', 'distance.field.required')}"/>
+		</mx:FormItem>
+		<mx:FormItem  required="false" label="{resourceManager.getString('editGoal', 'time')}:" >
+			<components:TimeInput 
+				id="timeInput" 
+				hour="{_editGoalPresentationModel.hour}"
+				minute="{_editGoalPresentationModel.minute}"
+				second="{_editGoalPresentationModel.second}"          		
+				valueCommit="timeInput_valueCommitHandler(event)"
+				/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('editGoal', 'timespan')}">
+			<s:HSlider  />
+		</mx:FormItem>
+	</mx:Form>
+	
+</s:Group>

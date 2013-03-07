@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel 
+	width="100%"
+	height="100%"
+	creationComplete="panel1_creationCompleteHandler(event)"
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:controller="dk.runtrack.controller.*" 
+	xmlns:components="dk.runtrack.view.components.*">
+	<fx:Metadata>
+		[ResourceBundle("athleteHealthView")]
+	</fx:Metadata>
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.interfaces.IAthleteHealthPresentationModel;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			private var _pm : IAthleteHealthPresentationModel;
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<mx:HDividedBox width="100%" height="100%" dividerThickness="10">
+		<s:VGroup width="50%" height="100%" >
+			<mx:Form>
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'weight')}:" 
+					id="weightFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="weightText"  
+						text="{_pm.weight}" 
+						change="{_pm.weight=weightText.text}" />
+				</mx:FormItem>
+
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'bmi')}:" 
+					id="bmiFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="bmiText"  
+						text="{_pm.bmi}" />
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'waist')}:" 
+					id="waistFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="waistText"  
+						text="{_pm.waist}" 
+						change="{_pm.waist=waistText.text}" />
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'thigh')}:" 
+					id="thighFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="thighText"  
+						text="{_pm.thigh}" 
+						change="{_pm.thigh=thighText.text}" />
+				</mx:FormItem>
+				
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'arm')}:" 
+					id="armFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="armText"  
+						text="{_pm.arm}" 
+						change="{_pm.arm=armText.text}" />
+				</mx:FormItem>
+
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'resting.heart.rate')}:" 
+					id="restingHeartRateFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="restingHeartRateText"  
+						text="{_pm.restingHeartRate}" 
+						change="{_pm.restingHeartRate=restingHeartRateText.text}" />
+				</mx:FormItem>
+
+				<mx:FormItem 
+					label="{resourceManager.getString('athleteHealthView', 'maximum.heart.rate')}:" 
+					id="maximumHeartRateFormItem" 
+					required="false">
+					<components:NumberTextInput 
+						id="maximumHeartRateText"  
+						text="{_pm.maximumHeartRate}" 
+						change="{_pm.maximumHeartRate=maximumHeartRateText.text}" />
+				</mx:FormItem>
+			</mx:Form>
+		</s:VGroup>
+		<components:AthleteHealthChart width="50%" height="100%" />
+	</mx:HDividedBox>
+</s:Panel>

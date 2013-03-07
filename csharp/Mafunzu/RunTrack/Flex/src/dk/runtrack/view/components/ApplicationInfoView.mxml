@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel
+	width="100%" 
+	height="100%"
+	title="{resourceManager.getString('applicationInfo','title') || 'Title'}"
+	creationComplete="creationCompleteHandler()"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:controller="dk.runtrack.controller.*"
+	>
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<fx:Metadata>
+		[ResourceBundle("applicationInfo")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.ApplicationPresentationModel;
+			import dk.runtrack.controller.PresentationModelLocator;
+			
+			
+			import mx.managers.PopUpManager;
+			
+			[Bindable]
+			public var applicationPresentationModel:ApplicationPresentationModel;
+			
+			private function myCloseButtonClickHandler(event:Event):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function creationCompleteHandler():void
+			{
+				this.applicationPresentationModel =  presentationModelLocator.applicationPresentationModel;
+			}
+			
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout paddingLeft="20" paddingRight="20" paddingTop="10" paddingBottom="10" />
+	</s:layout>
+	
+	<s:Label y="10" text="{resourceManager.getString('applicationInfo','app.created.by')}"/>
+	<s:Label y="55" text="{resourceManager.getString('applicationInfo','app.current.version')}"/>
+	<s:Label y="81" text="{applicationPresentationModel.version}"/>
+
+	<s:controlBarContent>
+		<s:Button id="myCloseButton" click="myCloseButtonClickHandler(event)" label="{resourceManager.getString('applicationInfo','close')}" />
+	</s:controlBarContent>
+	
+</s:Panel>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<comp:DateTimeGroup
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	creationComplete="creationCompleteHandler()"
+	>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.model.DateTimeFormatter;
+			
+			import mx.events.CalendarLayoutChangeEvent;
+			
+			public function get date():Date
+			{
+				return dateDateField.data as Date ; 
+			}
+
+			public function set date(value:Date):void
+			{
+				dateDateField.data = value;
+				setTime(value);
+			}
+
+			private function setTime(value: Date) : void
+			{
+				var dateTimeFormatter : DateTimeFormatter = new DateTimeFormatter()
+				timeTextInput.text = dateTimeFormatter.getTime(date);
+			}
+			
+			private function creationCompleteHandler() : void
+			{
+				
+			}
+			
+			private var _date : Date;
+
+			protected function dateDateFieldChangeHandler(event:CalendarLayoutChangeEvent):void
+			{
+				var date : Date = new Date();
+				date.date = event.newDate.date;
+				date.month = event.newDate.month;
+				date.fullYear = event.newDate.fullYear;
+				
+				setTime(date);
+				
+				var changeEvent : CalendarLayoutChangeEvent = new CalendarLayoutChangeEvent(CalendarLayoutChangeEvent.CHANGE, event.bubbles, event.cancelable, date, event.triggerEvent);
+				dispatchEvent(changeEvent);
+			}
+
+		]]>
+	</fx:Script>
+
+	<s:TextInput id="timeTextInput" width="40" />
+		
+	<mx:DateField id="dateDateField" change="dateDateFieldChangeHandler(event)" />
+	
+</comp:DateTimeGroup>

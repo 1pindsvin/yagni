@@ -1,0 +1,22 @@
+﻿Open Db.dbml. 
+
+Clear all
+
+Reimport all tables
+
+Rebuild, run the test "RemoveLinqChildRelations" in "DbXmlAssociationSetterTester"
+
+The test also sets cardiality between goal and trainingplan to "One"
+
+Now do this
+
+The trick is:
+
+Make the changes you want in the dbml file (this is done in "RemoveLinqChildRelations"), and save it, 
+if the designer did not regenerate the code:
+Rename the dbml file (for example Db.dbml to Db2.dbml)
+Make a copy of it (Drag it to the same folder)
+Now rename the New file to the original name.
+while renaming I found that the designer has regenerated the code file 
+
+Finally run the macro "SetVersionAndRefIDPropertiesInternal" hiding properties from WebOrb

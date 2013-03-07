@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+				xmlns:flexunit="flexunit.flexui.*"
+				creationComplete="creationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import dk.runtrack.AllTests;
+			import dk.runtrack.presentationmodels.AthleteViewModelTester;
+			
+			import flexunit.junit.JUnitTestRunner;
+			import flexunit.framework.TestSuite;
+			
+			[Bindable]
+			private var runner : JUnitTestRunner;
+			
+			private function creationCompleteHandler() : void
+			{
+			   	status.text = "Please wait running test suite...";
+				runner = new JUnitTestRunner();
+				runner.run(createSuite(), testCompleteHandler);
+ 			}
+ 			
+ 			private function testCompleteHandler() : void
+ 			{
+ 			   	status.text = "Finished running test suite."; 			   
+ 				fscommand("quit");
+ 			}
+			
+			private function createSuite() : TestSuite
+			{
+ 				var testSuite : TestSuite = new TestSuite();
+ 				testSuite.addTest(AllTests.suite()); 				
+ 				return testSuite;
+ 			}
+		]]>
+	</mx:Script>
+	
+	<mx:Label id="status" />
+</mx:Application>

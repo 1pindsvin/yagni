@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is an auto generated file and is not intended for modification. -->
+
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:flexui="flexunit.flexui.*" creationComplete="onCreationComplete()">
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.commands.OnTrackCommandDispatchTester;
+			import dk.runtrack.commands.OntrackCommandTester;
+			import dk.runtrack.commands.SetSelectedDateCommandExecuteTester;
+			import dk.runtrack.commands.athlete.GetAthleteByUserCommandTester;
+			import dk.runtrack.commands.athlete.GetHealthHistoryCommandTester;
+			import dk.runtrack.commands.run.DeleteRunCommandTester;
+			import dk.runtrack.commands.run.GetBestRunsCommandTester;
+			import dk.runtrack.commands.run.GetPlannedRunsComandTester;
+			import dk.runtrack.commands.run.SaveRunCommandTester;
+			import dk.runtrack.commands.shoe.GetAthleteShoesCommandTester;
+			import dk.runtrack.commands.trainingplanning.GetAthleteTrainingPlansCommandTester;
+			import dk.runtrack.commands.trainingplanning.SaveTrainingPlanCommandTester;
+			import dk.runtrack.commands.user.CreateUserWithAthleteCommandTester;
+			import dk.runtrack.commands.user.LoginUserCommandExecuteTester;
+			import dk.runtrack.controller.ViewModelLocatorTest;
+			import dk.runtrack.io.CookieAdapterTester;
+			import dk.runtrack.io.PersistentObjectTester;
+			import dk.runtrack.model.AthleteHealthQueryTester;
+			import dk.runtrack.model.ClientShoesTester;
+			import dk.runtrack.model.ConverterTester;
+			import dk.runtrack.model.DateTimeFormatterTester;
+			import dk.runtrack.model.DegreesConverterTester;
+			import dk.runtrack.model.DistanceFormatterTester;
+			import dk.runtrack.model.TimeFormatterTester;
+			import dk.runtrack.presentationmodels.AthleteHealthHistoryPresentationModelTester;
+			import dk.runtrack.presentationmodels.AthleteViewModelTester;
+			import dk.runtrack.presentationmodels.EditRunPresentationModelTester;
+			import dk.runtrack.presentationmodels.EditShoeViewModelSaveTester;
+			import dk.runtrack.presentationmodels.EditTrainingPlanSaveTester;
+			import dk.runtrack.presentationmodels.PagerTester;
+			import dk.runtrack.presentationmodels.RunDataGridViewItemStartTester;
+			import dk.runtrack.presentationmodels.SortColumnsTester;
+			import dk.runtrack.presentationmodels.TimeValidatorTester;
+			import dk.runtrack.presentationmodels.UndoTimerTester;
+			import dk.runtrack.responders.BaseResponderTester;
+			import dk.runtrack.responders.GetAthleteByUserResponderTester;
+			import dk.runtrack.responders.GetAthleteShoesResponderTester;
+			import dk.runtrack.responders.GetAthleteTrainingPlansResponderTester;
+			import dk.runtrack.responders.GetBestRunsResponderTester;
+			import dk.runtrack.responders.GetHealthHistoryResponderTester;
+			import dk.runtrack.responders.GetPlannedRunsResponderTester;
+			import dk.runtrack.responders.RunPageResponderUpdateViewModelTester;
+			import dk.runtrack.util.ExceptionHelper;
+			import dk.runtrack.util.RegularExpressionTester;
+			import dk.runtrack.view.components.RunTrackDateFieldTester;
+			
+			public function currentRunTestSuite():Array
+			{
+				var testsToRun:Array = new Array();
+				testsToRun.push(dk.runtrack.commands.OnTrackCommandDispatchTester);
+				testsToRun.push(dk.runtrack.commands.OntrackCommandTester);
+				testsToRun.push(dk.runtrack.commands.SetSelectedDateCommandExecuteTester);
+				testsToRun.push(dk.runtrack.commands.athlete.GetAthleteByUserCommandTester);
+				testsToRun.push(dk.runtrack.commands.athlete.GetHealthHistoryCommandTester);
+				testsToRun.push(dk.runtrack.commands.run.DeleteRunCommandTester);
+				testsToRun.push(dk.runtrack.commands.run.GetBestRunsCommandTester);
+				testsToRun.push(dk.runtrack.commands.run.GetPlannedRunsComandTester);
+				testsToRun.push(dk.runtrack.commands.run.SaveRunCommandTester);
+				testsToRun.push(dk.runtrack.commands.shoe.GetAthleteShoesCommandTester);
+				testsToRun.push(dk.runtrack.commands.trainingplanning.GetAthleteTrainingPlansCommandTester);
+				testsToRun.push(dk.runtrack.commands.trainingplanning.SaveTrainingPlanCommandTester);
+				testsToRun.push(dk.runtrack.commands.user.CreateUserWithAthleteCommandTester);
+				testsToRun.push(dk.runtrack.commands.user.LoginUserCommandExecuteTester);
+				testsToRun.push(dk.runtrack.controller.ViewModelLocatorTest);
+				testsToRun.push(dk.runtrack.io.CookieAdapterTester);
+				testsToRun.push(dk.runtrack.io.PersistentObjectTester);
+				testsToRun.push(dk.runtrack.model.AthleteHealthQueryTester);
+				testsToRun.push(dk.runtrack.model.ClientShoesTester);
+				testsToRun.push(dk.runtrack.model.ConverterTester);
+				testsToRun.push(dk.runtrack.model.DateTimeFormatterTester);
+				testsToRun.push(dk.runtrack.model.DegreesConverterTester);
+				testsToRun.push(dk.runtrack.model.DistanceFormatterTester);
+				testsToRun.push(dk.runtrack.model.TimeFormatterTester);
+				testsToRun.push(dk.runtrack.presentationmodels.AthleteHealthHistoryPresentationModelTester);
+				testsToRun.push(dk.runtrack.presentationmodels.AthleteViewModelTester);
+				testsToRun.push(dk.runtrack.presentationmodels.EditRunPresentationModelTester);
+				testsToRun.push(dk.runtrack.presentationmodels.EditShoeViewModelSaveTester);
+				testsToRun.push(dk.runtrack.presentationmodels.EditTrainingPlanSaveTester);
+				testsToRun.push(dk.runtrack.presentationmodels.PagerTester);
+				testsToRun.push(dk.runtrack.presentationmodels.RunDataGridViewItemStartTester);
+				testsToRun.push(dk.runtrack.presentationmodels.SortColumnsTester);
+				testsToRun.push(dk.runtrack.presentationmodels.TimeValidatorTester);
+				testsToRun.push(dk.runtrack.presentationmodels.UndoTimerTester);
+				testsToRun.push(dk.runtrack.responders.BaseResponderTester);
+				testsToRun.push(dk.runtrack.responders.GetAthleteByUserResponderTester);
+				testsToRun.push(dk.runtrack.responders.GetAthleteShoesResponderTester);
+				testsToRun.push(dk.runtrack.responders.GetAthleteTrainingPlansResponderTester);
+				testsToRun.push(dk.runtrack.responders.GetBestRunsResponderTester);
+				testsToRun.push(dk.runtrack.responders.GetHealthHistoryResponderTester);
+				testsToRun.push(dk.runtrack.responders.GetPlannedRunsResponderTester);
+				testsToRun.push(dk.runtrack.responders.RunPageResponderUpdateViewModelTester);
+				testsToRun.push(dk.runtrack.util.ExceptionHelper);
+				testsToRun.push(dk.runtrack.util.RegularExpressionTester);
+				testsToRun.push(dk.runtrack.view.components.RunTrackDateFieldTester);
+				testsToRun.push(dk.runtrack.model.DegreesConverterTester);
+				
+				return testsToRun;
+			}
+			
+			
+			private function onCreationComplete():void
+			{
+				testRunner.runWithFlexUnit4Runner(currentRunTestSuite(), "Flex");
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<flexui:FlexUnitTestRunnerUI id="testRunner">
+	</flexui:FlexUnitTestRunnerUI>
+</s:Application>

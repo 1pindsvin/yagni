@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:controller="dk.runtrack.controller.*"
+	xmlns:components="dk.runtrack.view.components.*" 
+	xmlns:layouts="dk.runtrack.layouts.*"
+	width="100%" 
+	height="100%" 
+	creationComplete="rtCalendarCreationCompleteHandler(event)"	
+	xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+		<s:ArrayList 
+			id="currentMonthActivities" 
+			source="{_monthViewPresentationModel.activities}" 
+			collectionChange="currentMonthActivities_collectionChangeHandler(event)" 
+			/>
+		<s:ArrayList id="monthNames" source="{resourceManager.getStringArray('SharedResources', 'monthNames')}" />
+	</fx:Declarations>
+	
+	<fx:Metadata>
+		[ResourceBundle("monthView")]
+		[ResourceBundle("SharedResources")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.model.DayActivity;
+			import dk.runtrack.presentationmodels.DayCellPresenter;
+			import dk.runtrack.presentationmodels.interfaces.IDayCellPresenter;
+			import dk.runtrack.presentationmodels.interfaces.IMonthViewPresentationModel;
+			import dk.runtrack.renderers.DayCellRenderer;
+			
+			import mx.events.CollectionEvent;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			private var _monthViewPresentationModel : IMonthViewPresentationModel;
+
+			private function navigateToDayButtonHandler() : void
+			{
+				var date : Date = new Date();
+				_monthViewPresentationModel.date = date;
+			}
+			
+			protected function rtCalendarCreationCompleteHandler(event:FlexEvent):void
+			{
+				_monthViewPresentationModel = presentationModelLocator.monthViewPresentationModel;
+			}
+			
+			protected function currentMonthActivities_collectionChangeHandler(event:CollectionEvent):void
+			{
+				var idx : int = 0;
+				for each(var dayActivity : DayActivity in _monthViewPresentationModel.activities)
+				{
+					var dayButton : DayButton = DayButton(dayButtonList.getItemAt(idx)); 
+					dayButton.dayCellPresenter.dayActivity = dayActivity;
+					idx++;
+				}
+				monthList.invalidateDisplayList();					
+			}
+
+			private static function createDayCellRenderer(dayCellPresenter : IDayCellPresenter) : IFactory
+			{
+				var classFactory : ClassFactory = new ClassFactory(DayCellRenderer);
+				classFactory.properties = {dayCellPresenter: dayCellPresenter};
+				return classFactory;
+			}
+
+			private function monthListItemRendererFunction(item : Object) : IFactory
+			{
+				//BUG in flasbuilder, this will not paint the first day!!
+				//var presenter : IDayCellPresenter = new DayCellPresenter();
+				//dayButton.dayCellPresenter = presenter;
+				var dayButton : DayButton = item as DayButton;
+				return createDayCellRenderer(dayButton.dayCellPresenter);
+			}
+
+
+		]]>
+	</fx:Script>
+	
+	<s:HGroup 
+		width="100%" 
+		id="navigateTodayHGroup" 
+		>
+		<s:Label id="currentMonthLabel" text="{monthNames.getItemAt(_monthViewPresentationModel.selectedMonthIndex)}" />
+		<s:Label id="currentYearLabel" text="{_monthViewPresentationModel.selectedYear}" />
+		<mx:Spacer width="100%" />
+		<s:Button
+			label="{resourceManager.getString('monthView', 'navigate.today')}"
+			id="navigateToDayButton" 
+			click="navigateToDayButtonHandler()"
+			/>
+	</s:HGroup>
+	<s:HGroup 
+		id="navigateMonthHGroup" 
+		width="100%" 
+		height="100%" 
+		>
+		<s:Button
+			label="&lt;" 
+			width="22" 
+			height="100%" 
+			click="{_monthViewPresentationModel.previousMonth()}"  
+			id="navigateLeft"
+			/>
+		<s:VGroup width="100%" height="100%" >
+			<s:List 
+				id="dayList" 
+				width="100%" 
+				height="20"
+				itemRenderer="dk.runtrack.renderers.WeekDayRenderer"
+				>
+				<s:layout>
+					<layouts:WeekDayLayout />
+				</s:layout>
+				<s:dataProvider>
+					<s:ArrayList source="{resourceManager.getStringArray('SharedResources', 'dayNames')}" />
+				</s:dataProvider>
+			</s:List>
+			<s:List 
+				id="monthList"
+				width="100%"
+				height="100%"
+				itemRendererFunction="monthListItemRendererFunction"
+				>
+				<s:layout>
+					<layouts:MonthViewLayout />
+				</s:layout>
+				<s:dataProvider >
+					<s:ArrayList id="dayButtonList" >
+						
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+						<components:DayButton />
+
+						<components:DayButton />
+						<components:DayButton />
+					</s:ArrayList>
+				</s:dataProvider>
+			</s:List>
+		</s:VGroup>
+		<s:Button 
+			label=">" 
+			click="{_monthViewPresentationModel.nextMonth()}"  
+			width="22" 
+			height="100%" 
+			id="navigateRight"
+			/>
+	</s:HGroup>
+
+</s:VGroup>

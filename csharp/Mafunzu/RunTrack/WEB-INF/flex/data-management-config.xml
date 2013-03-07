@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="data-service"
+    class="Weborb.Data.DataServiceHandler"
+    messageTypes="flex.data.messages.DataMessage">
+
+    <adapters>
+	<adapter-definition id="dotnet-dao" class="Weborb.Data.DotNetAdapter" default="true"/>    
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+
+</service>

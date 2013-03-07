@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	initialize="rtDateTime_initializeHandler(event)"
+	creationComplete="rtDateTime_creationCompleteHandler(event)"
+	width="100%" height="25">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			private var _isSettingDateTime : Boolean;
+			protected function timePartChangeHandler(event:Event):void
+			{
+				if(_isSettingDateTime)
+				{
+					return;
+				}
+				_isSettingDateTime = true;
+				try
+				{
+					var dt : Date  = dateTime;
+					setDateTime(dt);
+				}
+				catch(myError: Error)
+				{
+					Alert.show(myError.message);
+				}
+				finally
+				{
+					_isSettingDateTime = false;
+				}
+			}
+			
+			private var _dateSeparator : String;
+			public function get dateSeparator():String
+			{
+				return _dateSeparator;
+			}
+			
+			[Bindable]
+			public function set dateSeparator(value:String):void
+			{
+				_dateSeparator = value;
+				dateSelector.restrict = "0-9" + _dateSeparator;
+			}
+			
+			private var _showTimePart : Boolean;
+			public function get showTimePart():Boolean
+			{
+				return _showTimePart;
+			}
+			
+			private static var timePartWidth : int = 40;
+			
+			private function setStepperVisibility(numericStepper : NumericStepper, show: Boolean) : void
+			{
+				var width : int = show ? timePartWidth : 0;
+				numericStepper.width = width;	
+				numericStepper.visible = show;
+			}
+			
+			
+			public function set showTimePart(value:Boolean):void
+			{
+				_showTimePart = value;				
+				for each (var numericStepper : NumericStepper in [hourNumericStepper, minuteNumericStepper])
+				{
+					setStepperVisibility(numericStepper, value);
+				}
+				setStepperVisibility(secondNumericStepper, _showTimePart && showSeconds)
+			}
+			
+			public var showSeconds : Boolean;
+			
+			
+			private var _dateTime : Date;
+			public function get dateTime():Date
+			{
+				var date : Date = dateSelector.selectedDate;
+				date.hours = hourNumericStepper.value;
+				date.minutes = minuteNumericStepper.value;
+				date.seconds = secondNumericStepper.value;
+				return date;
+			}
+			
+			public function set dateTime(value:Date):void
+			{
+				setDateTime(value);
+			}
+			
+			private static function asDatevalue(number:Number) : String
+			{
+				return number > 9 ? number.toString() : "0" + number;
+			}
+			
+			public var monthsBeforeDates : Boolean;
+			
+			private function buildDate(dateTime : Date) : String
+			{
+				if(monthsBeforeDates)
+				{
+					return ([
+						asDatevalue(dateTime.month +1),
+						asDatevalue(dateTime.date), 
+						dateTime.fullYear 
+					]).join(_dateSeparator);
+				}
+				return ([
+					asDatevalue(dateTime.date),
+					asDatevalue(dateTime.month +1),
+					dateTime.fullYear 
+				]).join(_dateSeparator);
+				
+			}			
+			private function setDateTime(date: Date) : void
+			{
+				dateSelector.selectedDate = date;
+				dateSelector.text = buildDate(date);
+				hourNumericStepper.value = date.hours;
+				minuteNumericStepper.value = date.minutes;
+				secondNumericStepper.value = date.seconds;
+			}
+			
+			protected function rtDateTime_creationCompleteHandler(event:FlexEvent):void
+			{
+				setDateTime(new Date());
+			}
+			
+			private function rtDateLabelFunction(currentDate: Date) : String
+			{
+				if(!currentDate)
+				{
+					return "";
+				}
+				return buildDate(currentDate);
+			}
+			
+			
+			protected function rtDateTime_initializeHandler(event:FlexEvent):void
+			{
+				showTimePart = true;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+	</fx:Declarations>
+	<mx:DateField width="120"  id="dateSelector" editable="true" labelFunction="rtDateLabelFunction" parseFunction="{null}" />
+	<s:NumericStepper  id="hourNumericStepper" minimum="-1" maximum="24" stepSize="1" change="timePartChangeHandler(event)"/>
+	<s:NumericStepper  id="minuteNumericStepper" minimum="-1" stepSize="1" maximum="60" change="timePartChangeHandler(event)"/>
+	<s:NumericStepper  id="secondNumericStepper" minimum="-1" stepSize="1" maximum="60" change="timePartChangeHandler(event)" />
+</s:HGroup>

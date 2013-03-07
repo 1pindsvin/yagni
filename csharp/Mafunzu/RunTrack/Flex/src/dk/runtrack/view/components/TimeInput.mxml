@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup
+	verticalAlign="middle"
+	height="26"
+	width="100%" 
+	creationComplete="creationCompleteHandler()"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	>
+	<fx:Script>
+		<![CDATA[
+			import mx.binding.utils.BindingUtils;
+			import dk.runtrack.model.Constants;
+			import dk.runtrack.model.TimeFormatter;
+			import mx.events.FlexEvent;
+			
+			private static const TEXT_FIELD_WITDTH : int= 26; 
+			
+			private function getTextFieldValue(value: String) : uint
+			{
+				return value ? TimeFormatter.parseUint(value) : 0;
+			}
+			
+			private function creationCompleteHandler() : void
+			{
+				
+			}
+			
+			public function get hour():String
+			{
+				return hourInput.text;
+			}
+			
+			public function set hour(value:String):void
+			{
+				hourInput.text = value;
+			}
+			
+			public function get minute():String
+			{
+				return minutesInput.text;
+			}
+			
+			public function set minute(value:String):void
+			{
+				minutesInput.text = value;
+			}
+			
+			public function get second():String
+			{
+				return secondsInput.text;
+			}
+			
+			public function set second(value:String):void
+			{
+				secondsInput.text = value;
+			}
+			
+			private function updateTextField(textInput : TextInput, newValue : String) : void
+			{
+				textInput.text = newValue;
+			}
+			
+			private function timeChanged() : void
+			{
+				dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+			}
+			
+		]]>
+	</fx:Script>
+	<mx:TextInput 
+		id="hourInput" 
+		restrict="0-9" 
+		width="{TEXT_FIELD_WITDTH}" 
+		maxChars="2" 
+		change="timeChanged()" />
+	<mx:Spacer width="15" height="20" />
+	<mx:TextInput 
+		id="minutesInput"  
+		restrict="0-9" 
+		width="{TEXT_FIELD_WITDTH}" 
+		maxChars="2" 
+		change="timeChanged()" />
+	<mx:Spacer width="15" height="20" />
+	<mx:TextInput id="secondsInput"
+				  restrict="0-9" 
+				  width="{TEXT_FIELD_WITDTH}" 
+				  maxChars="2" 
+				  change="timeChanged()" />
+</s:HGroup>

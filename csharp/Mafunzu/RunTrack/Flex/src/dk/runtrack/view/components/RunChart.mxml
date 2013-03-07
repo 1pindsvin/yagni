@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:controller="dk.runtrack.controller.*"
+	preinitialize="panel1_preinitializeHandler(event)"
+	currentStateChange="panel1_currentStateChangeHandler(event)"
+	currentState="{_runChartPresentationModel.state}"
+	creationComplete="panel1_creationCompleteHandler(event)"
+	width="100%"
+	height="100%"
+	>
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.model.Run;
+			import dk.runtrack.presentationmodels.interfaces.IRunChartPresentationModel;
+			
+			import mx.charts.events.ChartItemEvent;
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.StateChangeEvent;
+			
+			
+			[Bindable]
+			private var _runChartPresentationModel : IRunChartPresentationModel;
+			
+			[Bindable]
+			public var runs : ArrayCollection;
+			
+			protected function panel1_currentStateChangeHandler(event:StateChangeEvent):void
+			{
+				if(_runChartPresentationModel==null)
+				{
+					return;
+				}
+				runs.removeAll();
+				var count : int = 0;
+				var map : Function = 
+					function(item:Run, index:int, array : Array) : Object 
+					{	
+						return {ID:item.ID, Start:(count++).toString(), Distance:item.Distance};
+					};
+				runs.addAll(new ArrayList(_runChartPresentationModel.runs.map(map)));
+			}
+			
+			protected function panel1_preinitializeHandler(event:FlexEvent):void
+			{
+				runs = new ArrayCollection();
+			}
+			
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_runChartPresentationModel = presentationModelLocator.runChartPresentationModel;
+			}
+			
+
+			protected function runChart_itemClickHandler(e:ChartItemEvent):void
+			{
+				var message : String = "Distance " + e.hitData.item.Distance;
+				message += "\n(x/y): " + e.hitData.x + "/" + e.hitData.y;
+				Alert.show(message);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="On"/>
+		<s:State name="Off"/>
+	</s:states> 
+	
+	<mx:ColumnChart
+		id="runChart"
+		width="100%" height="100%"
+					clipContent="false"
+					dataProvider="{runs}" 
+					showDataTips="true"
+					itemClick="runChart_itemClickHandler(event)"
+					>
+		<mx:horizontalAxis>
+			<mx:CategoryAxis
+				dataProvider="{runs}" 
+				categoryField="Start"
+				/>
+		</mx:horizontalAxis>
+		<mx:series >
+			<mx:ColumnSeries 
+				yField="Distance" 
+				displayName="Distance"
+				/>
+		</mx:series>
+	</mx:ColumnChart>
+	
+</s:SkinnableContainer>

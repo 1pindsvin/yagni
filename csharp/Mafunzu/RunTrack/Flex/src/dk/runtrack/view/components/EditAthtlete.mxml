@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel
+	width="700"
+	height="500"
+	title="{resourceManager.getString('editAthlete', 'title')}"
+	creationComplete="creationCompleted()" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:controller="dk.runtrack.controller.*"
+	>	
+	
+	<fx:Metadata>
+		[ResourceBundle("editAthlete")]		
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import dk.runtrack.presentationmodels.ValidatorFactory;
+			import dk.runtrack.presentationmodels.interfaces.IEditAthletePresentationModel;
+			import dk.runtrack.presentationmodels.interfaces.ILoginPresentationModel;
+			
+			import mx.managers.PopUpManager;
+			
+			[Bindable]
+			private var _athleteViewModel : IEditAthletePresentationModel;
+			
+			[Bindable]
+			private var _userViewModel : ILoginPresentationModel;
+			
+			
+			public function creationCompleted():void
+			{
+				_athleteViewModel = presentationModelLocator.editAthletePresentationModel;
+				_userViewModel = presentationModelLocator.loginPresentationModel;
+				dateOfBirthDateField.restrict = new ValidatorFactory().createDateRestriction();
+			}
+			
+			private function myCloseButtonClickHandler(event:Event):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function save() : void
+			{
+				_userViewModel.save();
+				_athleteViewModel.save();
+			}
+		]]>
+		
+	</fx:Script>
+	
+	<mx:Accordion x="0" y="0" width="100%" height="100%">
+		<s:NavigatorContent id="athleteDataNavigatorContent" label="athleteDataNavigatorContent" width="100%" height="100%">
+			<mx:HDividedBox width="100%" height="100%" dividerThickness="10">
+				<mx:Form id="leftForm" >
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'email')}:" id="emailFormItem">
+						<s:TextInput 
+							id="emailText" 
+							text="{_userViewModel.username}" 
+							enabled="false"
+							change="{_userViewModel.username=emailText.text};" />
+					</mx:FormItem>
+					
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'first.name')}:" id="firstNameFormItem">
+						<s:TextInput  
+							id="firstNameText"  
+							text="{_athleteViewModel.firstName}" 
+							change="{_athleteViewModel.firstName=firstNameText.text};"	/>
+					</mx:FormItem>
+					
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'sur.name')}:" id="lastNameFormItem">
+						<s:TextInput 
+							id="lastNameText"  
+							text="{_athleteViewModel.lastName}" 
+							change="{_athleteViewModel.lastName=lastNameText.text};" />
+					</mx:FormItem>
+					
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'date.of.birth')}:" id="dateOfBirthFormItem" required="true">
+						<mx:DateField editable="true"
+									  id="dateOfBirthDateField"
+									  selectedDate="{_athleteViewModel.dateOfBirth}"
+									  change="{_athleteViewModel.dateOfBirth=event.newDate}" 
+									  width="{lastNameText.width}"
+									  />
+					</mx:FormItem>
+					
+					
+					
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'password')}:" id="passwordFormItem">
+						<s:TextInput 
+							id="passwordText" 
+							text="{_userViewModel.password}" 
+							change="{_userViewModel.password=passwordText.text};" />
+					</mx:FormItem>
+					
+					<mx:FormItem  id="saveFormItem">
+						<s:Button
+							enabled="{_athleteViewModel.canSave}"
+							id="saveButton" 
+							label="{resourceManager.getString('editAthlete', 'save')}" 
+							click="save()" />
+					</mx:FormItem>
+					
+				</mx:Form>
+				<mx:Form id="rigthForm" >
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'height')}:" id="heightFormItem" required="false">
+						<comp:NumberTextInput 
+							id="heightText"  
+							text="{_athleteViewModel.height}" 
+							change="{_athleteViewModel.height=heightText.text}" />
+					</mx:FormItem>
+					
+					<mx:FormItem label="{resourceManager.getString('editAthlete', 'weight')}:" id="weightFormItem" required="false">
+						<comp:NumberTextInput 
+							id="weightText"  
+							text="{_athleteViewModel.weight}" 
+							change="{_athleteViewModel.weight=weightText.text}" />
+					</mx:FormItem>
+					
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'bmi')}:" 
+						id="bmiFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							enabled="false"
+							id="bmiText"  
+							text="{_athleteViewModel.bmi}" />
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'waist')}:" 
+						id="waistFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							id="waistText"  
+							text="{_athleteViewModel.waist}" 
+							change="{_athleteViewModel.waist=waistText.text}" />
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'thigh')}:" 
+						id="thighFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							id="thighText"  
+							text="{_athleteViewModel.thigh}" 
+							change="{_athleteViewModel.thigh=thighText.text}" />
+					</mx:FormItem>
+					
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'arm')}:" 
+						id="armFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							id="armText"  
+							text="{_athleteViewModel.arm}" 
+							change="{_athleteViewModel.arm=armText.text}" />
+					</mx:FormItem>
+					
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'resting.heart.rate')}:" 
+						id="restingHeartRateFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							id="restingHeartRateText"  
+							text="{_athleteViewModel.restingHeartRate}" 
+							change="{_athleteViewModel.restingHeartRate=restingHeartRateText.text}" />
+					</mx:FormItem>
+					
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'maximum.heart.rate')}:" 
+						id="maximumHeartRateFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							id="maximumHeartRateText"  
+							text="{_athleteViewModel.maximumHeartRate}" 
+							change="{_athleteViewModel.maximumHeartRate=maximumHeartRateText.text}" />
+					</mx:FormItem>
+					
+					<mx:FormItem 
+						label="{resourceManager.getString('editAthlete', 'threshold.heart.rate')}:" 
+						id="thresholdHeartRateFormItem" 
+						required="false">
+						<comp:NumberTextInput 
+							id="thresholdHeartRateText"  
+							text="{_athleteViewModel.thresholdHeartRate}" 
+							change="{_athleteViewModel.thresholdHeartRate=thresholdHeartRateText.text}" />
+					</mx:FormItem>
+				</mx:Form>
+			</mx:HDividedBox>
+			
+		</s:NavigatorContent>
+		<s:NavigatorContent id="athleteHealthNavigatorContent" label="athleteHealthNavigatorContent" width="100%" height="100%">
+			<comp:AthleteHealthChart />
+		</s:NavigatorContent>
+	</mx:Accordion>
+	
+	<s:controlBarContent>
+		<comp:ComponentStatusLabel id="statusLabel" resourceBundleName="editAthlete" status="{_athleteViewModel.state}"  />
+		<mx:Spacer width="100%" id="spacer1"/>
+		<s:Button id="myCloseButton" click="myCloseButtonClickHandler(event)" label="{resourceManager.getString('editAthlete','close')}" />
+	</s:controlBarContent>
+	
+</s:Panel>

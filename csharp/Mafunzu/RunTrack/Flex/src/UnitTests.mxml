@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="absolute"
+	xmlns:flexunit="flexunit.flexui.*"
+
+	applicationComplete="applicationCompleted()"
+	>
+	<mx:Script>
+		<![CDATA[
+			import flexunit.framework.Test;
+			import dk.runtrack.AllTests;
+			import flexunit.flexui.data.filter.AllTestFunctionStatus;
+			import dk.runtrack.controller.interfaces.IRtRemoteService;
+			import dk.runtrack.controller.DummyRemoteService;
+			import dk.runtrack.commands.BaseCommand;
+			import dk.runtrack.commands.shoe.SaveShoeCommandTester;
+			import dk.runtrack.commands.shoe.GetAthleteShoesCommandTester;
+			import dk.runtrack.resources.Resources;
+			import dk.runtrack.responders.GetAthleteShoesResponderTester;
+			import flexunit.framework.Assert;
+			import dk.runtrack.presentationmodels.TimeValidatorTester;
+			import dk.runtrack.presentationmodels.SortColumnsTester;
+			import dk.runtrack.util.RegularExpressionTester;
+			import dk.runtrack.commands.OnTrackCommandDispatchTester;
+			import dk.runtrack.commands.run.DeleteRunCommandTester;
+			import dk.runtrack.commands.user.DummyCommandTest;
+			import dk.runtrack.presentationmodels.TimeValidatorTester;
+
+			import dk.runtrack.commands.athlete.GetAthleteByUserCommandTester;
+			import dk.runtrack.responders.GetAthleteByUserResponderTester;
+			import dk.runtrack.responders.GetAthleteByUserResponder;
+			import dk.runtrack.responders.BaseResponderTester;
+
+			import dk.runtrack.presentationmodels.PagerTester;
+			import dk.runtrack.commands.run.SaveRunCommandTester;
+			import dk.runtrack.model.DistanceFormatterTester;
+			import dk.runtrack.commands.run.GetAthleteRunsCommandTester;
+			import dk.runtrack.model.TimeFormatterTester;
+			import dk.runtrack.model.DateTimeFormatterTester;
+			import dk.runtrack.util.ExceptionHelper;
+			import dk.runtrack.presentationmodels.AthleteViewModelTester;
+			import dk.runtrack.presentationmodels.EditAthletePresentationModel;
+			import flexunit.framework.TestSuite;
+			
+			private function applicationInitialized() : void
+			{
+			}
+			
+			private function applicationCompleted() : void
+			{
+				
+				// The tests that used to live here have moved to the AllTests class.
+				// Setting things up there allows us to run them from both FB and Ant.
+ 				testRunner.test = AllTests.suite();
+				testRunner.startTest();
+			}
+			
+		]]>
+	</mx:Script>
+	<flexunit:TestRunnerBase id="testRunner" width="100%" height="100%"/>
+
+	
+	
+</mx:Application>

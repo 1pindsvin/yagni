@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup 
+	width="100%" 
+	height="100%"
+	creationComplete="creationCompleted()"
+	horizontalAlign="center"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:controller="dk.runtrack.controller.*"
+	xmlns:comp="dk.runtrack.view.components.*" 	
+	>
+	
+	<fx:Metadata>
+		[ResourceBundle("runActivityView")]
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<controller:PresentationModelLocator id="presentationModelLocator" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import dk.runtrack.presentationmodels.RunActivityPresentationModel;
+			import mx.events.StateChangeEvent;
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.controls.Alert;
+			import mx.events.DataGridEvent;
+			import mx.collections.SortField;
+			import dk.runtrack.model.Run;
+			import dk.runtrack.presentationmodels.RunDataGridViewItem;
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			import dk.runtrack.presentationmodels.interfaces.IRunActivityPresentationModel;
+			import mx.binding.utils.BindingUtils;
+			import dk.runtrack.controller.PresentationModelLocator;
+			
+			[Bindable]
+			public var _athleteRuns : IRunActivityPresentationModel;
+			
+			public function creationCompleted():void
+			{
+				_athleteRuns = presentationModelLocator.runActivityPresentationModel;
+			}
+			
+			private function headerReleased(event: DataGridEvent) : void
+			{
+				var dataGridColumn : DataGridColumn = DataGridColumn(runsDataGrid.columns[event.columnIndex]);
+				_athleteRuns.sortRuns(dataGridColumn.dataField);
+			}
+			
+			private static const NO_ITEM_SELECTED : int = -1; 
+			private var _dataGridItemIndexLast : int = NO_ITEM_SELECTED;
+			
+			private function deleteButtonClicked(event:MouseEvent) : void
+			{
+				if(runsDataGrid.selectedItem==null)
+				{
+					return;
+				}
+				_athleteRuns.selectedRun = RunDataGridViewItem(runsDataGrid.selectedItem).run
+				_dataGridItemIndexLast = runsDataGrid.selectedIndex;
+				_athleteRuns.deleteSelectedRun();
+			}
+			
+			private function addButtonClicked(event:MouseEvent) : void
+			{
+				var dataEvent : FlexEvent = new FlexEvent(FlexEvent.DATA_CHANGE);
+				dispatchEvent(dataEvent);
+			}
+			
+			private function resolveSelectedIndex() : void
+			{
+				if(runsDataGrid.dataProvider==null)
+				{
+					return;
+				}
+				if(runsDataGrid.dataProvider.length<=0)
+				{
+					return;
+				}
+				if(_dataGridItemIndexLast > runsDataGrid.dataProvider.length-1)
+				{
+					return;
+				}
+				runsDataGrid.invalidateProperties();
+				runsDataGrid.selectedIndex = _dataGridItemIndexLast;
+				_dataGridItemIndexLast = NO_ITEM_SELECTED;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:HGroup width="100%" >
+		<s:Label text="{resourceManager.getString('runActivityView', 'session.header')}" />
+		<mx:LinkButton 
+			color="green" 
+			id="undoDeleteLinkButton" 
+			visible="{_athleteRuns.showUndo}" 
+			label="Your run has been deleted, undo" 
+			click="{_athleteRuns.undoDelete()}" />
+	</s:HGroup>
+	<mx:DataGrid  
+		id="runsDataGrid" 
+		dataProvider="{_athleteRuns.runs}"  
+		width="100%" 
+		height="100%"
+		headerRelease="headerReleased(event)"
+		itemClick="{_athleteRuns.selectedRun = RunDataGridViewItem(event.currentTarget.selectedItem).run;}"
+		>
+		<mx:columns  >
+			<mx:DataGridColumn headerText="{resourceManager.getString('runActivityView', 'kilometers')}" dataField="distance"   width="50" textAlign="right" />
+			<mx:DataGridColumn headerText="{resourceManager.getString('runActivityView', 'run.time')}" dataField="time" width="50" textAlign="right"  />
+			<mx:DataGridColumn headerText="{resourceManager.getString('runActivityView', 'average.speed')}" dataField="averageSpeed" width="50" textAlign="right"  />
+			<mx:DataGridColumn headerText="{resourceManager.getString('runActivityView', 'start')}" dataField="start" width="50" textAlign="right"  />
+		</mx:columns>
+	</mx:DataGrid>
+	<s:HGroup 
+		width="100%" 
+		id="navigateRunsHbox" 
+		>
+		<s:Button 
+			label="&lt;&lt;" 
+			id="firstButton" 
+			click="{_athleteRuns.loadFirstRuns();}"  
+			width="80"
+			visible="{_athleteRuns.showNavigatePageDialog}"
+			/>
+		<s:Button 
+			label="&lt;" 
+			id="previousButton" 
+			click="{_athleteRuns.getPreviousItems();}"  
+			visible="{_athleteRuns.showNavigatePageDialog}"
+			width="80" />
+		<s:Button 
+			label=">" 
+			id="nextButton" 
+			click="{_athleteRuns.getNextItems();}"  
+			visible="{_athleteRuns.showNavigatePageDialog}"
+			width="80" />
+		<s:Button 
+			label=">>" 
+			id="lastButton" 
+			click="{_athleteRuns.loadLastRuns();}"  
+			visible="{_athleteRuns.showNavigatePageDialog}"
+			width="80" />
+		<s:Button 
+			label="{resourceManager.getString('runActivityView', 'run.delete')}" 
+			id="deleteButton" 
+			click="{deleteButtonClicked(event);}"  
+			width="80"
+			enabled="{runsDataGrid.selectedItem!=null}"
+			/>
+	</s:HGroup>
+</s:VGroup>

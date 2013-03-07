@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cairngorm:ServiceLocator
+    xmlns:cairngorm="com.adobe.cairngorm.business.*"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    >
+    <mx:RemoteObject id="athleteService" 
+		destination="GenericDestination"
+        showBusyCursor="true"
+        source="DataService.DataAccess.AthleteDataAccess">    
+    </mx:RemoteObject>
+
+    <mx:RemoteObject id="userService" 
+		destination="GenericDestination"
+        showBusyCursor="true"
+        source="DataService.DataAccess.UserDataAccess">    
+    </mx:RemoteObject>
+
+    <mx:RemoteObject id="shoeService" 
+		destination="GenericDestination"
+        showBusyCursor="true"
+        source="DataService.DataAccess.ShoeDataAccess">    
+    </mx:RemoteObject>
+
+    <mx:RemoteObject id="runService" 
+		destination="GenericDestination"
+        showBusyCursor="true"
+        source="DataService.DataAccess.RunDataAccess">    
+    </mx:RemoteObject>
+
+	<mx:RemoteObject id="workoutService" 
+					 destination="GenericDestination"
+					 showBusyCursor="true"
+					 source="DataService.DataAccess.WorkoutDataAcces">    
+	</mx:RemoteObject>
+
+    <mx:RemoteObject
+    	id="securityService"
+		destination="GenericDestination"
+    	showBusyCursor="true"
+    	source="DataService.Security.SecurityService" >
+    </mx:RemoteObject>
+    
+
+    <mx:RemoteObject
+    	id="downloadService"
+		destination="GenericDestination"
+    	showBusyCursor="true"
+    	source="RunTrack.DownloadService" >
+    </mx:RemoteObject>
+
+</cairngorm:ServiceLocator> 

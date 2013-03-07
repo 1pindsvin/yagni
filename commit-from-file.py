@@ -8,7 +8,7 @@ import sys
 import subprocess
 
 GIT_ADD = """git add ."""
-GIT_COMMIT = """git commit -a -Fcommit.txt"""
+GIT_COMMIT = """git commit -a -Fmessage.txt"""
 
 def runCommand(command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
