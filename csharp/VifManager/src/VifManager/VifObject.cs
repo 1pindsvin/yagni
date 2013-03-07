@@ -1,23 +1,19 @@
 ﻿using System.Linq;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace dk.magnus.VifManager
 {
-    class VifObject
+    internal class VifObject
     {
         private readonly List<string> _lines;
         private readonly List<VifObject> _children;
         private VifObject _parent;
 
-        public bool IsEmpty 
-        {
-            get { return !HasBeginOfObjectLine; }
-        }
 
-        public bool HasBeginOfObjectLine { get; private set; }
+        private bool HasBeginOfObjectLine { get; set; }
 
-        public bool HasEndOfObjectLine { get; private set; }
+        private bool HasEndOfObjectLine { get; set; }
 
 
         internal void AddEndOfObjectLine(string line)
@@ -72,12 +68,20 @@ namespace dk.magnus.VifManager
                     throw new InvalidOperationException("cannot add parent to root");
                 }
                 _parent = value;
-               _parent.AddChild(this);
+                _parent.AddChild(this);
             }
         }
 
-        public bool HasChildren {
+        public bool HasChildren
+        {
             get { return _children.Count > 0; }
         }
+
+        public override string ToString()
+        {
+            return string.Format("I am a [{0}]. Number of direct children [{1}], Lines [{2}]", GetType().FullName, _children.Count, _lines.Count);
+        }
+
+
     }
 }

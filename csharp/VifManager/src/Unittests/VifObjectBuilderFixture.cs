@@ -8,7 +8,7 @@ namespace dk.magnus.VifManager
 {
 
     [TestFixture]
-    public class VifBuilderFixture
+    public class VifObjectBuilderFixture
     {
 
         [Test]
@@ -16,7 +16,7 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "object bar", "end", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.BuildVifRoot(lines);
+            var root = vifBuilder.Build(lines);
             var first = root.Children.First();
             AssertChildCount(first,1);
             var firstChild = first.Children.Single();
@@ -46,7 +46,7 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "object bar", "end", "object gombert", "end", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.BuildVifRoot(lines);
+            var root = vifBuilder.Build(lines);
             var first = root.Children.First();
             AssertChildCount(first,2);
             foreach (var child in first.Children)
@@ -60,7 +60,7 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.BuildVifRoot(lines);
+            var root = vifBuilder.Build(lines);
             Assert.IsTrue(root.IsRoot);
             var single = root.Children.Single();
             Assert.AreEqual(2,single.Lines.Count());
@@ -72,7 +72,7 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object VifPackage: TVifPackage", "object VifPackage: TVifPackage", "foo", "bar", "end", "foo", "bar", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.BuildVifRoot(lines);
+            var root = vifBuilder.Build(lines);
             var single = root.Children.Single();
             Assert.AreEqual(4, single.Lines.Count());
             AssertChildCount(single, 1);
@@ -83,9 +83,13 @@ namespace dk.magnus.VifManager
         {
             var lines = new[] { "object foo", "object bar","object gombert", "end", "end", "end" };
             var vifBuilder = new VifObjectBuilder();
-            var root = vifBuilder.BuildVifRoot(lines);
+            var root = vifBuilder.Build(lines);
             var single = root.Children.Single();
             AssertChildCount(single, 1);
+            var firstChild = single.Children.Single();
+            var grandChild = firstChild.Children.Single();
+            AssertChildCount(firstChild,1);
+            AssertChildCount(grandChild, 0);
         }
 
 

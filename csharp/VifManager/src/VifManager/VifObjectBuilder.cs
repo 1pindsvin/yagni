@@ -10,13 +10,13 @@ namespace dk.magnus.VifManager
         private static readonly Regex ObjectInlineRegex = new Regex(@"^\s*object\b", RegexOptions.IgnoreCase);
         private static readonly Regex EndOfObjectRegex = new Regex(@"^\s*end\b", RegexOptions.IgnoreCase);
 
-
-        internal VifObject BuildVifRoot(IEnumerable<string> lines)
+        internal VifObject Build(IEnumerable<string> lines)
         {
-            return DoBuildVifs(lines);
+            var root = DoBuildVifs(lines);
+            return root;
         }
 
-        private VifObject DoBuildVifs(IEnumerable<string> lines)
+        private static VifObject DoBuildVifs(IEnumerable<string> lines)
         {
             var current = new VifObject {IsRoot = true};
             foreach (var line in lines)
@@ -39,6 +39,5 @@ namespace dk.magnus.VifManager
             }
             return current;
         }
-
     }
 }
