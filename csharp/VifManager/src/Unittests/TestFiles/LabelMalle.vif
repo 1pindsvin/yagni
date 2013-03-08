@@ -1,0 +1,80 @@
+object VifPackage: TVifPackage
+  Tag = 1
+  ViperVersion = '4.80.1.3'
+  DefaultId = 0
+  HasInstanceLimit = False
+  MinInstance = 0
+  MaxInstance = 1
+  Ident = 'LABELMALLE'
+  Log.Strings = (
+    'Log')
+  Comment.Strings = (
+    'Comment')
+  FormDescription = 'LABELMALLE'
+  Pages.Strings = (
+    'sid1')
+  PopupField = '0'
+  Version = 0
+  EnclosureSerie = 0
+  DelfExport.Strings = (
+    'ALL;')
+  DelfImport.Strings = (
+    '')
+  ModuleId = 'D'
+  NumberOfPages = 1
+  EngineClass = 7
+  FormName = 'LABELMALLE'
+  FormType = 2
+  DeklarationsTyp = []
+  Consts = Consts
+  DelfAttributes.Strings = (
+    'ChildList::[STRING] = [];'
+    'GfoSettings::INTEGER;'
+    '')
+  DCQ = False
+  ShowOnGFO = True
+  Release = 'True'
+  StaConnections.Strings = (
+    '')
+  WysiwygColor1 = clSilver
+  WysiwygColor2 = clGray
+  object Consts: TConstFolder
+  end
+  object FProxyA88B11C6D11E860: TFormProxy
+    Left = 0
+    Top = 0
+    Width = 800
+    Height = 740
+    Cursor = crArrow
+    HorzScrollBar.Increment = 21
+    HorzScrollBar.Range = 800
+    VertScrollBar.Increment = 24
+    VertScrollBar.Range = 740
+    AutoScroll = False
+    BorderStyle = bsNone
+    Color = 15198183
+    ParentColor = False
+    TabOrder = 1
+    HideFlap = False
+    Caption = 'NoName'
+    TabCaption = 'sid1'
+    ActualSizeX = 800
+    ActualSizeY = 740
+    WorkingName = 'sid1'
+    PageNumber = 1
+    DocName = '<void>'
+    BackgroundAlign = bsTile
+    VIFColor = vcModern
+    object sid1Label1: TLabelCtrl
+      Left = 80
+      Top = 144
+      Width = 344
+      Height = 19
+      Caption = 
+        'Gevinst/tab på obligationer, der ikke er optaget til handel på e' +
+        't reguleret marked (tab angives med minus)'
+      Ident = 'Label1'
+      WordWrap = False
+    end
+  end
+end

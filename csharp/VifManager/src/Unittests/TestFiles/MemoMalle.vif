@@ -1,0 +1,92 @@
+object VifPackage: TVifPackage
+  Tag = 1
+  ViperVersion = '4.80.1.3'
+  DefaultId = 0
+  HasInstanceLimit = False
+  MinInstance = 0
+  MaxInstance = 1
+  Ident = 'MEMOMALLE'
+  Log.Strings = (
+    'Log')
+  Comment.Strings = (
+    'Comment')
+  FormDescription = 'MEMOMALLE'
+  Pages.Strings = (
+    'sid1')
+  PopupField = '0'
+  Version = 0
+  EnclosureSerie = 0
+  DelfExport.Strings = (
+    'ALL;')
+  DelfImport.Strings = (
+    '')
+  ModuleId = 'D'
+  NumberOfPages = 1
+  EngineClass = 7
+  FormName = 'MEMOMALLE'
+  FormType = 2
+  DeklarationsTyp = []
+  Consts = Consts
+  DelfAttributes.Strings = (
+    'ChildList::[STRING] = [];'
+    'GfoSettings::INTEGER;'
+    '')
+  DCQ = False
+  ShowOnGFO = True
+  Release = 'True'
+  StaConnections.Strings = (
+    '')
+  WysiwygColor1 = clSilver
+  WysiwygColor2 = clGray
+  object Consts: TConstFolder
+  end
+  object FProxyA88B11C6D11E860: TFormProxy
+    Left = 0
+    Top = 0
+    Width = 800
+    Height = 740
+    Cursor = crArrow
+    HorzScrollBar.Increment = 21
+    HorzScrollBar.Range = 800
+    VertScrollBar.Increment = 24
+    VertScrollBar.Range = 740
+    AutoScroll = False
+    BorderStyle = bsNone
+    Color = 15198183
+    ParentColor = False
+    TabOrder = 1
+    HideFlap = False
+    Caption = 'NoName'
+    TabCaption = 'sid1'
+    ActualSizeX = 800
+    ActualSizeY = 740
+    WorkingName = 'sid1'
+    PageNumber = 1
+    DocName = '<void>'
+    BackgroundAlign = bsTile
+    VIFColor = vcModern
+    object A1B9C34D38E487: TMemoCtrl
+      Left = 112
+      Top = 112
+      Width = 337
+      Height = 36
+      Template = 'StandardMemo'
+      Formula.Strings = (
+        
+          '"Gevinst/tab på obligationer, der ikke er optaget til handel på ' +
+          'et reguleret marked (tab angives med minus)"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 1
+      FieldName = 'F1'
+      Scrollable = False
+      TextStyle = tsNormal
+      VisibleLength = 37
+      VisibleRowCount = 2
+    end
+  end
+end

@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{d767f8f1-3384-482f-8904-313c0bffc2e5}</ProjectGuid>
+    <MainSource>Aarsafslut.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>..\Aarsafslut.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Hints>False</DCC_Hints>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>..</DCC_ExeOutput>
+    <DCC_DcuOutput>..\bin</DCC_DcuOutput>
+    <DCC_ObjOutput>..\bin</DCC_ObjOutput>
+    <DCC_HppOutput>..\bin</DCC_HppOutput>
+    <DCC_UnitSearchPath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_UnitSearchPath>
+    <DCC_ResourcePath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_ResourcePath>
+    <DCC_ObjPath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_ObjPath>
+    <DCC_IncludePath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_IncludePath>
+    <DCC_Define>DENMARK;NORWAY_DENMARK;RELEASE</DCC_Define>
+    <DCC_SYMBOL_DEPRECATED>False</DCC_SYMBOL_DEPRECATED>
+    <DCC_SYMBOL_PLATFORM>False</DCC_SYMBOL_PLATFORM>
+    <DCC_UNIT_PLATFORM>False</DCC_UNIT_PLATFORM>
+    <DCC_UNIT_DEPRECATED>False</DCC_UNIT_DEPRECATED>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
+    <DCC_Hints>False</DCC_Hints>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>..</DCC_ExeOutput>
+    <DCC_DcuOutput>..\bin</DCC_DcuOutput>
+    <DCC_ObjOutput>..\bin</DCC_ObjOutput>
+    <DCC_HppOutput>..\bin</DCC_HppOutput>
+    <DCC_UnitSearchPath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_UnitSearchPath>
+    <DCC_ResourcePath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_ResourcePath>
+    <DCC_ObjPath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_ObjPath>
+    <DCC_IncludePath>..\..\Utils\Danish\Library;OldTemplates;DelfYearBookNotes;AnnualAccountsPrinciples;DocumentBuilder;BokslutModelManager;..\BIN;..\..\EXT;..\..\BIN;..\..\GD\DC;..\..\DD\UI;..\..\DD\PS;..\..\DD\WM;..\..\DD\FE;..\..\DD\ID;..\..\DD\WP;..\..\DD\IF;..\..\GD\SOURCE;..\..\di\wp;..\..\VP\IVEE;..\..\app\source;..\..\di\dc;..\..\di\fe;..\..\di\sr;..\..\di\ps;..\..\System\AddressManager;..\..\System\DataModel;..\..\System\ReportGenerator;..\..\System\Printout;..\..\System\InternetConnection;..\..\System\MepGui;..\..\System\TemplateManagement;..\..\System\Storage;..\..\Engines\DocumentGenerator;..\..\Engines\WordProcessor;..\..\Engines\FieldNotes;..\..\Engines\DelfModelManager;..\..\Engines\DelfApi;..\..\Engines\StructuredInfo;..\..\Engines\ExternalDocument;..\..\Engines\MVComponents;..\..\Finance\AccountRowManager;..\..\Finance\AnnualAccountsNotes;..\..\Finance\AnnualAccountsPrinciples;..\..\Finance\AccountsManagerUI;..\..\Finance\EnclosureManager;..\..\Finance\YearbookNotes;..\..\Finance\AccountRowManagerAttributes\ConsolidatedRowAttribute;..\..\Finance\AccountRowManagerAttributes\AnnualAccountsRowAttribute;..\..\Finance\AccountRowManagerAttributes\XBRLRowAttribute;..\..\Finance\SIE\SieStandard;..\..\Finance\SIE\SIEReader;..\..\Finance\SIE\SIEWriter;..\..\Finance\SieToAccountsManager;..\..\Engines\FinancialYears;..\..\Finance\AnnualAccountsManager;..\..\Utils\NJServerConnection;..\..\Utils\ApplicationUpdate;..\..\Utils\License;..\..\Utils\MepDialogs;..\..\Utils\HelpSystemMsHtmlHelp;..\..\Utils\StorageImportExport;..\..\Utils\StructuredInfo_dan;..\..\Finance\AccountRowManagerAttributes\PostKodeRowAttribute;..\..\Finance\AccountRowManagerAttributes\MapNoRowAttribute;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Engines\Graph;..\..\Utils\DocumentBuilder;..\..\QueryGuide\DocumentInformation;..\..\Finance\AccountRowManagerAttributes\AssetOrDebtRowAttribute;..\..\di\se;..\..\Finance\AccountRowManagerAttributes\WorkpageRowAttribute;..\..\di\if;..\..\System\NJAB;..\..\Finance\KeyRatio;..\..\Finance\KeyRatioRowAttribute;..\..\Finance\Analysis;..\..\Engines\Xbrl</DCC_IncludePath>
+    <DCC_Define>DENMARK;NORWAY_DENMARK</DCC_Define>
+    <DCC_SYMBOL_DEPRECATED>False</DCC_SYMBOL_DEPRECATED>
+    <DCC_SYMBOL_PLATFORM>False</DCC_SYMBOL_PLATFORM>
+    <DCC_UNIT_PLATFORM>False</DCC_UNIT_PLATFORM>
+    <DCC_UNIT_DEPRECATED>False</DCC_UNIT_DEPRECATED>
+    <DCC_Optimize>False</DCC_Optimize>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="DebugSourceDirs">B:\OP\di\db\;B:\OP\di\dc\;B:\OP\di\fc\;B:\OP\di\fe\;B:\OP\di\if\;B:\OP\di\ps\;B:\OP\di\qe\;B:\OP\di\qf\;B:\OP\di\se\;B:\OP\di\sie;B:\OP\di\sr;B:\OP\di\wp\;B:\OP\dd\controls;B:\OP\dd\fe;B:\OP\dd\fs;B:\OP\dd\graph;B:\OP\dd\id;B:\OP\dd\if;B:\OP\dd\ps;B:\OP\dd\pscontrl;B:\OP\dd\qf;B:\OP\dd\se;..\..\dd\ti;..\..\dd\ui;..\..\dd\wm;B:\OP\dd\wp;B:\OP\ap\keyratio;B:\OP\ap\license;B:\OP\ap\structuredinfo_dan;B:\OP\ap\yearbooknotes;B:\OP\app\source;B:\OP\gd\source;..\..\Ext\DelphiSaxParser\AElfred2\aelfred2\;B:\OP\kernel\njab\;B:\OP\kernel\common\;B:\op\Finance\AccountsManager\;B:\op\Ext\WpTools5\D2007\;B:\op\Utils\DocumentBuilder\;B:\op\System\Base\</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters><Parameters Name="RunParams">/debug</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2013</VersionInfo><VersionInfo Name="MinorVer">3</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">1</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1030</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Magnus Informatik</VersionInfoKeys><VersionInfoKeys Name="FileDescription">SP Årsafslutning</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2013.3.0.1</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">Copyright © Magnus informatik AS. All Rights Reserved.</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">Aarsafslut.exe</VersionInfoKeys><VersionInfoKeys Name="ProductName">Magnus Årsafslutning</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2013.3</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="$(BDS)\bin\bcboffice2k100.bpl">CodeGear C++Builder Office 2000 Servers Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\bcbofficexp100.bpl">CodeGear C++Builder Office XP Servers Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="B:\OP\bpl\MvControls1_0_D_Package.bpl">Norstedts Juridik package for model/view components</Excluded_Packages>
+      <Excluded_Packages Name="B:\OP\bpl\BokslutDocumentBuilderPackage.bpl">MEP Bokslut Document builder rows</Excluded_Packages>
+      <Excluded_Packages Name="B:\OP\bpl\ApplicationConnectionPackage.bpl">File B:\OP\bpl\ApplicationConnectionPackage.bpl not found</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">Aarsafslut.dpr</Source></Source></Delphi.Personality><ModelSupport>False</ModelSupport></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>Del B:\op\Bk\Aarsafslut.DAN</PreBuildEvent>
+    <PostBuildEvent>rem B:\op\Bk\BAT\post.bat</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="Aarsafslut.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\APP\SOURCE\DynamicStartpageFrameUnit.pas">
+      <Form>DynamicStartpageFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\APP\SOURCE\PDFFormExportFrameUnit.pas">
+      <Form>PDFFormExportFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\APP\SOURCE\PrintOutTreeFrameUnit.pas">
+      <Form>PrintOutTreeFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\DD\UI\NjSplashFormUnit.pas">
+      <Form>SplashForm</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\DI\DC\DcMepAddressFrameUnit.pas">
+      <Form>DcMepAddressFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\DI\FE\FeMepAddressFrameUnit.pas">
+      <Form>FeMepAddressFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\DI\SE\_SEVAR.PAS" />
+    <DCCReference Include="..\..\Engines\DocumentGenerator\WPToolTableOfContentUnit.pas" />
+    <DCCReference Include="..\..\Finance\AnnualAccountsNotes\NoChooseNoteFormUnit.pas">
+      <Form>NoChooseNoteForm</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\GD\SOURCE\MEPTypes.pas" />
+    <DCCReference Include="..\..\GD\SOURCE\TVBASIC.PAS" />
+    <DCCReference Include="..\..\Kernel\InternetConnection\InternetSettingsFrameUnit.pas">
+      <Form>InternetSettingsFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\System\Base\NoDualListFormUnit.pas">
+      <Form>NoDualListForm</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\Utils\Danish\Library\Advstr.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\C5ImportFileManager.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\C5ImportManager.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\C5ImportServerManager.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\DanishCustomerInfoUnit.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\PostByKom.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\RevisorOplysningerUnit.pas">
+      <Form>RevisorOplysningerForm</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\Utils\Danish\Library\Shared\DkAppRunner.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\UPerson.pas" />
+    <DCCReference Include="..\..\Utils\Danish\Library\UVerInfo.pas" />
+    <DCCReference Include="..\..\Utils\MepDialogs\UiUsernameDlgFormUnit.pas">
+      <Form>UserNameDlgForm</Form>
+    </DCCReference>
+    <DCCReference Include="AnalysisUnit.pas" />
+    <DCCReference Include="BASExportUnit.pas" />
+    <DCCReference Include="BkAnlrListAvalibleColumnsFrameUnit.pas">
+      <Form>AnlrListAvalibleColumnsFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkApp.pas" />
+    <DCCReference Include="BkControlQuestionListFrameUnit.pas">
+      <Form>ControlQuestionListFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkConvertChangedRowsDlg.pas">
+      <Form>ConvertChangedRowsDlg</Form>
+    </DCCReference>
+    <DCCReference Include="BkCQRowsComboBoxFrameUnit.pas">
+      <Form>CQRowsComboBoxFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkCustomerInfoUnit.pas" />
+    <DCCReference Include="BkDKNewTemplateGuideFormUnit.pas">
+      <Form>BkNewTemplateGuideForm</Form>
+    </DCCReference>
+    <DCCReference Include="BkGenerateNewYearDlgUnit.pas">
+      <Form>BkGenerateNewYearDlg</Form>
+    </DCCReference>
+    <DCCReference Include="BkIntervalAccountFrameUnit.pas" />
+    <DCCReference Include="BkIntervalBaseClassFrameUnit.pas">
+      <Form>IntervalBaseClassFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkIntervalDateFrameUnit.pas">
+      <Form>IntervalDateFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkIntervalSearchTextFrameUnit.pas" />
+    <DCCReference Include="BkMainFormUnitDan.pas">
+      <Form>BkMainForm</Form>
+    </DCCReference>
+    <DCCReference Include="BkMoreOptionsDlgForm.pas">
+      <Form>MoreOptionFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkOptionFormUnit.pas">
+      <Form>OptionsForm</Form>
+    </DCCReference>
+    <DCCReference Include="BkOptionsC5DlgFrame.pas">
+      <Form>C5OptionFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkOptionsInternetDlgForm.pas">
+      <Form>InternetOptionFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkOptionsPrintOutDlgForm.pas">
+      <Form>PrintOutOptionFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkOtherOptionsDlgForm.pas">
+      <Form>OtherOptionFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BkPerson.pas" />
+    <DCCReference Include="BkPrintSaldobalanse.pas" />
+    <DCCReference Include="BkResourceDataModuleUnit.pas">
+      <Form>BkResourceDataModule</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="BKRevisionUnit.pas" />
+    <DCCReference Include="BkRootUnit.pas" />
+    <DCCReference Include="BkShowSelectedTemplates.pas">
+      <Form>ShowSelectedTemplates</Form>
+    </DCCReference>
+    <DCCReference Include="BKVAR.PAS" />
+    <DCCReference Include="C5ImportServerManager.pas" />
+    <DCCReference Include="ConvertSRUToNewYearUnit.pas" />
+    <DCCReference Include="DGDBuilderCellUnit.pas" />
+    <DCCReference Include="DGDBuilderColumnManagerUnit.pas" />
+    <DCCReference Include="DGDBuilderColumnUnit.pas" />
+    <DCCReference Include="DGDBuilderRowUnit.pas" />
+    <DCCReference Include="DKBuildNODK10bUnit.pas" />
+    <DCCReference Include="DKBuildNODK10cUnit.pas" />
+    <DCCReference Include="DKCheckXBRLUnit.pas">
+      <Form>DkCheckXBRLForm</Form>
+    </DCCReference>
+    <DCCReference Include="DKImportC5OnlineConvertCSV.pas" />
+    <DCCReference Include="DKImportC5OnlineUnit.pas">
+      <Form>DkImportC5OnlineForm</Form>
+    </DCCReference>
+    <DCCReference Include="DocumentBuilder\BkDocumentBuilderRowFrameUnit.pas">
+      <Form>BkDocumentBuilderRowFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="EAManagerUnit.pas" />
+    <DCCReference Include="PreserveBKJournalInfoUnit.pas" />
+    <DCCReference Include="UpdateRowManagerUnit.pas" />
+    <None Include="Profiling\AQtimeModule1.aqt" />
+  </ItemGroup>
+</Project>

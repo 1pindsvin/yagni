@@ -1,0 +1,94 @@
+object VifPackage: TVifPackage
+  Tag = 1
+  ViperVersion = '4.80.1.3'
+  DefaultId = 0
+  HasInstanceLimit = False
+  MinInstance = 0
+  MaxInstance = 1
+  Ident = 'TEKSTFELTMALLE'
+  Log.Strings = (
+    'Log')
+  Comment.Strings = (
+    'Comment')
+  FormDescription = 'TEKSTFELTMALLE'
+  Pages.Strings = (
+    'sid1')
+  PopupField = '0'
+  Version = 0
+  EnclosureSerie = 0
+  DelfExport.Strings = (
+    'ALL;')
+  DelfImport.Strings = (
+    '')
+  ModuleId = 'D'
+  NumberOfPages = 1
+  EngineClass = 7
+  FormName = 'TEKSTFELTMALLE'
+  FormType = 2
+  DeklarationsTyp = []
+  Consts = Consts
+  DelfAttributes.Strings = (
+    'ChildList::[STRING] = [];'
+    'GfoSettings::INTEGER;'
+    '')
+  DCQ = False
+  ShowOnGFO = True
+  Release = 'True'
+  StaConnections.Strings = (
+    '')
+  WysiwygColor1 = clSilver
+  WysiwygColor2 = clGray
+  object Consts: TConstFolder
+  end
+  object FProxyA88B11C6D11E860: TFormProxy
+    Left = 0
+    Top = 0
+    Width = 800
+    Height = 740
+    Cursor = crArrow
+    HorzScrollBar.Increment = 21
+    HorzScrollBar.Range = 800
+    VertScrollBar.Increment = 24
+    VertScrollBar.Range = 740
+    AutoScroll = False
+    BorderStyle = bsNone
+    Color = 15198183
+    ParentColor = False
+    TabOrder = 1
+    HideFlap = False
+    Caption = 'NoName'
+    TabCaption = 'sid1'
+    ActualSizeX = 800
+    ActualSizeY = 740
+    WorkingName = 'sid1'
+    PageNumber = 1
+    DocName = '<void>'
+    BackgroundAlign = bsTile
+    VIFColor = vcModern
+    object A0B9C30D52E882: TFieldCtrl
+      Tag = 17
+      Left = 80
+      Top = 104
+      Width = 344
+      Height = 20
+      FieldName = 'F1'
+      Formula.Strings = (
+        
+          '"Gevinst/tab på obligationer, der ikke er optaget til handel på ' +
+          'et reguleret marked (tab angives med minus)"')
+      Params.Strings = (
+        'PEnabled = TRUE,'
+        'PVisible = TRUE')
+      QQField = False
+      Lift = False
+      QExport = False
+      EnterOrder = 1
+      Kind = fkText
+      MaxLength = 20
+      Template = 'StandardString'
+      ControlData = {}
+      BoxSizeX = 344
+      BoxSizeY = 20
+    end
+  end
+end
